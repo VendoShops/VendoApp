@@ -62,4 +62,9 @@ dependencies {
     implementation (libs.converter.gson)
     implementation (libs.logging.interceptor)
 
+    // OtpView
+    implementation (libs.otp.view)
+
+    // CircleImageView
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }

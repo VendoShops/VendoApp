@@ -46,8 +46,12 @@ class MainActivity : AppCompatActivity() {
                     R.id.categoryFragment,
                     R.id.likeFragment,
                     R.id.cartFragment,
-                    R.id.profileFragment -> true
+                    R.id.profileFragment,
+                    R.id.termsAndConditionsFragment-> true
                     else -> false
+                }
+                if (destination.id == R.id.termsAndConditionsFragment) {
+                    binding.bottomNav.menu.findItem(R.id.profileFragment).isChecked = true
                 }
             }
         }
