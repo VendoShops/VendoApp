@@ -1,6 +1,5 @@
 [versions]
 agp = "8.5.2"
-coreSplashscreen = "1.0.1"
 kotlin = "1.9.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -14,11 +13,10 @@ navigationFragmentKtx = "2.9.1"
 retrofit = "2.11.0"
 loggingInterceptor = "4.12.0"
 googleGmsGoogleServices = "4.4.3"
-firebaseAuth = "24.0.0"
+otpView = "1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -31,7 +29,7 @@ androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+otp-view = { module = "com.github.appsfeature:otp-view", version.ref = "otpView" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

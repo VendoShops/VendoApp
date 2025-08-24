@@ -1,4 +1,4 @@
-package com.example.vendoapp.ui.forgotpassword
+package com.example.vendoapp.ui.selectlanguage
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,29 +8,25 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
-import com.example.vendoapp.R
-import com.example.vendoapp.databinding.FragmentForgotPasswordBinding
+import com.example.vendoapp.databinding.FragmentSelectLanguageBinding
 
-class ForgotPasswordFragment : Fragment() {
+class SelectLanguageFragment : Fragment() {
 
-    lateinit var binding: FragmentForgotPasswordBinding
+    lateinit var binding: FragmentSelectLanguageBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentForgotPasswordBinding.inflate(layoutInflater)
+    ): View {
+        binding = FragmentSelectLanguageBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUi()
-        binding.tvLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_forgotPasswordFragment_to_loginFragment)
-        }
-        binding.btnSendOTP.setOnClickListener {
-            findNavController().navigate(R.id.action_forgotPasswordFragment_to_OTPFragment)
+        binding.ivBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
