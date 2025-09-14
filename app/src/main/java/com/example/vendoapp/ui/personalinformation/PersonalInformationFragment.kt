@@ -1,20 +1,30 @@
 package com.example.vendoapp.ui.personalinformation
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.vendoapp.R
 
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.fragment.findNavController
+import com.example.vendoapp.base.BaseFragment
+import com.example.vendoapp.databinding.FragmentPersonalInformationBinding
 
-class PersonalInformationFragment : Fragment() {
+class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBinding>(
+    FragmentPersonalInformationBinding::inflate
+) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_personal_information, container, false)
+    override fun onViewCreateFinish() {
+        setupUi()
+        binding.ivBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
+    private fun setupUi() {
+        binding.let {
+            ViewCompat.setOnApplyWindowInsetsListener(it.main) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(0, systemBars.top, 0, systemBars.bottom)
+                insets
+            }
+        }
     }
 }

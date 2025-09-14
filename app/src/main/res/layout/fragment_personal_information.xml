@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.personalinformation.PersonalInformationFragment">
 
@@ -46,7 +48,7 @@
         android:id="@+id/etFullNameLayout"
         android:layout_width="0dp"
         android:layout_height="42dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="31dp"
         app:boxStrokeColor="@color/grey_9f"
         app:boxStrokeWidth="1dp"
         app:hintEnabled="false"
@@ -72,5 +74,97 @@
             android:textColorHint="@color/grey_9f" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvInput"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="1dp"
+        app:strokeWidth="1dp"
+        android:layout_marginTop="24dp"
+        app:strokeColor="@color/grey_9f"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/etFullNameLayout"
+        app:layout_constraintEnd_toEndOf="@id/guideline2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvCountryCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+994"
+                android:textSize="14sp"
+                android:fontFamily="@font/dmsansmedium"
+                android:textColor="@color/black"
+                android:drawableEnd="@drawable/icon_down"
+                android:drawablePadding="6dp"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="12dp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNumver"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:hint="Number"
+                android:inputType="phone"
+                android:maxLength="7"
+                android:padding="12dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPasswordLayout"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="24dp"
+        app:boxStrokeColor="@color/grey_9f"
+        app:boxStrokeWidth="1dp"
+        app:hintEnabled="false"
+        app:passwordToggleEnabled="true"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxStrokeErrorColor="@color/red_09"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/cvInput">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etPassword"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:hint="Password"
+            android:textSize="14sp"
+            android:padding="12dp"
+            android:fontFamily="@font/dmsansmedium"
+            android:textColorHint="@color/grey_9f" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.example.vendoapp.custom.CustomPrimaryButton
+        android:id="@+id/btnUpdate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:layout_marginBottom="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
