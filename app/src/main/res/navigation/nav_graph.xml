@@ -84,6 +84,12 @@
         <action
             android:id="@+id/action_profileFragment_to_personalInformationFragment"
             app:destination="@id/personalInformationFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_addressesFragment"
+            app:destination="@id/addressesFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_paymentMethodFragment"
+            app:destination="@id/paymentMethodFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -138,4 +144,14 @@
         android:name="com.example.vendoapp.ui.personalinformation.PersonalInformationFragment"
         android:label="fragment_personal_information"
         tools:layout="@layout/fragment_personal_information" />
+    <fragment
+        android:id="@+id/addressesFragment"
+        android:name="com.example.vendoapp.ui.addresses.AddressesFragment"
+        android:label="fragment_addresses"
+        tools:layout="@layout/fragment_addresses" />
+    <fragment
+        android:id="@+id/paymentMethodFragment"
+        android:name="com.example.vendoapp.ui.paymentmethod.PaymentMethodFragment"
+        android:label="fragment_payment_method"
+        tools:layout="@layout/fragment_payment_method" />
 </navigation>

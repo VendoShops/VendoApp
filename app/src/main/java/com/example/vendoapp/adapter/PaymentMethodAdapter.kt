@@ -1,0 +1,37 @@
+package com.example.vendoapp.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.vendoapp.databinding.ItemPaymentMethodsBinding
+import com.example.vendoapp.model.PaymentMethodModelTest
+
+class PaymentMethodAdapter : Adapter<PaymentMethodAdapter.PaymentMethodViewHolder>() {
+
+    private val paymentMethods = ArrayList<PaymentMethodModelTest>()
+
+    class PaymentMethodViewHolder(val itemPaymentMethodsBinding: ItemPaymentMethodsBinding) : ViewHolder(itemPaymentMethodsBinding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodViewHolder {
+        val view = ItemPaymentMethodsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return PaymentMethodViewHolder(view)
+    }
+
+    override fun getItemCount(): Int {
+        return paymentMethods.size
+    }
+
+    override fun onBindViewHolder(holder: PaymentMethodViewHolder, position: Int) {
+        val itemPaymentMethod = paymentMethods[position]
+
+        holder.itemPaymentMethodsBinding.ivCard.setImageResource(itemPaymentMethod.ivCard)
+        holder.itemPaymentMethodsBinding.tvCardNumber.text = itemPaymentMethod.cardNumBer
+    }
+
+    fun updateList(newList: ArrayList<PaymentMethodModelTest>) {
+        paymentMethods.clear()
+        paymentMethods.addAll(newList)
+        notifyDataSetChanged()
+    }
+}
