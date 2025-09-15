@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     kotlin("kapt")
     id("androidx.navigation.safeargs")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -67,4 +68,9 @@ dependencies {
 
     // CircleImageView
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+    // Hilt
+    implementation ("com.google.dagger:hilt-android:2.51.1")
+    kapt ("com.google.dagger:hilt-android-compiler:2.51.1")
+
 }
