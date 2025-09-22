@@ -1,5 +1,6 @@
-package com.example.vendoapp.adapter
+package com.example.vendoapp.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -11,7 +12,15 @@ class PaymentMethodAdapter : Adapter<PaymentMethodAdapter.PaymentMethodViewHolde
 
     private val paymentMethods = ArrayList<PaymentMethodModelTest>()
 
-    class PaymentMethodViewHolder(val itemPaymentMethodsBinding: ItemPaymentMethodsBinding) : ViewHolder(itemPaymentMethodsBinding.root)
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(newList: ArrayList<PaymentMethodModelTest>) {
+        paymentMethods.clear()
+        paymentMethods.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    class PaymentMethodViewHolder(val itemPaymentMethodsBinding: ItemPaymentMethodsBinding) :
+        ViewHolder(itemPaymentMethodsBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodViewHolder {
         val view = ItemPaymentMethodsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,11 +36,5 @@ class PaymentMethodAdapter : Adapter<PaymentMethodAdapter.PaymentMethodViewHolde
 
         holder.itemPaymentMethodsBinding.ivCard.setImageResource(itemPaymentMethod.ivCard)
         holder.itemPaymentMethodsBinding.tvCardNumber.text = itemPaymentMethod.cardNumBer
-    }
-
-    fun updateList(newList: ArrayList<PaymentMethodModelTest>) {
-        paymentMethods.clear()
-        paymentMethods.addAll(newList)
-        notifyDataSetChanged()
     }
 }

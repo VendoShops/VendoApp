@@ -4,7 +4,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
 import com.example.vendoapp.R
-import com.example.vendoapp.base.BaseFragment
+import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentSignUpBinding
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
@@ -12,6 +12,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
 ) {
     override fun onViewCreateFinish() {
         setupUi()
+
         binding.tvLogIn.setOnClickListener {
             findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
         }

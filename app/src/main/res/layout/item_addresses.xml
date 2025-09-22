@@ -18,7 +18,7 @@
             android:id="@+id/ivLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/location"
+            android:src="@drawable/location_vendo"
             android:layout_marginVertical="37dp"
             android:layout_marginStart="12dp"
             app:layout_constraintStart_toStartOf="parent"

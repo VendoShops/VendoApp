@@ -2,7 +2,7 @@ package com.example.vendoapp.ui.like
 
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.vendoapp.base.BaseFragment
+import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentLikeBinding
 
 class LikeFragment : BaseFragment<FragmentLikeBinding>(
