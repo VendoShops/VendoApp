@@ -10,7 +10,7 @@
         android:title="Category" />
     <item
         android:id="@+id/likeFragment"
-        android:icon="@drawable/like"
+        android:icon="@drawable/favorite_like"
         android:title="Like" />
     <item
         android:id="@+id/cartFragment"

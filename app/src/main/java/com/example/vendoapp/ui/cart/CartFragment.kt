@@ -2,7 +2,7 @@ package com.example.vendoapp.ui.cart
 
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.vendoapp.base.BaseFragment
+import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentCartBinding
 
 class CartFragment : BaseFragment<FragmentCartBinding>(

@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@id/ivBack"
         app:layout_constraintBottom_toTopOf="@id/btnAddNewAddress"/>
 
-    <com.example.vendoapp.custom.CustomPrimaryButton
+    <com.example.vendoapp.ui.custom.CustomPrimaryButton
         android:id="@+id/btnAddNewAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
