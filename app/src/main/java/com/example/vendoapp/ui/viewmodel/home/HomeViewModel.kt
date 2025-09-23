@@ -1,4 +1,4 @@
-package com.example.vendoapp.ui.viewmodel
+package com.example.vendoapp.ui.viewmodel.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

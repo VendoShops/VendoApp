@@ -13,7 +13,7 @@ import com.example.vendoapp.databinding.FragmentHomeBinding
 import com.example.vendoapp.ui.adapter.home.BrandAdapter
 import com.example.vendoapp.ui.adapter.home.ProductAdapter
 import com.example.vendoapp.ui.base.BaseFragment
-import com.example.vendoapp.ui.viewmodel.HomeViewModel
+import com.example.vendoapp.ui.viewmodel.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
