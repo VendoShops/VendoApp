@@ -5,4 +5,10 @@
     <string name="top_brands">Top Brands</string>
     <string name="more">More</string>
     <string name="for_you">For you</string>
+    <string name="home_nav">Home</string>
+    <string name="category_nav">Category</string>
+    <string name="like_nav">Like</string>
+    <string name="cart_nav">Cart</string>
+    <string name="profile_nav">Profile</string>
+    <string name="search_home">Search</string>
 </resources>
