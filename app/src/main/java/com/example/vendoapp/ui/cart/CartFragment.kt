@@ -23,3 +23,4 @@ class CartFragment : BaseFragment<FragmentCartBinding>(
         }
     }
 }
+
