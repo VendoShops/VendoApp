@@ -21,6 +21,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
         }
     }
 
+
+
     private fun setupUi() {
         binding.let {
             ViewCompat.setOnApplyWindowInsetsListener(it.main) { v, insets ->
