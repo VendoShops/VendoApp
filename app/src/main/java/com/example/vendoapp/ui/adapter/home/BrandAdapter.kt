@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.vendoapp.databinding.ItemBrandBinding
 import com.example.vendoapp.model.home.Brand
 
@@ -15,7 +16,11 @@ class BrandAdapter(
     inner class BrandViewHolder(private val binding: ItemBrandBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(brand: Brand) {
-            binding.ivBrandLogo.setImageResource(brand.logoRes)
+            Glide.with(binding.root.context)
+                .load(brand.logoRes)
+                .override(300, 300)
+                .into(binding.ivBrandLogo)
+
             binding.root.setOnClickListener {
                 onBrandClick(brand)
             }
