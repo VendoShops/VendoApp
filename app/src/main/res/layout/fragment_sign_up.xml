@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:id="@+id/main"
     tools:context=".ui.signup.SignUpFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -26,9 +27,9 @@
         android:id="@+id/ivVendo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/vendologin"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="80dp"
+        android:src="@drawable/vendologin"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,70 +39,70 @@
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginTop="40dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
         app:boxStrokeColor="@color/grey_9f"
+        app:boxStrokeErrorColor="@color/red_09"
         app:boxStrokeWidth="1dp"
         app:hintEnabled="false"
-        app:boxCornerRadiusTopStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxStrokeErrorColor="@color/red_09"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/ivVendo">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/etFullName"
-            android:inputType="text"
-            android:textColor="@color/black"
-            android:hint="Full Name"
-            android:padding="12dp"
-            android:textSize="14sp"
             android:fontFamily="@font/dmsansmedium"
-            android:textColorHint="@color/grey_9f" />
+            android:hint="Full Name"
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_9f"
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/etPhoneLayout"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        app:boxStrokeColor="@color/grey_9f"-->
-<!--        app:boxStrokeWidth="1dp"-->
-<!--        app:boxStrokeErrorColor="@color/red_09"-->
-<!--        app:layout_constraintEnd_toEndOf="@id/guideline2"-->
-<!--        app:layout_constraintStart_toStartOf="@id/guideline"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/etFullNameLayout">-->
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/etPhoneLayout"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="24dp"-->
+    <!--        app:boxStrokeColor="@color/grey_9f"-->
+    <!--        app:boxStrokeWidth="1dp"-->
+    <!--        app:boxStrokeErrorColor="@color/red_09"-->
+    <!--        app:layout_constraintEnd_toEndOf="@id/guideline2"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/guideline"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/etFullNameLayout">-->
 
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/etPhone"-->
-<!--            android:inputType="phone"-->
-<!--            android:paddingStart="12dp"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="+971"-->
-<!--            android:textSize="14sp"-->
-<!--            android:fontFamily="@font/dmsansmedium"/>-->
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:id="@+id/etPhone"-->
+    <!--            android:inputType="phone"-->
+    <!--            android:paddingStart="12dp"-->
+    <!--            android:textColor="@color/black"-->
+    <!--            android:text="+971"-->
+    <!--            android:textSize="14sp"-->
+    <!--            android:fontFamily="@font/dmsansmedium"/>-->
 
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cvInput"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="8dp"
         app:cardElevation="1dp"
-        app:strokeWidth="1dp"
-        android:layout_marginTop="24dp"
-        app:strokeColor="@color/grey_9f"
-        app:cardBackgroundColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/etFullNameLayout"
-        app:layout_constraintEnd_toEndOf="@id/guideline2">
+        app:strokeColor="@color/grey_9f"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,16 +113,16 @@
                 android:id="@+id/tvCountryCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+994"
-                android:textSize="14sp"
-                android:fontFamily="@font/dmsansmedium"
-                android:textColor="@color/black"
+                android:clickable="true"
                 android:drawableEnd="@drawable/icon_down"
                 android:drawablePadding="6dp"
-                android:gravity="center_vertical"
-                android:clickable="true"
                 android:focusable="true"
-                android:padding="12dp"/>
+                android:fontFamily="@font/dmsansmedium"
+                android:gravity="center_vertical"
+                android:padding="12dp"
+                android:text="+994"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etNumver"
@@ -144,66 +145,66 @@
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginTop="24dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
         app:boxStrokeColor="@color/grey_9f"
+        app:boxStrokeErrorColor="@color/red_09"
         app:boxStrokeWidth="1dp"
         app:hintEnabled="false"
-        app:passwordToggleEnabled="true"
-        app:boxCornerRadiusTopStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusBottomEnd="8dp"
-        app:boxStrokeErrorColor="@color/red_09"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/cvInput">
+        app:layout_constraintTop_toBottomOf="@id/cvInput"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/etPassword"
-            android:inputType="textPassword"
-            android:textColor="@color/black"
-            android:hint="Password"
-            android:textSize="14sp"
-            android:padding="12dp"
             android:fontFamily="@font/dmsansmedium"
-            android:textColorHint="@color/grey_9f" />
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_9f"
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvForgotPassword"
-        app:layout_constraintStart_toStartOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/etPasswordLayout"
-        android:text="Forgot Password?"
         android:layout_marginTop="24dp"
-        android:textSize="12sp"
+        android:fontFamily="@font/dmsansmedium"
+        android:text="Forgot Password?"
         android:textColor="@color/black"
-        android:fontFamily="@font/dmsansmedium"/>
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/etPasswordLayout" />
 
-    <com.example.vendoapp.custom.CustomPrimaryButton
+    <com.example.vendoapp.ui.custom.CustomPrimaryButton
         android:id="@+id/btnSignUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sign up"
         android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="@id/guideline"
+        android:text="Sign up"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/tvForgotPassword" />
 
     <TextView
         android:id="@+id/tvOtherChoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Other choice"
-        android:textSize="14sp"
-        android:textColor="@color/grey_9f"
-        android:fontFamily="@font/dmsansmedium"
         android:layout_marginTop="45dp"
-        app:layout_constraintStart_toStartOf="@id/guideline"
+        android:fontFamily="@font/dmsansmedium"
+        android:text="Other choice"
+        android:textColor="@color/grey_9f"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/btnSignUp" />
 
     <com.google.android.material.button.MaterialButton
@@ -229,33 +230,33 @@
         app:strokeWidth="1dp" />
 
     <LinearLayout
+        android:id="@+id/bottomText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bottomText"
-        android:orientation="horizontal"
         android:layout_marginBottom="30dp"
-        app:layout_constraintStart_toStartOf="@id/guideline"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="@id/guideline">
 
         <TextView
+            android:id="@+id/tvNoAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvNoAccount"
-            android:textColor="@color/grey_9f"
             android:text="Already registered? "
+            android:textColor="@color/grey_9f"
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/tvLogIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvLogIn"
-            android:textColor="@color/black"
-            android:text="Log in"
-            android:textSize="14sp"
             android:fontFamily="@font/dmsansmedium"
-            app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:text="Log in"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline" />
 
     </LinearLayout>
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:background="@color/white"
     tools:context=".ui.paymentmethod.PaymentMethodFragment">
 
@@ -12,23 +12,23 @@
         android:id="@+id/ivBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/back"
-        android:layout_marginTop="40dp"
         android:layout_marginStart="21dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Payment Methods"
         android:layout_marginStart="11dp"
-        android:textColor="@color/black"
         android:fontFamily="@font/dmsanssemibold"
+        android:text="Payment Methods"
+        android:textColor="@color/black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/ivBack"
         app:layout_constraintStart_toEndOf="@id/ivBack"
-        app:layout_constraintTop_toTopOf="@id/ivBack"
-        app:layout_constraintBottom_toBottomOf="@id/ivBack" />
+        app:layout_constraintTop_toTopOf="@id/ivBack" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -45,27 +45,27 @@
         app:layout_constraintGuide_end="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPaymentMethods"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/rvPaymentMethods"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_payment_methods"
-        android:layout_marginBottom="24dp"
         android:layout_marginTop="28dp"
+        android:layout_marginBottom="24dp"
         android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/btnAddNewCard"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/ivBack" />
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/ivBack"
+        tools:listitem="@layout/item_payment_methods" />
 
-    <com.example.vendoapp.custom.CustomPrimaryButton
+    <com.example.vendoapp.ui.custom.CustomPrimaryButton
         android:id="@+id/btnAddNewCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Add new card"
         android:layout_marginBottom="26dp"
+        android:text="Add new card"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline"
-        app:layout_constraintEnd_toEndOf="@id/guideline2"/>
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

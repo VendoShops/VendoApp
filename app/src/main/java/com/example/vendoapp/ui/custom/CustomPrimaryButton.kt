@@ -1,4 +1,4 @@
-package com.example.vendoapp.custom
+package com.example.vendoapp.ui.custom
 
 import android.content.Context
 import android.util.AttributeSet
@@ -10,7 +10,9 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
 class CustomPrimaryButton @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = android.R.attr.buttonStyle
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
 ) : MaterialButton(context, attrs, defStyleAttr) {
 
     init {

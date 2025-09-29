@@ -4,7 +4,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
 import com.example.vendoapp.R
-import com.example.vendoapp.base.BaseFragment
+import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentOTPBinding
 
 class OTPFragment : BaseFragment<FragmentOTPBinding>(

@@ -64,7 +64,7 @@
             app:length="4"
             app:otp=""/>
 
-        <com.example.vendoapp.custom.CustomPrimaryButton
+        <Button
             android:id="@+id/btnSendOTP"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

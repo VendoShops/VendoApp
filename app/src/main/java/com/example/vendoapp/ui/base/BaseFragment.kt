@@ -1,4 +1,4 @@
-package com.example.vendoapp.base
+package com.example.vendoapp.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
