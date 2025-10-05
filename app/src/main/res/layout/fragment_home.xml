@@ -1,153 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:fillViewport="true">
+    android:background="#FFFFFF">
 
+    <!-- Sticky Header Container -->
     <LinearLayout
+        android:id="@+id/fixedHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="18dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Location and notification row -->
         <LinearLayout
-            android:id="@+id/fixedHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:elevation="4dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <!-- Location and notification row -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/location_vendo" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/location_vendo" />
-
-                <TextView
-                    android:id="@+id/tvLocation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="#333333"
-                    android:textSize="16sp"
-                    tools:text="United Arab Emirates" />
-
-                <ImageView
-                    android:id="@+id/ivNotification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:padding="4dp"
-                    android:src="@drawable/notification" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                tools:text="United Arab Emirates" />
 
-                <!-- Custom Search Bar Container -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/searchbar_bg"
-                    app:cardCornerRadius="25dp"
-                    app:cardElevation="0dp">
-
-                    <LinearLayout
-                        android:id="@+id/searchContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="16dp">
-
-                        <ImageView
-                            android:id="@+id/ivSearchIcon"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginEnd="12dp"
-                            android:src="@drawable/search" />
-
-                        <EditText
-                            android:id="@+id/etSearch"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@android:color/transparent"
-                            android:hint="Search"
-                            android:imeOptions="actionSearch"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:paddingVertical="12dp"
-                            android:textColor="#333333"
-                            android:textColorHint="#CCCCCC"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/ivQrCode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:padding="2dp"
-                            android:src="@drawable/scanner" />
-
-                        <ImageView
-                            android:id="@+id/ivClearSearch"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:padding="2dp"
-                            android:src="@drawable/clear_svg"
-                            android:visibility="gone" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <ImageView
-                    android:id="@+id/ivFilter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:padding="4dp"
-                    android:src="@drawable/filter" />
-
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/ivNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp"
+                android:src="@drawable/notification" />
 
         </LinearLayout>
+
+        <!-- Search bar row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Search Bar using TextInputLayout -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilSearch"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                app:boxBackgroundColor="#FFFFFF"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="#E0E0E0"
+                app:boxStrokeWidth="1dp"
+                app:endIconContentDescription="Scanner"
+                app:endIconDrawable="@drawable/scanner"
+                app:endIconMode="custom"
+                app:hintEnabled="false"
+                app:startIconContentDescription="Search"
+                app:startIconDrawable="@drawable/search">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/search_home"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#CCCCCC"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Filter button -->
+            <ImageView
+                android:id="@+id/ivFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="4dp"
+                android:src="@drawable/filter" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Scrollable Content Area -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fixedHeader">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -160,7 +142,7 @@
             <!-- New Collection Banner -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:backgroundTint="#F5F1EB"
                 app:cardCornerRadius="16dp"
@@ -172,7 +154,8 @@
                     android:orientation="horizontal"
                     android:paddingStart="24dp"
                     android:paddingTop="24dp"
-                    android:paddingBottom="24dp">
+                    android:paddingBottom="24dp"
+                    tools:ignore="RtlSymmetry">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -228,7 +211,7 @@
                         android:layout_width="140dp"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        tools:src="@drawable/banner" />
+                        android:src="@drawable/banner" />
 
                 </LinearLayout>
 
@@ -310,9 +293,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:nestedScrollingEnabled="false"
-                tools:itemCount="6"
                 tools:listitem="@layout/item_product" />
 
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

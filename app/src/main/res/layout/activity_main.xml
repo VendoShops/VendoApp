@@ -22,16 +22,18 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/bottomCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="390dp"
+        android:layout_height="80dp"
         android:layout_gravity="bottom"
-        android:layout_margin="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         app:cardCornerRadius="32dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="@color/grey_e8"
+        app:strokeColor="#E8E8E8"
         app:strokeWidth="1dp">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -39,10 +41,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:itemIconTint="@color/bottom_nav_item_color"
+            app:itemPaddingBottom="6dp"
+            app:itemPaddingTop="8dp"
+            app:itemTextColor="@color/bottom_nav_item_color"
+            app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_menu" />
 
     </com.google.android.material.card.MaterialCardView>

@@ -4,11 +4,15 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.vendoapp.R
 import com.example.vendoapp.databinding.FragmentHomeBinding
 import com.example.vendoapp.ui.adapter.home.BrandAdapter
 import com.example.vendoapp.ui.adapter.home.ProductAdapter
@@ -48,14 +52,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         )
 
         binding.rvForYou.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = productAdapter
             isNestedScrollingEnabled = false
         }
     }
 
     private fun setupUi() {
-        binding.let {
+        binding.let { it ->
             ViewCompat.setOnApplyWindowInsetsListener(it.main) { v, insets ->
                 val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
                 v.setPadding(0, systemBars.top, 0, 0)
@@ -79,27 +83,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 hideKeyboardAndClearFocus()
             }
 
-            it.ivQrCode.setOnClickListener {
-                viewModel.onQrCodeClick()
-            }
+            // Handle end icon clicks (scanner/clear toggle)
+//            it.tilSearch.setEndIconOnClickListener {
+//                val currentText = it.etSearch.text?.toString() ?: ""
+//                if (currentText.isEmpty()) {
+//                    // Scanner icon clicked
+//                    viewModel.onQrCodeClick()
+//                } else {
+//                    // Clear icon clicked
+//                    it.etSearch.text?.clear()
+//                    hideKeyboardAndClearFocus()
+//                }
+//            }
         }
     }
 
     private fun setupSearchFunctionality() {
         binding.let {
-            // Clear button click listener
-//            it.ivClearSearch.setOnClickListener {
-//                it.etSearch.setText("")
-//                it.ivClearSearch.visibility = View.GONE
-//                it.ivSearchIcon.visibility = View.VISIBLE
-//                hideKeyboardAndClearFocus()
-//            }
-
-            it.ivQrCode.setOnClickListener {
-                viewModel.onQrCodeClick()
-            }
-
-            // EditText text change listener
+            // EditText text change listener for icon toggle
             it.etSearch.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
@@ -110,12 +111,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Toggle end icon between scanner and clear
                     if (s.isNullOrEmpty()) {
-                        it.ivClearSearch.visibility = View.GONE
-                        it.ivSearchIcon.visibility = View.VISIBLE
+                        it.tilSearch.endIconDrawable =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.scanner)
+                        it.tilSearch.endIconContentDescription = "Scanner"
                     } else {
-                        it.ivSearchIcon.visibility = View.GONE
-                        it.ivClearSearch.visibility = View.VISIBLE
+                        it.tilSearch.endIconDrawable =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.clear_svg)
+                        it.tilSearch.endIconContentDescription = "Clear"
                     }
                 }
 
@@ -131,9 +135,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
             }
 
-            it.etSearch.setOnEditorActionListener { _, _, _ ->
-                hideKeyboardAndClearFocus()
-                true
+            // Handle "Done" action on keyboard
+            it.etSearch.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    hideKeyboardAndClearFocus()
+                    // Revert to scanner icon when done
+                    if (it.etSearch.text?.isEmpty() == true) {
+                        it.tilSearch.endIconDrawable =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.scanner)
+                        it.tilSearch.endIconContentDescription = "Scanner"
+                    }
+                    true
+                } else {
+                    false
+                }
             }
         }
     }
@@ -155,6 +170,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val currentFocus = requireActivity().currentFocus
         if (currentFocus != null) {
             hideKeyboard(currentFocus)
+        }
+        // Reset to scanner icon when losing focus and field is empty
+        if (binding.etSearch.text?.isEmpty() == true) {
+            binding.tilSearch.endIconDrawable =
+                ContextCompat.getDrawable(requireContext(), R.drawable.scanner)
+            binding.tilSearch.endIconContentDescription = "Scanner"
         }
     }
 

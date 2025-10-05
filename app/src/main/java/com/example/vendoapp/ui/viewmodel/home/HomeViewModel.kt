@@ -60,6 +60,24 @@ class HomeViewModel @Inject constructor() : ViewModel() {
                 imageRes = R.drawable.parfume,
                 colors = listOf("#D4AF37", "#C0C0C0", "#8B4513", "#FF6B6B", "#4ECDC4"),
                 isFavorite = false
+            ),
+            Product(
+                id = 1,
+                title = "Glovy Super Gel with Advanced Night Ser..",
+                price = "$14",
+                rating = 4.2f,
+                imageRes = R.drawable.parfume,
+                colors = listOf("#D4AF37", "#C0C0C0", "#8B4513", "#000000", "#FFFFFF"),
+                isFavorite = false
+            ),
+            Product(
+                id = 1,
+                title = "Glovy Super Gel with Advanced Night Ser..",
+                price = "$14",
+                rating = 4.2f,
+                imageRes = R.drawable.parfume,
+                colors = listOf("#D4AF37", "#C0C0C0", "#8B4513", "#000000", "#FFFFFF"),
+                isFavorite = false
             )
         )
 
