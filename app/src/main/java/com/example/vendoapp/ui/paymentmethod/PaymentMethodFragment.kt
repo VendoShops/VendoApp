@@ -7,7 +7,7 @@ import com.example.vendoapp.R
 import com.example.vendoapp.ui.adapter.PaymentMethodAdapter
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentPaymentMethodBinding
-import com.example.vendoapp.model.PaymentMethodModelTest
+import com.example.vendoapp.data.model.PaymentMethodModelTest
 
 class PaymentMethodFragment : BaseFragment<FragmentPaymentMethodBinding>(
 FragmentPaymentMethodBinding::inflate

@@ -23,7 +23,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         }
     }
 
-
     private fun setupUi() {
         binding.let {
             ViewCompat.setOnApplyWindowInsetsListener(it.main) { v, insets ->

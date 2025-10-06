@@ -1,4 +1,4 @@
-package com.example.vendoapp.model
+package com.example.vendoapp.data.model
 
 data class AddressesModelTest(
     val location: String,

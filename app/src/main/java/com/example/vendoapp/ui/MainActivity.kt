@@ -1,10 +1,6 @@
 package com.example.vendoapp.ui
 
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,8 +11,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.vendoapp.R
 import com.example.vendoapp.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,15 +47,13 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.root.post {
-                binding.bottomNav.isVisible = when (destination.id) {
+                binding.bottomCardView.isVisible = when (destination.id) {
                     R.id.homeFragment,
                     R.id.categoryFragment,
                     R.id.likeFragment,
                     R.id.cartFragment,
                     R.id.profileFragment,
-                    R.id.termsAndConditionsFragment,
-                    -> true
-
+                    R.id.termsAndConditionsFragment -> true
                     else -> false
                 }
                 if (destination.id == R.id.termsAndConditionsFragment) {

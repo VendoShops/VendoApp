@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vendoapp.R
 import com.example.vendoapp.databinding.ItemProductBinding
-import com.example.vendoapp.model.home.Product
+import com.example.vendoapp.data.model.home.Product
 
 class ProductAdapter(
     private val onProductClick: (Product) -> Unit,

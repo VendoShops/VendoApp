@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vendoapp.R
-import com.example.vendoapp.model.category.Category
+import com.example.vendoapp.data.model.category.Category
 
 class CategoriesAdapter : ListAdapter<Category, CategoriesAdapter.CategoryViewHolder>(DiffCallback()) {
 

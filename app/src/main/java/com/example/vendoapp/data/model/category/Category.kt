@@ -1,4 +1,4 @@
-package com.example.vendoapp.model.category
+package com.example.vendoapp.data.model.category
 
 data class Category(
     val id: Int,

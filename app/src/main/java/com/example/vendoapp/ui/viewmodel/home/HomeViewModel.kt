@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vendoapp.R
-import com.example.vendoapp.model.home.Brand
-import com.example.vendoapp.model.home.Product
+import com.example.vendoapp.data.model.home.Brand
+import com.example.vendoapp.data.model.home.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
