@@ -37,21 +37,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bottomNav() {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
+
+        // Remove background tint and ripple effect
+        binding.bottomNav.itemRippleColor = null
+        binding.bottomNav.itemActiveIndicatorColor = null
+
         binding.bottomNav.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.root.post {
-                binding.bottomNav.isVisible = when (destination.id) {
+                binding.bottomCardView.isVisible = when (destination.id) {
                     R.id.homeFragment,
                     R.id.categoryFragment,
                     R.id.likeFragment,
                     R.id.cartFragment,
                     R.id.profileFragment,
-                    R.id.termsAndConditionsFragment,
-                    -> true
-
+                    R.id.termsAndConditionsFragment -> true
                     else -> false
                 }
                 if (destination.id == R.id.termsAndConditionsFragment) {

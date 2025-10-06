@@ -1,4 +1,4 @@
-package com.example.vendoapp.model.home
+package com.example.vendoapp.data.model.home
 
 data class Brand(
     val id: Int,

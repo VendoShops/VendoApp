@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vendoapp.databinding.ItemBrandBinding
-import com.example.vendoapp.model.home.Brand
+import com.example.vendoapp.data.model.home.Brand
 
 class BrandAdapter(
     private val onBrandClick: (Brand) -> Unit

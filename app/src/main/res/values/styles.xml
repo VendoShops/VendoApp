@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material 3 Bottom Navigation Text Style -->
+    <style name="BottomBarText" parent="@style/TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">12sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- Legacy style for fallback -->
+    <style name="BottomNavTextStyle" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.0</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:layout_marginTop">2dp</item>
+    </style>
+</resources>

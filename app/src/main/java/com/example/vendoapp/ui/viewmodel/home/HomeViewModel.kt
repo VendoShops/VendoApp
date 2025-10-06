@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vendoapp.R
-import com.example.vendoapp.model.home.Brand
-import com.example.vendoapp.model.home.Product
+import com.example.vendoapp.data.model.home.Brand
+import com.example.vendoapp.data.model.home.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -59,6 +59,24 @@ class HomeViewModel @Inject constructor() : ViewModel() {
                 rating = 4.2f,
                 imageRes = R.drawable.parfume,
                 colors = listOf("#D4AF37", "#C0C0C0", "#8B4513", "#FF6B6B", "#4ECDC4"),
+                isFavorite = false
+            ),
+            Product(
+                id = 1,
+                title = "Glovy Super Gel with Advanced Night Ser..",
+                price = "$14",
+                rating = 4.2f,
+                imageRes = R.drawable.parfume,
+                colors = listOf("#D4AF37", "#C0C0C0", "#8B4513", "#000000", "#FFFFFF"),
+                isFavorite = false
+            ),
+            Product(
+                id = 1,
+                title = "Glovy Super Gel with Advanced Night Ser..",
+                price = "$14",
+                rating = 4.2f,
+                imageRes = R.drawable.parfume,
+                colors = listOf("#D4AF37", "#C0C0C0", "#8B4513", "#000000", "#FFFFFF"),
                 isFavorite = false
             )
         )

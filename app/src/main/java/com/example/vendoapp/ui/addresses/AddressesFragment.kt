@@ -6,7 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.vendoapp.ui.adapter.AddressesAdapter
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentAddressesBinding
-import com.example.vendoapp.model.AddressesModelTest
+import com.example.vendoapp.data.model.AddressesModelTest
 
 class AddressesFragment : BaseFragment<FragmentAddressesBinding>(
     FragmentAddressesBinding::inflate
