@@ -59,7 +59,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
                         showLoading(false)
                         Log.d("SignUpFragment", "State: Success, data=${resource.data}")
                         Toast.makeText(requireContext(), "Qeydiyyat uğurlu!", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
+                        findNavController().navigate(R.id.                                                               r                              )
                     }
 
                     is Resource.Error -> {
