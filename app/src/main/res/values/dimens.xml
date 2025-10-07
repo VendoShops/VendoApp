@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- M3 Navigation Bar Spacing Overrides -->
+    <dimen name="m3_navigation_bar_item_padding_top">8dp</dimen>
+    <dimen name="m3_navigation_bar_item_padding_bottom">6dp</dimen>
+
+    <!-- M2 fallback -->
+    <dimen name="mtrl_navigation_bar_item_padding_top">8dp</dimen>
+    <dimen name="mtrl_navigation_bar_item_padding_bottom">6dp</dimen>
+</resources>

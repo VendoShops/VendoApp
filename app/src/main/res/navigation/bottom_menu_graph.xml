@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_menu_graph"
+    app:startDestination="@id/homePage">
+
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.example.vendoapp.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/favoritePage"
+        android:name="com.example.vendoapp.ui.favorite.FavoriteFragment"
+        tools:layout="@layout/fragment_favourite" />
+    <fragment
+        android:id="@+id/cartPage"
+        android:name="com.example.vendoapp.ui.cart.CartFragment"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/categoryPage"
+        android:name="com.example.vendoapp.ui.category.CategoryFragment"
+        tools:layout="@layout/fragment_category" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/profilePage"
+        android:name="com.example.vendoapp.ui.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" >
+    </fragment>
+
+</navigation>
