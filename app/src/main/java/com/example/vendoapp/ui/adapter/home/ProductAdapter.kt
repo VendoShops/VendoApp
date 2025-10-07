@@ -15,6 +15,7 @@ import com.example.vendoapp.databinding.ItemProductBinding
 import com.example.vendoapp.data.model.home.Product
 
 class ProductAdapter(
+    private val onItemClick: (Product) -> Unit,
     private val onProductClick: (Product) -> Unit,
     private val onFavoriteClick: (Product) -> Unit,
 ) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ProductDiffCallback()) {
