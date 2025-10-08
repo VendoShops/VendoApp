@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentCategoryBinding
 import com.example.vendoapp.ui.adapter.category.CategoriesAdapter
-import com.example.vendoapp.ui.viewmodel.category.CategoryViewModel
-import com.google.android.material.internal.ViewUtils.hideKeyboard
 
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>(FragmentCategoryBinding::inflate) {
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vendoapp.model.home.Product
-import com.example.vendoapp.repository.ProductRepository
+import com.example.vendoapp.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,14 +30,14 @@ class ForYouViewModel @Inject constructor(
     }
 
     private fun loadProducts() {
-        viewModelScope.launch {
-            try {
-                allProducts = productRepository.getProducts()
-                filterByCategory(currentCategory)
-            } catch (e: Exception) {
-                // Handle error
-            }
-        }
+//        viewModelScope.launch {
+//            try {
+//                allProducts = productRepository.getProducts()
+//                filterByCategory(currentCategory)
+//            } catch (e: Exception) {
+//                // Handle error
+//            }
+//        }
     }
 
     fun filterByCategory(category: String) {

@@ -2,14 +2,12 @@ package com.example.vendoapp.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vendoapp.R
+import com.example.vendoapp.data.model.home.Brand
+import com.example.vendoapp.data.model.home.Product
 import com.example.vendoapp.model.home.BannerResponse
-import com.example.vendoapp.model.home.Brand
 import com.example.vendoapp.model.home.BrandResponse
-import com.example.vendoapp.model.home.FavoriteResponse
-import com.example.vendoapp.model.home.Product
 import com.example.vendoapp.model.home.ProductResponse
-import com.example.vendoapp.repository.HomeRepository
+import com.example.vendoapp.domain.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -78,7 +76,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onBrandClick(brand: BrandResponse) {
+    fun onBrandClick(brand: Brand) {
         // navigate or filter logic
     }
 
@@ -86,18 +84,18 @@ class HomeViewModel @Inject constructor(
         // navigate or detail logic
     }
 
-    fun onItemClicked(product: ProductResponse) {
+    fun onItemClicked(product: Product) {
         // navigate or detail logic
     }
 
-    fun onProductClick(product: ProductResponse) {
+    fun onProductClick(product: Product) {
         // navigate or detail logic
     }
 
-    fun onFavoriteClick(product: ProductResponse) {
+    fun onFavoriteClick(product: Product) {
         // update favorite state locally or call API if required
         val updated = _favorites.value.map {
-            if (it.id == product.id) it.copy(isFavorite = !it.isFavorite) else it
+            if (it.id.toInt() == product.id) it.copy(isFavorite = !it.isFavorite) else it
         }
         _favorites.value = updated
     }

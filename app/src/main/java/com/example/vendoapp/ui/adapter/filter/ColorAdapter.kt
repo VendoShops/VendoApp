@@ -15,13 +15,22 @@ class ColorAdapter(
     private val onColorSelected: (ColorItem) -> Unit,
 ) : RecyclerView.Adapter<ColorAdapter.ColorViewHolder>() {
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateColors(newColors: List<ColorItem>) {
+        this.colors = newColors
+        notifyDataSetChanged()
+    }
+
     inner class ColorViewHolder(private val binding: ItemColorBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("UseKtx")
         fun bind(colorItem: ColorItem) {
             // Create circular background with color
             val drawable = GradientDrawable().apply {
                 shape = GradientDrawable.OVAL
+
                 setColor(Color.parseColor(colorItem.colorHex))
+
                 setStroke(
                     if (colorItem.isSelected) 6 else 2,
                     if (colorItem.isSelected) Color.BLACK else Color.GRAY
@@ -53,10 +62,4 @@ class ColorAdapter(
     }
 
     override fun getItemCount(): Int = colors.size
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateColors(newColors: List<ColorItem>) {
-        this.colors = newColors
-        notifyDataSetChanged()
-    }
 }

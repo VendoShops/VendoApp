@@ -38,6 +38,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    kotlin {
+        jvmToolchain(17)
+    }
+
     buildFeatures {
         viewBinding = true
         //noinspection DataBindingWithoutKapt

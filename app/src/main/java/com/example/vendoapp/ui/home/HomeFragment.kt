@@ -11,13 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.vendoapp.R
+import com.example.vendoapp.data.model.home.Brand
+import com.example.vendoapp.data.model.home.Product
 import com.example.vendoapp.databinding.FragmentHomeBinding
 import com.example.vendoapp.ui.adapter.home.BrandAdapter
 import com.example.vendoapp.ui.adapter.home.ProductAdapter
 import com.example.vendoapp.ui.base.BaseFragment
-import com.example.vendoapp.ui.viewmodel.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,7 +50,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         // Setup Product RecyclerView (vertical)
         productAdapter = ProductAdapter(
             onProductClick = { product -> viewModel.onProductClick(product) },
-            onFavoriteClick = { product -> viewModel.onFavoriteClick(product) }
+            onFavoriteClick = { product -> viewModel.onFavoriteClick(product) },
+            onItemClick = {product -> viewModel.onItemClicked(product)}
         )
 
         binding.rvForYou.apply {
@@ -68,7 +71,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
             // Click listeners
             it.ivNotification.setOnClickListener { viewModel.onNotificationClick() }
-            it.ivFilter.setOnClickListener { viewModel.onSearchClick() }
+//            it.ivFilter.setOnClickListener { viewModel.onSearchClick() }
             it.btnShopNow.setOnClickListener { viewModel.onShopNowClick() }
             it.tvTopBrandsMore.setOnClickListener { /* Navigate to brands page */ }
             it.tvForYouMore.setOnClickListener { /* Navigate to products page */ }
@@ -180,16 +183,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun observeViewModel() {
-        viewModel.location.observe(viewLifecycleOwner) { location ->
-            binding.tvLocation.text = location
+        // Location
+        lifecycleScope.launchWhenStarted {
+            viewModel.location.collect { location ->
+                binding.tvLocation.text = location
+            }
         }
 
-        viewModel.topBrands.observe(viewLifecycleOwner) { brands ->
-            brandAdapter.submitList(brands)
+        // Brands
+        lifecycleScope.launchWhenStarted {
+            viewModel.topBrands.collect { brands ->
+                brandAdapter.submitList(brands as List<Brand?>?)
+            }
         }
 
-        viewModel.products.observe(viewLifecycleOwner) { products ->
-            productAdapter.submitList(products)
+        // Products
+        lifecycleScope.launchWhenStarted {
+            viewModel.products.collect { products ->
+                productAdapter.submitList(products as List<Product?>?)
+            }
         }
     }
+
 }
