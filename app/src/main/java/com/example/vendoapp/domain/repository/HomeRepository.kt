@@ -1,6 +1,6 @@
-package com.example.vendoapp.repository
+package com.example.vendoapp.domain.repository
 
-import com.example.vendoapp.remote.ApiService
+import com.example.vendoapp.data.remote.api.ApiService
 import javax.inject.Inject
 
 class HomeRepository @Inject constructor(
