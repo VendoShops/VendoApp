@@ -32,4 +32,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             }
         }
     }
+
+
+
 }
