@@ -41,8 +41,15 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString().trim()
 
-        signUpViewModel.register(fullName, email, password)
-
+        if (fullName.isEmpty()){
+            Toast.makeText(requireContext(), "FullName can't be empty", Toast.LENGTH_SHORT).show()
+        } else if (email.isEmpty()) {
+            Toast.makeText(requireContext(), "Email can't be empty", Toast.LENGTH_SHORT).show()
+        } else if (password.isEmpty()) {
+            Toast.makeText(requireContext(), "Password can't be empty", Toast.LENGTH_SHORT).show()
+        } else {
+            signUpViewModel.register(fullName, email, password)
+        }
     }
 
     private fun observes() {
@@ -59,13 +66,23 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
                         showLoading(false)
                         Log.d("SignUpFragment", "State: Success, data=${resource.data}")
                         Toast.makeText(requireContext(), "Qeydiyyat uğurlu!", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
+
+                        // Test    ------------------------>
+
+                        //  Burani ATLMovie kimi eliye bilerik homeden geri qayidisda AlertDialog cixsin
+
+                        findNavController().navigate(
+                            R.id.action_signUpFragment_to_homeFragment,
+                            null,
+                            androidx.navigation.NavOptions.Builder()
+                                .setPopUpTo(R.id.signUpFragment, true)
+                                .build()
+                        )
                     }
 
                     is Resource.Error -> {
                         showLoading(false)
                         handleError(resource.message)
-                        Log.d("SignUpFragment", "State: Error, message=${resource.message}")
                     }
                 }
             }
@@ -81,7 +98,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
 
     private fun handleError(message: String?) {
         showLoading(false)
-        Toast.makeText(requireContext(), message ?: "Xəta baş verdi", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), message ?: "Something went error", Toast.LENGTH_SHORT).show()
     }
 
     private fun setupUi() {

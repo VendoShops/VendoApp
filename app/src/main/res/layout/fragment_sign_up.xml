@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/dmsansmedium"
                 android:hint="Email adress"
-                android:inputType="textPassword"
+                android:inputType="textEmailAddress"
                 android:padding="12dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_9f"

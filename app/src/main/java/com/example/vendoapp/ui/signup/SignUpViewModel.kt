@@ -1,6 +1,5 @@
 package com.example.vendoapp.ui.signup
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vendoapp.data.model.auth.register.RegisterRequest
@@ -24,9 +23,7 @@ class SignUpViewModel @Inject constructor(
     fun register(fullName: String, email: String, password: String) {
         viewModelScope.launch {
             _registerState.value = Resource.Loading()
-            Log.d("SignUpViewModel", "register() called, Loading set")
             val result = registerUseCase(RegisterRequest(fullName, email, password))
-            Log.d("SignUpViewModel", "register() result=$result")
             _registerState.value = result
         }
     }
