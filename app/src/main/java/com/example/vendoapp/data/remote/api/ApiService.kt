@@ -1,5 +1,7 @@
 package com.example.vendoapp.data.remote.api
 
+import com.example.vendoapp.data.model.auth.login.LoginRequest
+import com.example.vendoapp.data.model.auth.login.LoginResponse
 import com.example.vendoapp.data.model.auth.register.RegisterRequest
 import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.model.home.BannerResponse
@@ -14,6 +16,10 @@ interface ApiService {
 
     @POST("api/v1/auth/register")
     suspend fun register(@Body registerRequest: RegisterRequest) : RegisterResponse
+
+    @POST("api/v1/auth/login")
+    suspend fun login(@Body loginRequest: LoginRequest) : LoginResponse
+
 
     @GET("/api/v1/banners")
     suspend fun getBanners(): Response<List<BannerResponse>>
