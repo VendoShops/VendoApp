@@ -18,7 +18,6 @@ class BrandAdapter(
         fun bind(brand: Brand) {
             Glide.with(binding.root.context)
                 .load(brand.logoRes)
-                .override(300, 300)
                 .into(binding.ivBrandLogo)
 
             binding.root.setOnClickListener {

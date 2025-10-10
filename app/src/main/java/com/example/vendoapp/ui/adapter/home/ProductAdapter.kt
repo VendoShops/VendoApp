@@ -1,5 +1,6 @@
 package com.example.vendoapp.ui.adapter.home
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.vendoapp.R
 import com.example.vendoapp.databinding.ItemProductBinding
 import com.example.vendoapp.data.model.home.Product
@@ -20,29 +22,14 @@ class ProductAdapter(
     private val onFavoriteClick: (Product) -> Unit,
 ) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ProductDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val binding = ItemProductBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return ProductViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
     inner class ProductViewHolder(
         private val binding: ItemProductBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product) {
             binding.apply {
-                ivProductImage.setImageResource(product.imageRes)
-
                 tvProductTitle.text = product.title
-                tvPrice.text = product.price
+                tvPrice.text = product.price as CharSequence?
                 tvRating.text = product.rating.toString()
 
                 // Set favorite icon
@@ -60,8 +47,15 @@ class ProductAdapter(
                 root.setOnClickListener { onProductClick(product) }
                 ivFavorite.setOnClickListener { onFavoriteClick(product) }
             }
+
+            Glide.with(binding.root.context)
+                .load(product.imageUrl)
+                .placeholder(R.drawable.parfume)
+                .into(binding.ivProductImage)
+
         }
 
+        @SuppressLint("UseKtx")
         private fun createColorIndicators(colors: List<String>) {
             binding.llColorIndicators.removeAllViews()
 
@@ -82,6 +76,21 @@ class ProductAdapter(
             }
         }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+        val binding = ItemProductBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ProductViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+
 
     private class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {

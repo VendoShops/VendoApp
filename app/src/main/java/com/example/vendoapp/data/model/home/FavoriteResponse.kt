@@ -1,4 +1,4 @@
-package com.example.vendoapp.model.home
+package com.example.vendoapp.data.model.home
 
 // /api/v1/favorites
 
@@ -6,5 +6,5 @@ data class FavoriteResponse(
     val id: Long,
     val userId: Long,
     val productId: Long,
-    val product: ProductResponse? = null
+    val product: Product? = null
 )

@@ -54,7 +54,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.vendoapp.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_forYouFragment"
+            app:destination="@id/forYouFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.vendoapp.ui.category.CategoryFragment"
@@ -157,4 +164,14 @@
         android:name="com.example.vendoapp.ui.paymentmethod.PaymentMethodFragment"
         android:label="fragment_payment_method"
         tools:layout="@layout/fragment_payment_method" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.vendoapp.ui.filter.FilterFragment"
+        tools:layout="@layout/fragment_filter"
+        android:label="FilterFragment" />
+    <fragment
+        android:id="@+id/forYouFragment"
+        android:name="com.example.vendoapp.ui.for_you.ForYouFragment"
+        tools:layout="@layout/fragment_for_you"
+        android:label="ForYouFragment" />
 </navigation>

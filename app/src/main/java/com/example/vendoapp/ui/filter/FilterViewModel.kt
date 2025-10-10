@@ -3,9 +3,9 @@ package com.example.vendoapp.ui.filter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.vendoapp.model.filter.ColorItem
-import com.example.vendoapp.model.filter.FilterData
-import com.example.vendoapp.model.filter.FilterSection
+import com.example.vendoapp.data.model.filter.ColorItem
+import com.example.vendoapp.data.model.filter.FilterData
+import com.example.vendoapp.data.model.filter.FilterSection
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
