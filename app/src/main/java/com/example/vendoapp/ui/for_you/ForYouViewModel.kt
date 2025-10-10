@@ -42,10 +42,10 @@ class ForYouViewModel @Inject constructor(
 
     fun filterByCategory(category: String) {
         currentCategory = category
-        val filteredProducts = allProducts.filter {
-            it.category.equals(category, ignoreCase = true)
-        }
-        _products.value = filteredProducts
+//        val filteredProducts = allProducts.filter {
+//            it.category.equals(category, ignoreCase = true)
+//        }
+//        _products.value = filteredProducts
     }
 
     fun toggleFavorite(product: com.example.vendoapp.data.model.home.Product) { //product-->productresponse

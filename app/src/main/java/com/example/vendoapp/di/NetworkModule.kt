@@ -39,14 +39,14 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
+        loggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
         .build()
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient,  gson: Gson): Retrofit =
+    fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)

@@ -1,13 +1,8 @@
 package com.example.vendoapp.ui.adapter.home
 
-import android.annotation.SuppressLint
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,20 +23,19 @@ class ProductAdapter(
 
         fun bind(product: Product) {
             binding.apply {
-                tvProductTitle.text = product.title
-                tvPrice.text = product.price as CharSequence?
-                tvRating.text = product.rating.toString()
+                tvProductTitle.text = product.productName ?: "Unknown Product"
+                tvPrice.text = "$${"%.2f".format(product.price ?: 0.0)}"
+                tvRating.text = product.rating?.toString() ?: "0.0"
 
-                // Set favorite icon
+                // Favorite icon
                 val favoriteIcon = if (product.isFavorite) {
-                    R.drawable.favorite_like
+                    R.drawable.favorite_like // TODO: filled icon əlavə edin
                 } else {
                     R.drawable.favorite_like
                 }
                 ivFavorite.setImageResource(favoriteIcon)
 
-                // Create color indicators
-                createColorIndicators(product.colors)
+                llColorIndicators.visibility = View.GONE
 
                 // Click listeners
                 root.setOnClickListener { onProductClick(product) }
@@ -51,29 +45,8 @@ class ProductAdapter(
             Glide.with(binding.root.context)
                 .load(product.imageUrl)
                 .placeholder(R.drawable.parfume)
+                .error(R.drawable.parfume)
                 .into(binding.ivProductImage)
-
-        }
-
-        @SuppressLint("UseKtx")
-        private fun createColorIndicators(colors: List<String>) {
-            binding.llColorIndicators.removeAllViews()
-
-            colors.take(5).forEachIndexed { index, colorHex ->
-                val colorView = ImageView(binding.root.context).apply {
-                    layoutParams = LinearLayout.LayoutParams(16, 16).apply {
-                        if (index > 0) setMargins(8, 0, 0, 0)
-                    }
-
-                    val drawable = GradientDrawable().apply {
-                        shape = GradientDrawable.OVAL
-                        setColor(Color.parseColor(colorHex))
-                        setStroke(1, ContextCompat.getColor(binding.root.context, R.color.grey_9f))
-                    }
-                    setImageDrawable(drawable)
-                }
-                binding.llColorIndicators.addView(colorView)
-            }
         }
     }
 
@@ -89,8 +62,6 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-
 
     private class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {

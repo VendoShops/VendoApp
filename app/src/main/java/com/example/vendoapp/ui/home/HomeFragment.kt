@@ -3,6 +3,7 @@ package com.example.vendoapp.ui.home
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -15,7 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.vendoapp.R
-import com.example.vendoapp.data.model.home.Brand
+import com.example.vendoapp.data.model.home.BrandResponse
 import com.example.vendoapp.data.model.home.Product
 import com.example.vendoapp.databinding.FragmentHomeBinding
 import com.example.vendoapp.ui.adapter.home.BrandAdapter
@@ -113,17 +114,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
-        // Brands
+        // Brands (500 error olduğu üçün boş qalacaq)
         lifecycleScope.launchWhenStarted {
             viewModel.topBrands.collect { brands ->
-                brandAdapter.submitList(brands as List<Brand?>?)
+                brandAdapter.submitList(brands)
+                Log.d("HomeFragment", "Brands updated: ${brands.size}")
             }
         }
 
-        // Products
+        // Products - İŞLƏYƏCƏK
         lifecycleScope.launchWhenStarted {
             viewModel.products.collect { products ->
-                productAdapter.submitList(products as List<Product?>?)
+                productAdapter.submitList(products)
+                Log.d("HomeFragment", "✅ Products updated: ${products.size}")
+
+                if (products.isEmpty()) {
+                    Log.w("HomeFragment", "⚠️ No products to display - backend has no data")
+                }
             }
         }
     }

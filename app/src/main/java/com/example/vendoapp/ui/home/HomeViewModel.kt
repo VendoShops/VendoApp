@@ -3,7 +3,6 @@ package com.example.vendoapp.ui.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vendoapp.data.model.home.Brand
 import com.example.vendoapp.data.model.home.Product
 import com.example.vendoapp.data.model.home.BannerResponse
 import com.example.vendoapp.data.model.home.BrandResponse
@@ -17,7 +16,7 @@ import kotlin.collections.map
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: HomeRepository
+    private val repository: HomeRepository,
 ) : ViewModel() {
 
     private val _topBrands = MutableStateFlow<List<BrandResponse>>(emptyList())
@@ -29,8 +28,8 @@ class HomeViewModel @Inject constructor(
     private val _banners = MutableStateFlow<List<BannerResponse>>(emptyList())
     val banners: StateFlow<List<BannerResponse>> get() = _banners
 
-    private val _favorites = MutableStateFlow<List<Product>>(emptyList())
-    val favorites: StateFlow<List<Product>> get() = _favorites
+    private val _favorites = MutableStateFlow<Set<Long>>(emptySet())
+    val favorites: StateFlow<Set<Long>> get() = _favorites
 
     private val _unreadCount = MutableStateFlow<Int?>(null)
     val unreadCount: StateFlow<Int?> get() = _unreadCount
@@ -45,84 +44,108 @@ class HomeViewModel @Inject constructor(
     fun loadHomeData() {
         viewModelScope.launch {
             try {
-                // Fetch data from API for brands
-                val brandsResponse = repository.getTopBrands()
-                if (brandsResponse.isSuccessful) {
-                    _topBrands.value = brandsResponse.body() ?: emptyList()
-                } else {
-                    android.util.Log.e(
-                        "HomeApi",
-                        "Brands failed: ${brandsResponse.code()} - ${brandsResponse.message()}"
-                    )
-                }
+                loadFavorites()
 
-                // Fetch data from API for products
-                val bannerResponse = repository.getBanners()
-                if (bannerResponse.isSuccessful) {
-                    _banners.value = bannerResponse.body() ?: emptyList()
-                } else {
-                    android.util.Log.e(
-                        "HomeApi",
-                        "Banners failed: ${bannerResponse.code()} - ${bannerResponse.message()}"
-                    )
-                }
+                // loadBrands()
 
-                val forYouRes = repository.getForYouProducts()
-                if (forYouRes.isSuccessful) _products.value = forYouRes.body() ?: emptyList()
+                // loadBanners()
 
-                val unreadResponse = repository.getUnreadCount()
-                if (unreadResponse.isSuccessful) {
-                    _unreadCount.value = unreadResponse.body()
-                } else {
-                    android.util.Log.e(
-                        "HomeApi",
-                        "Unread count failed: ${unreadResponse.code()} - ${unreadResponse.message()}"
-                    )
-                }
+                loadProducts()
 
-                // Fetch data from API for favorites
-                val favoritesResponse = repository.getFavorites()
-                if (favoritesResponse.isSuccessful) {
-                    // Map FavoriteResponse to ProductResponse - extract nested product
-                    val favoritesList = favoritesResponse.body() ?: emptyList()
-                    _favorites.value = favoritesList.mapNotNull { it.product }
-                } else {
-                    android.util.Log.e(
-                        "HomeApi",
-                        "Favorites failed: ${favoritesResponse.code()} - ${favoritesResponse.message()}"
-                    )
-                }
+                loadUnreadCount()
 
             } catch (e: Exception) {
-                android.util.Log.e("HomeApi", "Error loading home data", e)
+                Log.e("HomeApi", "Error loading home data", e)
                 e.printStackTrace()
             }
         }
     }
 
-    fun onBrandClick(brand: Brand) {
-        // navigate or filter logic
+    private suspend fun loadFavorites() {
+        try {
+            val favoritesResponse = repository.getFavorites()
+            if (favoritesResponse.isSuccessful) {
+                val favoritesList = favoritesResponse.body()?.data ?: emptyList()
+                val favoriteIds = favoritesList.map { it.productId }.toSet()
+                _favorites.value = favoriteIds
+                Log.d("HomeApi", "✅ Favorites loaded: ${favoriteIds.size} items")
+            } else {
+                Log.e("HomeApi", "❌ Favorites failed: ${favoritesResponse.code()}")
+            }
+        } catch (e: Exception) {
+            Log.e("HomeApi", "❌ Favorites error", e)
+        }
+    }
+
+    private suspend fun loadProducts() {
+        try {
+            val forYouRes = repository.getForYouProducts()
+            if (forYouRes.isSuccessful) {
+                val productsData = forYouRes.body()?.data ?: emptyList()
+
+                if (productsData.isEmpty()) {
+                    Log.w("HomeApi", "⚠️ Products list is EMPTY - Backend has no data")
+                }
+
+                val productsWithFavorites = productsData.map { product ->
+                    product.copy(isFavorite = _favorites.value.contains(product.id))
+                }
+                _products.value = productsWithFavorites
+                Log.d("HomeApi", "✅ Products loaded: ${productsWithFavorites.size} items")
+            } else {
+                Log.e("HomeApi", "❌ Products failed: ${forYouRes.code()}")
+            }
+        } catch (e: Exception) {
+            Log.e("HomeApi", "❌ Products error", e)
+        }
+    }
+
+    // ✅ 3. UNREAD COUNT YÜKLƏMƏSİ
+    private suspend fun loadUnreadCount() {
+        try {
+            val unreadResponse = repository.getUnreadCount()
+            if (unreadResponse.isSuccessful) {
+                _unreadCount.value = unreadResponse.body()
+                Log.d("HomeApi", "✅ Unread count: ${unreadResponse.body()}")
+            } else {
+                Log.e("HomeApi", "❌ Unread count failed: ${unreadResponse.code()}")
+            }
+        } catch (e: Exception) {
+            Log.e("HomeApi", "❌ Unread count error", e)
+        }
+    }
+
+    fun onBrandClick(brand: BrandResponse) {
+        Log.d("HomeViewModel", "Brand clicked: ${brand.name}")
     }
 
     fun onBannerClick(banner: BannerResponse) {
-        // navigate or detail logic
+        Log.d("HomeViewModel", "Banner clicked: ${banner.title}")
     }
 
     fun onItemClicked(product: Product) {
-        // navigate or detail logic
+        Log.d("HomeViewModel", "Item clicked: ${product.productName}")
     }
 
     fun onProductClick(product: Product) {
-        // navigate or detail logic
+        Log.d("HomeViewModel", "Product clicked: ${product.productName}")
     }
 
     fun onFavoriteClick(product: Product) {
         viewModelScope.launch {
             try {
                 if (product.isFavorite) {
-                    repository.removeFavorite(product.id)
+                    val response = repository.removeFavorite(product.id.toInt())
+                    if (response.isSuccessful) {
+                        _favorites.value = _favorites.value - product.id
+                        Log.d("HomeViewModel", "✅ Removed from favorites: ${product.productName}")
+                    }
                 } else {
-                    repository.addFavorite(product.id)
+                    val response = repository.addFavorite(product.id.toInt())
+                    if (response.isSuccessful) {
+                        _favorites.value = _favorites.value + product.id
+                        Log.d("HomeViewModel", "✅ Added to favorites: ${product.productName}")
+                    }
                 }
 
                 _products.value = _products.value.map {
@@ -131,20 +154,20 @@ class HomeViewModel @Inject constructor(
                 }
 
             } catch (e: Exception) {
-                Log.e("HomeViewModel", "Favorite toggle error", e)
+                Log.e("HomeViewModel", "❌ Favorite toggle error", e)
             }
         }
     }
 
     fun onNotificationClick() {
-        // navigate to notifications
+        Log.d("HomeViewModel", "Notification clicked")
     }
 
     fun onShopNowClick() {
-        // navigate to shop page
+        Log.d("HomeViewModel", "Shop now clicked")
     }
 
     fun onSearchQueryChanged(query: String) {
-        // filter logic or search API
+        Log.d("HomeViewModel", "Search query: $query")
     }
 }

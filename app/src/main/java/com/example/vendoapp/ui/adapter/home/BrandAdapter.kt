@@ -6,18 +6,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.vendoapp.R
 import com.example.vendoapp.databinding.ItemBrandBinding
-import com.example.vendoapp.data.model.home.Brand
+import com.example.vendoapp.data.model.home.BrandResponse
 
 class BrandAdapter(
-    private val onBrandClick: (Brand) -> Unit
-) : ListAdapter<Brand, BrandAdapter.BrandViewHolder>(BrandDiffCallback()) {
+    private val onBrandClick: (BrandResponse) -> Unit,
+) : ListAdapter<BrandResponse, BrandAdapter.BrandViewHolder>(BrandDiffCallback()) {
 
-    inner class BrandViewHolder(private val binding: ItemBrandBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class BrandViewHolder(private val binding: ItemBrandBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(brand: Brand) {
+        fun bind(brand: BrandResponse) {
             Glide.with(binding.root.context)
-                .load(brand.logoRes)
+                .load(brand.logoUrl)
+                .placeholder(R.drawable.ic_launcher_background) // Default placeholder
+                .error(R.drawable.ic_launcher_foreground) // Error placeholder
                 .into(binding.ivBrandLogo)
 
             binding.root.setOnClickListener {
@@ -35,12 +39,12 @@ class BrandAdapter(
         holder.bind(getItem(position))
     }
 
-    private class BrandDiffCallback : DiffUtil.ItemCallback<Brand>() {
-        override fun areItemsTheSame(oldItem: Brand, newItem: Brand): Boolean {
+    private class BrandDiffCallback : DiffUtil.ItemCallback<BrandResponse>() {
+        override fun areItemsTheSame(oldItem: BrandResponse, newItem: BrandResponse): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Brand, newItem: Brand): Boolean {
+        override fun areContentsTheSame(oldItem: BrandResponse, newItem: BrandResponse): Boolean {
             return oldItem == newItem
         }
     }

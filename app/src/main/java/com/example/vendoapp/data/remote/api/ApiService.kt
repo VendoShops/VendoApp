@@ -1,5 +1,6 @@
 package com.example.vendoapp.data.remote.api
 
+import com.example.vendoapp.data.model.ApiResponse
 import com.example.vendoapp.data.model.auth.register.RegisterRequest
 import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.data.model.home.BannerResponse
@@ -15,24 +16,22 @@ import retrofit2.http.Path
 
 interface ApiService {
     @POST("api/v1/auth/register")
-    suspend fun register(@Body registerRequest: RegisterRequest) : RegisterResponse
+    suspend fun register(@Body registerRequest: RegisterRequest): RegisterResponse
 
     @GET("api/v1/banners")
-    suspend fun getBanners(): Response<List<BannerResponse>>
+    suspend fun getBanners(): Response<ApiResponse<List<BannerResponse>>>
 
-    @GET("api/v1/brands")
-    suspend fun getAllBrands(): Response<List<BrandResponse>>
     @GET("api/v1/brands/top")
-    suspend fun getTopBrands(): Response<List<BrandResponse>>
+    suspend fun getTopBrands(): Response<ApiResponse<List<BrandResponse>>>
 
     @GET("api/v1/products")
-    suspend fun getAllProducts(): Response<List<Product>>
+    suspend fun getAllProducts(): Response<ApiResponse<List<Product>>>
 
     @GET("api/v1/products/for-you")
-    suspend fun getForYouProducts(): Response<List<Product>>
+    suspend fun getForYouProducts(): Response<ApiResponse<List<Product>>>
 
     @GET("api/v1/favorites")
-    suspend fun getFavorites(): Response<List<FavoriteResponse>> //productresponse
+    suspend fun getFavorites(): Response<ApiResponse<List<FavoriteResponse>>>
 
     @POST("api/v1/favorites/{productId}")
     suspend fun addFavorite(@Path("productId") productId: Int): Response<Unit>
