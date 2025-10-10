@@ -1,5 +1,7 @@
 package com.example.vendoapp.data.remote.repository
 
+import com.example.vendoapp.data.model.auth.login.LoginRequest
+import com.example.vendoapp.data.model.auth.login.LoginResponse
 import com.example.vendoapp.data.model.auth.register.RegisterRequest
 import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.data.remote.api.ApiService
@@ -14,4 +16,6 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun register(registerRequest: RegisterRequest): Resource<RegisterResponse> =
         safeApiCall { apiService.register(registerRequest) }
 
+    override suspend fun login(loginRequest: LoginRequest): Resource<LoginResponse> =
+        safeApiCall { apiService.login(loginRequest) }
 }

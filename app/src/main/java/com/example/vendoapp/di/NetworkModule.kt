@@ -3,10 +3,10 @@ package com.example.vendoapp.di
 import com.example.vendoapp.data.remote.api.ApiService
 import com.example.vendoapp.data.remote.repository.AuthRepositoryImpl
 import com.example.vendoapp.domain.repository.AuthRepository
+import com.example.vendoapp.domain.usecase.LoginUseCase
 import com.example.vendoapp.domain.usecase.RegisterUseCase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.otpview.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -67,4 +67,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRegisterUseCase(repository: AuthRepository) = RegisterUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideLoginUseCase(repository: AuthRepository) = LoginUseCase(repository)
 }
