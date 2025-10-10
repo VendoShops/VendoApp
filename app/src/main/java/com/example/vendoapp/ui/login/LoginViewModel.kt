@@ -14,13 +14,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
-
+    private val loginUseCase: LoginUseCase,
 ) : ViewModel() {
 
     private val _loginState = MutableStateFlow<Resource<LoginResponse>>(Resource.Idle())
     val loginState: StateFlow<Resource<LoginResponse>> = _loginState
-
 
     fun login(email: String, password: String) {
         viewModelScope.launch {

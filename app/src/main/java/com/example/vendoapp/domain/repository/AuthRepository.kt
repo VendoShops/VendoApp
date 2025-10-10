@@ -7,8 +7,8 @@ import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.utils.Resource
 
 interface AuthRepository {
-    suspend fun register(registerRequest: RegisterRequest) : Resource<RegisterResponse>
+    suspend fun register(registerRequest: RegisterRequest): Resource<RegisterResponse>
 
-    suspend fun login(loginRequest: LoginRequest) : Resource<LoginResponse>
+    suspend fun login(loginRequest: LoginRequest): Resource<LoginResponse>
 }
 
