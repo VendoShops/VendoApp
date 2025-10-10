@@ -1,7 +1,7 @@
 package com.example.vendoapp.di
 
 import com.example.vendoapp.data.remote.api.ApiService
-import com.example.vendoapp.data.remote.repository.AuthRepositoryImpl
+import com.example.vendoapp.domain.repository.AuthRepositoryImpl
 import com.example.vendoapp.domain.repository.AuthRepository
 import com.example.vendoapp.domain.usecase.LoginUseCase
 import com.example.vendoapp.domain.usecase.RegisterUseCase
@@ -15,7 +15,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -40,14 +39,14 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
+        loggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
         .build()
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient,  gson: Gson): Retrofit =
+    fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
@@ -61,7 +60,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepository(api: com.example.vendoapp.data.remote.api.ApiService): AuthRepository =
+    fun provideAuthRepository(api: ApiService): AuthRepository =
         AuthRepositoryImpl(api)
 
     @Provides

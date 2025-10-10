@@ -1,4 +1,4 @@
-package com.example.vendoapp.model.filter
+package com.example.vendoapp.data.model.filter
 
 data class FilterData(
     val selectedGenders: List<String> = emptyList(),

@@ -1,6 +1,4 @@
-package com.example.vendoapp.model.home
-
-// /api/v1/brands/top
+package com.example.vendoapp.data.model.home
 
 data class BrandResponse(
     val id: Long,

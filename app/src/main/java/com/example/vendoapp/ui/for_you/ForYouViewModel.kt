@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vendoapp.model.home.Product
-import com.example.vendoapp.domain.repository.ProductRepository
+import com.example.vendoapp.data.model.home.Product
+import com.example.vendoapp.domain.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ForYouViewModel @Inject constructor(
-    private val productRepository: ProductRepository
+    private val productRepository: HomeRepository
 ) : ViewModel() {
 
     private val _products = MutableLiveData<List<Product>>()
@@ -42,20 +42,20 @@ class ForYouViewModel @Inject constructor(
 
     fun filterByCategory(category: String) {
         currentCategory = category
-        val filteredProducts = allProducts.filter {
-            it.category.equals(category, ignoreCase = true)
-        }
-        _products.value = filteredProducts
+//        val filteredProducts = allProducts.filter {
+//            it.category.equals(category, ignoreCase = true)
+//        }
+//        _products.value = filteredProducts
     }
 
     fun toggleFavorite(product: com.example.vendoapp.data.model.home.Product) { //product-->productresponse
         viewModelScope.launch {
-            try {
-                productRepository.toggleFavorite(product.id.toString())
-                loadProducts()
-            } catch (e: Exception) {
-                // Handle error
-            }
+//            try {
+//                productRepository.toggleFavorite(product.id.toString())
+//                loadProducts()
+//            } catch (e: Exception) {
+//                // Handle error
+//            }
         }
     }
 }

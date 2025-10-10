@@ -1,6 +1,4 @@
-package com.example.vendoapp.model.home
-
-// /api/v1/banners
+package com.example.vendoapp.data.model.home
 
 data class BannerResponse(
     val id: Long,

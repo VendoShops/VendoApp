@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.vendoapp.databinding.ItemPaymentMethodsBinding
-import com.example.vendoapp.model.payement.PaymentMethodModelTest
+import com.example.vendoapp.data.model.PaymentMethodModelTest
 
 class PaymentMethodAdapter : Adapter<PaymentMethodAdapter.PaymentMethodViewHolder>() {
 
