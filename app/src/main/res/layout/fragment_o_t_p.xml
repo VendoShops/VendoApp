@@ -64,11 +64,15 @@
             app:length="4"
             app:otp=""/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSendOTP"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Send OTP"
+            android:fontFamily="@font/dmsansmedium"
+            android:backgroundTint="@color/black"
+            app:cornerRadius="8dp"
+            android:textSize="16sp"
             android:layout_marginTop="36dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
