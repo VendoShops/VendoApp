@@ -1,4 +1,4 @@
-package com.example.vendoapp.ui.signup
+package com.example.vendoapp.ui.login.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
