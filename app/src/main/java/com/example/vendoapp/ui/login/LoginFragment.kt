@@ -10,6 +10,7 @@ import com.example.vendoapp.R
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentLoginBinding
 import com.example.vendoapp.utils.Resource
+import com.example.vendoapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -51,40 +52,40 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         lifecycleScope.launch {
             viewModel.loginState.collectLatest { state ->
                 when (state) {
-                    is Resource.Loading -> Toast.makeText(
-                        requireContext(),
-                        "Loading...",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    is Resource.Idle -> showLoading(false)
+                    is Resource.Loading -> {
+                        showLoading(true)
+                    }
 
                     is Resource.Success -> {
+                        showLoading(false)
 
-                        state.data?.let { loginResponse ->
-
-                            AuthPrefs.saveTokens(
-                                requireContext(),
-                                loginResponse.accessToken,
-                                loginResponse.refreshToken
-                            )
                             Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT)
                                 .show()
+
                             findNavController().navigate(R.id.action_loginFragment_to_homeFragment2)
-                        } ?: run {
-                            Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT)
-                                .show()
                         }
-                    }
 
                     is Resource.Error -> {
-                        Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                        showLoading(false)
+                        handleError(state.message)
                     }
-
-                    else -> Unit
                 }
             }
         }
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        requireActivity().runOnUiThread {
+            binding.progressBar.visible(isLoading)
+            binding.btnLogin.isEnabled = !isLoading
+        }
+    }
+
+    private fun handleError(message: String?) {
+        showLoading(false)
+        Toast.makeText(requireContext(), message ?: "Something went error", Toast.LENGTH_SHORT).show()
+    }
 
     private fun setupUi() {
         binding.let {

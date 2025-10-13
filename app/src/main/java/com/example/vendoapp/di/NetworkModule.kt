@@ -1,10 +1,12 @@
 package com.example.vendoapp.di
 
 import com.example.vendoapp.data.remote.api.ApiService
+import com.example.vendoapp.data.remote.network.AuthInterceptor
 import com.example.vendoapp.data.remote.repository.AuthRepositoryImpl
 import com.example.vendoapp.domain.repository.AuthRepository
 import com.example.vendoapp.domain.usecase.LoginUseCase
 import com.example.vendoapp.domain.usecase.RegisterUseCase
+import com.example.vendoapp.utils.TokenManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -40,9 +42,11 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
+        loggingInterceptor: HttpLoggingInterceptor,
+        authInterceptor: AuthInterceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
+        .addInterceptor(authInterceptor)
         .build()
 
     @Provides
@@ -61,8 +65,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepository(api: com.example.vendoapp.data.remote.api.ApiService): AuthRepository =
-        AuthRepositoryImpl(api)
+    fun provideAuthRepository(api: ApiService, tokenManager: TokenManager): AuthRepository =
+        AuthRepositoryImpl(api,tokenManager)
 
     @Provides
     @Singleton

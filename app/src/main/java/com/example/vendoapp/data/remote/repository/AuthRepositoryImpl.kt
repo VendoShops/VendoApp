@@ -8,14 +8,24 @@ import com.example.vendoapp.data.remote.api.ApiService
 import com.example.vendoapp.data.remote.network.safeApiCall
 import com.example.vendoapp.domain.repository.AuthRepository
 import com.example.vendoapp.utils.Resource
+import com.example.vendoapp.utils.TokenManager
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val tokenManager: TokenManager
 ) : AuthRepository {
     override suspend fun register(registerRequest: RegisterRequest): Resource<RegisterResponse> =
-        safeApiCall { apiService.register(registerRequest) }
+        safeApiCall { apiService.register(registerRequest) }.also { result ->
+            if (result is Resource.Success) {
+                result.data?.let { tokenManager.saveTokens(it.accessToken, it.refreshToken) }
+            }
+        }
 
     override suspend fun login(loginRequest: LoginRequest): Resource<LoginResponse> =
-        safeApiCall { apiService.login(loginRequest) }
+        safeApiCall { apiService.login(loginRequest) }.also { result ->
+            if (result is Resource.Success) {
+                result.data?.let { tokenManager.saveTokens(it.accessToken, it.refreshToken) }
+            }
+        }
 }
