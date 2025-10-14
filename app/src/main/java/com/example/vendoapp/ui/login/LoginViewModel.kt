@@ -15,7 +15,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
-
 ) : ViewModel() {
 
     private val _loginState = MutableStateFlow<Resource<LoginResponse>>(Resource.Idle())

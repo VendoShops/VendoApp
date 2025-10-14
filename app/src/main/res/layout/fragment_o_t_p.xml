@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:id="@+id/main"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.otp.OTPFragment">
+    tools:context=".ui.login.otp.OTPFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

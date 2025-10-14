@@ -1,5 +1,7 @@
 package com.example.vendoapp.data.remote.repository
 
+import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordRequest
+import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordResponse
 import com.example.vendoapp.data.model.auth.login.LoginRequest
 import com.example.vendoapp.data.model.auth.login.LoginResponse
 import com.example.vendoapp.data.model.auth.register.RegisterRequest
@@ -18,7 +20,14 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun register(registerRequest: RegisterRequest): Resource<RegisterResponse> =
         safeApiCall { apiService.register(registerRequest) }.also { result ->
             if (result is Resource.Success) {
-                result.data?.let { tokenManager.saveTokens(it.accessToken, it.refreshToken) }
+                result.data?.let {
+                    val access = it.accessToken
+                    val refresh = it.refreshToken
+
+                    if (!access.isNullOrBlank() && !refresh.isNullOrBlank()) {
+                        tokenManager.saveTokens(access, refresh)
+                    }
+                }
             }
         }
 
@@ -28,4 +37,8 @@ class AuthRepositoryImpl @Inject constructor(
                 result.data?.let { tokenManager.saveTokens(it.accessToken, it.refreshToken) }
             }
         }
+
+    override suspend fun forgotPassword(forgotPasswordRequest: ForgotPasswordRequest): Resource<ForgotPasswordResponse> {
+        return safeApiCall { apiService.forgotPassword(forgotPasswordRequest) }
+    }
 }

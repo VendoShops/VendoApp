@@ -1,5 +1,7 @@
 package com.example.vendoapp.data.remote.api
 
+import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordRequest
+import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordResponse
 import com.example.vendoapp.data.model.auth.login.LoginRequest
 import com.example.vendoapp.data.model.auth.login.LoginResponse
 import com.example.vendoapp.data.model.auth.register.RegisterRequest
@@ -23,7 +25,11 @@ interface ApiService {
     suspend fun login(@Body loginRequest: LoginRequest) : LoginResponse
 
     @POST("api/v1/auth/refresh")
-    suspend fun refreshToken(@Body tokenRequest: RefreshTokenRequest) : RefreshTokenResponse
+    suspend fun refreshToken(@Body refreshTokenRequest: RefreshTokenRequest) : RefreshTokenResponse
+
+    @POST("/api/v1/auth/forgot-password")
+    suspend fun forgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse
+
 
 
     @GET("/api/v1/banners")
