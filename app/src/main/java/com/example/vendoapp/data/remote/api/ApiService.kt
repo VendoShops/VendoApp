@@ -1,10 +1,14 @@
 package com.example.vendoapp.data.remote.api
 
 import com.example.vendoapp.data.model.ApiResponse
+import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordRequest
+import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordResponse
 import com.example.vendoapp.data.model.auth.login.LoginRequest
 import com.example.vendoapp.data.model.auth.login.LoginResponse
 import com.example.vendoapp.data.model.auth.register.RegisterRequest
 import com.example.vendoapp.data.model.auth.register.RegisterResponse
+import com.example.vendoapp.data.model.auth.token.RefreshTokenRequest
+import com.example.vendoapp.data.model.auth.token.RefreshTokenResponse
 import com.example.vendoapp.data.model.home.BannerResponse
 import com.example.vendoapp.data.model.home.BrandResponse
 import com.example.vendoapp.data.model.home.FavoriteResponse
@@ -17,11 +21,18 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiService {
+
     @POST("api/v1/auth/register")
     suspend fun register(@Body registerRequest: RegisterRequest): RegisterResponse
 
     @POST("api/v1/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
+
+    @POST("api/v1/auth/refresh")
+    suspend fun refreshToken(@Body refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse
+
+    @POST("/api/v1/auth/forgot-password")
+    suspend fun forgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse
 
     @GET("api/v1/banners")
     suspend fun getBanners(): Response<ApiResponse<List<BannerResponse>>>

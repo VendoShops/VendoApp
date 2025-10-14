@@ -99,5 +99,4 @@ class ForYouFragment : BaseFragment<FragmentForYouBinding>(FragmentForYouBinding
 //            productAdapter.submitList(products)
         }
     }
-
 }
