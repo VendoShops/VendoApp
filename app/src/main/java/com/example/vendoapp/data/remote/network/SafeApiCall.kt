@@ -17,7 +17,7 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> {
             Resource.Success(response)
         } catch (e: IOException) {
             Log.d("safeApiCall", "IOException: ${e.message}")
-            Resource.Error("No Internet")
+            Resource.Error(message = "No Internet")
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             val errorMessage = try {
@@ -27,10 +27,11 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> {
             } catch (ex: Exception) {
                 "Server Error: ${e.code()}"
             }
+            Log.d("safeApiCall", "HttpException: $errorMessage")
             Resource.Error(errorMessage)
         } catch (e: Exception) {
             Log.d("safeApiCall", "Exception: ${e.message}")
-            Resource.Error(e.localizedMessage ?: "Something went wrong")
+            Resource.Error(message = e.localizedMessage ?: "Something went wrong")
         }
     }
 }
