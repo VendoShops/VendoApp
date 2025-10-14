@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vendoapp.databinding.ItemColorBinding
-import com.example.vendoapp.model.filter.ColorItem
+import com.example.vendoapp.data.model.filter.ColorItem
 
 class ColorAdapter(
     private var colors: List<ColorItem>,

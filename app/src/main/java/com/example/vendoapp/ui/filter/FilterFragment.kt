@@ -5,8 +5,8 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.vendoapp.databinding.FragmentFilterBinding
-import com.example.vendoapp.model.filter.FilterData
-import com.example.vendoapp.model.filter.FilterSection
+import com.example.vendoapp.data.model.filter.FilterData
+import com.example.vendoapp.data.model.filter.FilterSection
 import com.example.vendoapp.ui.adapter.filter.ColorAdapter
 import com.example.vendoapp.ui.base.BaseFragment
 import com.google.android.material.chip.Chip

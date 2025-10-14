@@ -8,9 +8,9 @@ import com.example.vendoapp.data.model.auth.register.RegisterRequest
 import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.data.model.auth.token.RefreshTokenRequest
 import com.example.vendoapp.data.model.auth.token.RefreshTokenResponse
-import com.example.vendoapp.model.home.BannerResponse
-import com.example.vendoapp.model.home.BrandResponse
-import com.example.vendoapp.model.home.FavoriteResponse
+import com.example.vendoapp.data.model.home.BannerResponse
+import com.example.vendoapp.data.model.home.BrandResponse
+import com.example.vendoapp.data.model.home.FavoriteResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

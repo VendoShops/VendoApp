@@ -1,4 +1,4 @@
-package com.example.vendoapp.model.payement
+package com.example.vendoapp.data.model.payement
 
 data class PaymentMethodModelTest(
     val ivCard: Int,
