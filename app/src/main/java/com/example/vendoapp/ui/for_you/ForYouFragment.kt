@@ -20,14 +20,19 @@ class ForYouFragment : BaseFragment<FragmentForYouBinding>(FragmentForYouBinding
     override fun onViewCreateFinish() {
         setupRecyclerView()
         setupCategoryChips()
-        setupBackButton()
         observeData()
         setupUi()
     }
 
-    private fun setupBackButton() {
-        binding.ivBack.setOnClickListener {
-            findNavController().navigateUp()
+    private fun setupUi() {
+        binding.let {
+            it.ivBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
+
+            it.ivBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
         }
     }
 
@@ -92,14 +97,6 @@ class ForYouFragment : BaseFragment<FragmentForYouBinding>(FragmentForYouBinding
     private fun observeData() {
         viewModel.products.observe(viewLifecycleOwner) { products ->
 //            productAdapter.submitList(products)
-        }
-    }
-
-    private fun setupUi() {
-        binding.let {
-            it.ivBack.setOnClickListener {
-                findNavController().popBackStack()
-            }
         }
     }
 }

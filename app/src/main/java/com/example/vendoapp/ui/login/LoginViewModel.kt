@@ -20,7 +20,6 @@ class LoginViewModel @Inject constructor(
     private val _loginState = MutableStateFlow<Resource<LoginResponse>>(Resource.Idle())
     val loginState: StateFlow<Resource<LoginResponse>> = _loginState
 
-
     fun login(email: String, password: String) {
         viewModelScope.launch {
             _loginState.value = Resource.Loading()
@@ -28,5 +27,4 @@ class LoginViewModel @Inject constructor(
             _loginState.value = result
         }
     }
-
 }

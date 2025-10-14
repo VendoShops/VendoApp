@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.example.vendoapp.ui.login.forgotpassword.ForgotPasswordFragment"
+        android:name="com.example.vendoapp.ui.forgotpassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" >
         <action
@@ -54,7 +54,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.vendoapp.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_forYouFragment"
+            app:destination="@id/forYouFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.vendoapp.ui.category.CategoryFragment"
@@ -107,7 +114,7 @@
     </fragment>
     <fragment
         android:id="@+id/OTPFragment"
-        android:name="com.example.vendoapp.ui.login.otp.OTPFragment"
+        android:name="com.example.vendoapp.ui.otp.OTPFragment"
         android:label="fragment_o_t_p"
         tools:layout="@layout/fragment_o_t_p" >
         <action
@@ -116,7 +123,7 @@
     </fragment>
     <fragment
         android:id="@+id/newPasswordFragment"
-        android:name="com.example.vendoapp.ui.login.newpassword.NewPasswordFragment"
+        android:name="com.example.vendoapp.ui.newpassword.NewPasswordFragment"
         android:label="fragment_new_password"
         tools:layout="@layout/fragment_new_password" >
         <action
@@ -125,7 +132,7 @@
     </fragment>
     <fragment
         android:id="@+id/changedPasswordFragment"
-        android:name="com.example.vendoapp.ui.login.changedpassword.ChangedPasswordFragment"
+        android:name="com.example.vendoapp.ui.changedpassword.ChangedPasswordFragment"
         android:label="fragment_changed_password"
         tools:layout="@layout/fragment_changed_password" >
         <action
@@ -134,17 +141,17 @@
     </fragment>
     <fragment
         android:id="@+id/selectLanguageFragment"
-        android:name="com.example.vendoapp.ui.profile.selectlanguage.SelectLanguageFragment"
+        android:name="com.example.vendoapp.ui.selectlanguage.SelectLanguageFragment"
         android:label="fragment_select_language"
         tools:layout="@layout/fragment_select_language" />
     <fragment
         android:id="@+id/termsAndConditionsFragment"
-        android:name="com.example.vendoapp.ui.profile.termsandconditions.TermsAndConditionsFragment"
+        android:name="com.example.vendoapp.ui.termsandconditions.TermsAndConditionsFragment"
         android:label="fragment_terms_and_conditions"
         tools:layout="@layout/fragment_terms_and_conditions" />
     <fragment
         android:id="@+id/personalInformationFragment"
-        android:name="com.example.vendoapp.ui.profile.personalinformation.PersonalInformationFragment"
+        android:name="com.example.vendoapp.ui.personalinformation.PersonalInformationFragment"
         android:label="fragment_personal_information"
         tools:layout="@layout/fragment_personal_information" />
     <fragment
@@ -157,4 +164,14 @@
         android:name="com.example.vendoapp.ui.paymentmethod.PaymentMethodFragment"
         android:label="fragment_payment_method"
         tools:layout="@layout/fragment_payment_method" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.vendoapp.ui.filter.FilterFragment"
+        tools:layout="@layout/fragment_filter"
+        android:label="FilterFragment" />
+    <fragment
+        android:id="@+id/forYouFragment"
+        android:name="com.example.vendoapp.ui.for_you.ForYouFragment"
+        tools:layout="@layout/fragment_for_you"
+        android:label="ForYouFragment" />
 </navigation>

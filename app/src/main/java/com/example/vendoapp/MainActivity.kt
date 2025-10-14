@@ -1,4 +1,4 @@
-package com.example.vendoapp.ui
+package com.example.vendoapp
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.example.vendoapp.R
 import com.example.vendoapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

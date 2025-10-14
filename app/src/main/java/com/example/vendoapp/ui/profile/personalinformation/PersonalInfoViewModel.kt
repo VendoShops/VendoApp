@@ -10,5 +10,4 @@ class PersonalInfoViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel(){
 
-
 }
