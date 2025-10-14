@@ -215,5 +215,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             binding.tilSearch.endIconContentDescription = "Scanner"
         }
     }
-
 }

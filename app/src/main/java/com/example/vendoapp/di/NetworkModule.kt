@@ -1,15 +1,19 @@
 package com.example.vendoapp.di
 
+import android.content.Context
 import com.example.vendoapp.data.remote.api.ApiService
+import com.example.vendoapp.data.remote.network.AuthInterceptor
 import com.example.vendoapp.domain.repository.AuthRepositoryImpl
 import com.example.vendoapp.domain.repository.AuthRepository
 import com.example.vendoapp.domain.usecase.LoginUseCase
 import com.example.vendoapp.domain.usecase.RegisterUseCase
+import com.example.vendoapp.utils.TokenManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -38,6 +42,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideTokenManager(@ApplicationContext context: Context): TokenManager = TokenManager(context)
+
+    @Provides
+    @Singleton
+    fun provideAuthInterceptor(tokenManager: TokenManager): AuthInterceptor = AuthInterceptor(tokenManager)
+
+    @Provides
+    @Singleton
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient = OkHttpClient.Builder()
@@ -60,8 +72,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepository(api: ApiService): AuthRepository =
-        AuthRepositoryImpl(api)
+    fun provideAuthRepository(api: ApiService, tokenManager: TokenManager): AuthRepository =
+        AuthRepositoryImpl(api, tokenManager)
 
     @Provides
     @Singleton

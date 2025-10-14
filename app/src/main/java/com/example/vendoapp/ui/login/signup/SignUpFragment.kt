@@ -41,15 +41,15 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString().trim()
 
-//        if (fullName.isEmpty()){
-//            Toast.makeText(requireContext(), "FullName can't be empty", Toast.LENGTH_SHORT).show()
-//        } else if (email.isEmpty()) {
-//            Toast.makeText(requireContext(), "Email can't be empty", Toast.LENGTH_SHORT).show()
-//        } else if (password.isEmpty()) {
-//            Toast.makeText(requireContext(), "Password can't be empty", Toast.LENGTH_SHORT).show()
-//        } else {
+        if (fullName.isEmpty()){
+            Toast.makeText(requireContext(), "FullName can't be empty", Toast.LENGTH_SHORT).show()
+        } else if (email.isEmpty()) {
+            Toast.makeText(requireContext(), "Email can't be empty", Toast.LENGTH_SHORT).show()
+        } else if (password.isEmpty()) {
+            Toast.makeText(requireContext(), "Password can't be empty", Toast.LENGTH_SHORT).show()
+        } else {
             signUpViewModel.register(fullName, email, password)
-//        }
+        }
     }
 
     private fun observes() {
@@ -59,12 +59,10 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
                     is Resource.Idle -> showLoading(false)
                     is Resource.Loading -> {
                         showLoading(true)
-                        Log.d("SignUpFragment", "State: Loading")
-
                     }
                     is Resource.Success -> {
                         showLoading(false)
-                        Log.d("SignUpFragment", "State: Success, data=${resource.data}")
+
                         Toast.makeText(requireContext(), "Qeydiyyat uğurlu!", Toast.LENGTH_SHORT).show()
 
                         // Test    ------------------------>
