@@ -6,7 +6,6 @@ import com.example.vendoapp.data.model.home.Brand
 import com.example.vendoapp.data.model.home.Product
 import com.example.vendoapp.data.model.home.BannerResponse
 import com.example.vendoapp.data.model.home.BrandResponse
-import com.example.vendoapp.data.model.home.ProductResponse
 import com.example.vendoapp.domain.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

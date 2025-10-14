@@ -3,7 +3,7 @@ package com.example.vendoapp.di
 import android.content.Context
 import com.example.vendoapp.data.remote.api.ApiService
 import com.example.vendoapp.data.remote.network.AuthInterceptor
-import com.example.vendoapp.data.remote.repository.AuthRepositoryImpl
+import com.example.vendoapp.domain.repository.AuthRepositoryImpl
 import com.example.vendoapp.domain.repository.AuthRepository
 import com.example.vendoapp.domain.usecase.LoginUseCase
 import com.example.vendoapp.domain.usecase.RegisterUseCase

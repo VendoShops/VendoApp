@@ -1,4 +1,4 @@
-package com.example.vendoapp.data.remote.repository
+package com.example.vendoapp.domain.repository
 
 import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordRequest
 import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordResponse
