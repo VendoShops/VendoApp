@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/main"
+    tools:context=".ui.profile.myreturns.MyReturnsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:fontFamily="@font/dmsanssemibold"
+            android:text="My Orders"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivBack"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintTop_toTopOf="@id/ivBack" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="18dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="14dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/itemsOrder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/ivBack">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="78dp"
+                android:layout_height="97dp"
+                app:cardCornerRadius="4dp"
+                app:strokeWidth="0dp"
+                android:id="@+id/cardItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/ivItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/testorder"
+                android:scaleType="centerCrop" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tvItemName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/dmsanssemibold"
+                android:text="Women manfi fashion fashinon fashion fash..."
+                android:textSize="12sp"
+                android:layout_marginStart="22dp"
+                app:layout_constraintStart_toEndOf="@id/cardItem"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardItem" />
+
+            <TextView
+                android:id="@+id/tvItemColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey_9f"
+                android:fontFamily="@font/dmsansregular"
+                android:text="Brown/L"
+                android:textSize="10sp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toEndOf="@id/cardItem"
+                app:layout_constraintTop_toBottomOf="@id/tvItemName" />
+
+            <TextView
+                android:id="@+id/tvItemCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey_9f"
+                android:fontFamily="@font/dmsansregular"
+                android:text="1 item"
+                android:textSize="10sp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toEndOf="@id/cardItem"
+                app:layout_constraintTop_toBottomOf="@id/tvItemColor" />
+
+            <TextView
+                android:id="@+id/tvItemPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/dmsanssemibold"
+                android:text="$9"
+                android:textSize="14sp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="18dp"
+                app:layout_constraintStart_toEndOf="@id/cardItem"
+                app:layout_constraintBottom_toBottomOf="@id/cardItem"
+                app:layout_constraintTop_toBottomOf="@id/tvItemCount" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvIadeNedeni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/dmsanssemibold"
+            android:text="Iade nedeni"
+            android:textSize="14sp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/itemsOrder" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
