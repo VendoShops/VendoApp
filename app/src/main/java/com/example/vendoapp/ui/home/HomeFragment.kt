@@ -16,7 +16,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.vendoapp.R
-import com.example.vendoapp.data.model.home.BrandResponse
 import com.example.vendoapp.data.model.home.Product
 import com.example.vendoapp.databinding.FragmentHomeBinding
 import com.example.vendoapp.ui.adapter.home.BrandAdapter

@@ -1,6 +1,7 @@
 package com.example.vendoapp.ui.login
 
 import android.content.Context
+import android.provider.Settings.Global.putString
 import androidx.core.content.edit
 
 object AuthPrefs {

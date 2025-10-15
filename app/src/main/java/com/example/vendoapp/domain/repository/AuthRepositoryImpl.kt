@@ -8,6 +8,7 @@ import com.example.vendoapp.data.model.auth.register.RegisterRequest
 import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.data.remote.api.ApiService
 import com.example.vendoapp.data.remote.network.safeApiCall
+import com.example.vendoapp.domain.repository.AuthRepository
 import com.example.vendoapp.utils.Resource
 import com.example.vendoapp.utils.TokenManager
 import javax.inject.Inject

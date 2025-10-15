@@ -52,13 +52,15 @@ object NetworkModule {
     @Singleton
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
+        authInterceptor: AuthInterceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
+        .addInterceptor(authInterceptor)
         .build()
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit =
+    fun provideRetrofit(client: OkHttpClient,  gson: Gson): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
@@ -73,7 +75,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideAuthRepository(api: ApiService, tokenManager: TokenManager): AuthRepository =
-        AuthRepositoryImpl(api, tokenManager)
+        AuthRepositoryImpl(api,tokenManager)
 
     @Provides
     @Singleton

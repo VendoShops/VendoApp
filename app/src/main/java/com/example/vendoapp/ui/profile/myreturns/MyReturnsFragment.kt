@@ -1,20 +1,20 @@
-package com.example.vendoapp.ui.changedpassword
+package com.example.vendoapp.ui.profile.myreturns
 
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
-import com.example.vendoapp.R
+import com.example.vendoapp.databinding.FragmentMyReturnsBinding
 import com.example.vendoapp.ui.base.BaseFragment
-import com.example.vendoapp.databinding.FragmentChangedPasswordBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class ChangedPasswordFragment : BaseFragment<FragmentChangedPasswordBinding>(
-    FragmentChangedPasswordBinding::inflate
+@AndroidEntryPoint
+class MyReturnsFragment : BaseFragment<FragmentMyReturnsBinding>(
+    FragmentMyReturnsBinding::inflate
 ) {
-
     override fun onViewCreateFinish() {
         setupUi()
-        binding.tvLogIn.setOnClickListener {
-            findNavController().navigate(R.id.action_changedPasswordFragment_to_loginFragment)
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 

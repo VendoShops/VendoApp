@@ -1,6 +1,5 @@
 package com.example.vendoapp.ui.login.signup
 
-import android.util.Log
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
