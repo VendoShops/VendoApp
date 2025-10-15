@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.vendoapp.data.model.address.AddressesModelTest
 import com.example.vendoapp.databinding.ItemAddressesBinding
-import com.example.vendoapp.data.model.AddressesModelTest
 
 class AddressesAdapter : Adapter<AddressesAdapter.AddressesViewHolder>() {
 
