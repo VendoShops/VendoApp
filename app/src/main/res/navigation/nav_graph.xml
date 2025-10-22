@@ -9,19 +9,16 @@
         android:id="@+id/loginFragment"
         android:name="com.example.vendoapp.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            app:destination="@id/signUpFragment"/>
         <action
             android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_signUpFragment2"
-            app:destination="@id/signUpFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment2"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"/>
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -126,6 +123,9 @@
         <action
             android:id="@+id/action_OTPFragment_to_newPasswordFragment"
             app:destination="@id/newPasswordFragment" />
+        <argument
+            android:name="email"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/newPasswordFragment"

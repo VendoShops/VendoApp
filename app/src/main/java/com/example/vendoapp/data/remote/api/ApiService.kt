@@ -5,6 +5,8 @@ import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordRequest
 import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordResponse
 import com.example.vendoapp.data.model.auth.login.LoginRequest
 import com.example.vendoapp.data.model.auth.login.LoginResponse
+import com.example.vendoapp.data.model.auth.otp.SendOtpRequest
+import com.example.vendoapp.data.model.auth.otp.VerifyOtpRequest
 import com.example.vendoapp.data.model.auth.register.RegisterRequest
 import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.data.model.auth.token.RefreshTokenRequest
@@ -33,6 +35,12 @@ interface ApiService {
 
     @POST("/api/v1/auth/forgot-password")
     suspend fun forgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse
+
+    @POST("api/v1/otp/send")
+    suspend fun sendOtp(@Body request: SendOtpRequest): Response<String>
+
+    @POST("api/v1/otp/verify")
+    suspend fun verifyOtp(@Body request: VerifyOtpRequest): Response<String>
 
     @GET("api/v1/banners")
     suspend fun getBanners(): Response<ApiResponse<List<BannerResponse>>>

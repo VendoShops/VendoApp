@@ -36,6 +36,7 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>(
             }
 
             viewModel.sendResetPassword(email)
+
         }
         observeForgotPasswordState()
     }
@@ -48,12 +49,12 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>(
                     is Resource.Loading -> showLoading(true)
                     is Resource.Success -> {
                         showLoading(false)
-                        Toast.makeText(
-                            requireContext(),
-                            "Check your email for reset link",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        findNavController().navigate(R.id.action_forgotPasswordFragment_to_OTPFragment)
+                        Toast.makeText(requireContext(), "OTP sent successfully", Toast.LENGTH_SHORT).show()
+
+                        val action = ForgotPasswordFragmentDirections
+                            .actionForgotPasswordFragmentToOTPFragment(binding.etEmail.text.toString().trim())
+
+                        findNavController().navigate(action)
                     }
                     is Resource.Error -> {
                         showLoading(false)

@@ -63,7 +63,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                             Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT)
                                 .show()
 
-                            findNavController().navigate(R.id.action_loginFragment_to_homeFragment2)
+                            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                         }
 
                     is Resource.Error -> {

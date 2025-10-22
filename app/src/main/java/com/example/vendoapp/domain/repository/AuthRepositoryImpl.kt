@@ -4,6 +4,8 @@ import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordRequest
 import com.example.vendoapp.data.model.auth.forgotpassword.ForgotPasswordResponse
 import com.example.vendoapp.data.model.auth.login.LoginRequest
 import com.example.vendoapp.data.model.auth.login.LoginResponse
+import com.example.vendoapp.data.model.auth.otp.SendOtpRequest
+import com.example.vendoapp.data.model.auth.otp.VerifyOtpRequest
 import com.example.vendoapp.data.model.auth.register.RegisterRequest
 import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.data.remote.api.ApiService
@@ -41,4 +43,11 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun forgotPassword(forgotPasswordRequest: ForgotPasswordRequest): Resource<ForgotPasswordResponse> {
         return safeApiCall { apiService.forgotPassword(forgotPasswordRequest) }
     }
+
+    override suspend fun sendOtp(request: SendOtpRequest): Resource<String> =
+        safeApiCall { apiService.sendOtp(request).body() ?: "OTP sent successfully" }
+
+    override suspend fun verifyOtp(request: VerifyOtpRequest): Resource<String> =
+        safeApiCall { apiService.verifyOtp(request).body() ?: "OTP verified successfully" }
+
 }

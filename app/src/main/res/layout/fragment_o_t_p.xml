@@ -65,10 +65,10 @@
             app:otp=""/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSendOTP"
+            android:id="@+id/btnConfirmOTP"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Send OTP"
+            android:text="Confirm OTP"
             android:fontFamily="@font/dmsansmedium"
             android:backgroundTint="@color/black"
             app:cornerRadius="8dp"
@@ -109,6 +109,16 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
