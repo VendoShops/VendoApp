@@ -5,5 +5,6 @@ data class RegisterResponse (
     val email: String,
     val fullName: String,
     val accessToken: String,
-    val refreshToken: String
+    val refreshToken: String,
+    val success: Boolean = true
 )

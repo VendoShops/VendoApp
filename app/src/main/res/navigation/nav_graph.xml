@@ -190,4 +190,9 @@
         android:name="com.example.vendoapp.ui.profile.myreturns.MyReturnsFragment"
         android:label="fragment_my_returns"
         tools:layout="@layout/fragment_my_returns" />
+    <fragment
+        android:id="@+id/addCartFragment"
+        android:name="com.example.vendoapp.ui.addcart.AddCartFragment"
+        tools:layout="@layout/fragment_add_cart"
+        android:label="AddCartFragment" />
 </navigation>

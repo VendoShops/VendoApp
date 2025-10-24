@@ -14,4 +14,25 @@
         <item name="android:letterSpacing">0</item>
         <item name="android:layout_marginTop">2dp</item>
     </style>
+
+    // for chip
+    <style name="CustomFilterChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@android:color/white</item>
+        <item name="android:background">@drawable/chip_selector</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+
+        <item name="chipMinHeight">26dp</item>
+
+        <item name="chipStartPadding">20dp</item>
+        <item name="chipEndPadding">20dp</item>
+
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="chipIconVisible">false</item>
+        <item name="chipStrokeWidth">0dp</item>
+    </style>
 </resources>

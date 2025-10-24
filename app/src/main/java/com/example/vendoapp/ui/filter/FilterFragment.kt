@@ -5,13 +5,14 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.vendoapp.databinding.FragmentFilterBinding
-import com.example.vendoapp.data.model.filter.FilterData
-import com.example.vendoapp.data.model.filter.FilterSection
-import com.example.vendoapp.ui.adapter.filter.ColorAdapter
 import com.example.vendoapp.ui.base.BaseFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
+import android.text.Editable
+import android.text.TextWatcher
+import com.example.vendoapp.data.model.filter.FilterData
+import com.example.vendoapp.data.model.filter.FilterSection
 
 @AndroidEntryPoint
 class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding::inflate) {
@@ -43,8 +44,36 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
             val values = slider.values
             binding.tvMinPrice.text = "$${values[0].toInt()}"
             binding.tvMaxPrice.text = "$${values[1].toInt()}"
+
+            binding.etMinPrice.setText(values[0].toInt().toString())
+            binding.etMaxPrice.setText(values[1].toInt().toString())
+
             viewModel.updatePriceRange(values[0], values[1])
         }
+
+        binding.etMinPrice.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val minValue = s?.toString()?.toFloatOrNull() ?: 0f
+                val currentMax = binding.priceRangeSlider.values[1]
+                if (minValue <= currentMax) {
+                    binding.priceRangeSlider.setValues(minValue, currentMax)
+                }
+            }
+        })
+
+        binding.etMaxPrice.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val maxValue = s?.toString()?.toFloatOrNull() ?: 20000f
+                val currentMin = binding.priceRangeSlider.values[0]
+                if (maxValue >= currentMin) {
+                    binding.priceRangeSlider.setValues(currentMin, maxValue)
+                }
+            }
+        })
     }
 
     private fun setupObservers() {
@@ -96,17 +125,17 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
         // Chip group listeners
         setupChipGroupListeners()
 
-//        binding.btnApplyFilter.setOnClickListener {
-//            val filterData = viewModel.applyFilters()
-//
-//            val bundle = Bundle().apply {
-//                putParcelable("filterData", filterData)
-//            }
-//
-//            parentFragmentManager.setFragmentResult("filterResult", bundle)
-//
-//            parentFragmentManager.popBackStack()
-//        }
+        // Apply filter button
+        binding.btnApplyFilter.setOnClickListener {
+            val filterData = viewModel.applyFilters()
+
+            // val bundle = Bundle().apply {
+            //     putParcelable("filterData", filterData)
+            // }
+            // parentFragmentManager.setFragmentResult("filterResult", bundle)
+
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun setupChipGroupListeners() {
@@ -155,6 +184,9 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
         binding.priceRangeSlider.setValues(filterData.minPrice, filterData.maxPrice)
         binding.tvMinPrice.text = "$${filterData.minPrice.toInt()}"
         binding.tvMaxPrice.text = "$${filterData.maxPrice.toInt()}"
+
+        binding.etMinPrice.setText(filterData.minPrice.toInt().toString())
+        binding.etMaxPrice.setText(filterData.maxPrice.toInt().toString())
     }
 
     private fun updateChipGroupSelection(chipGroup: ChipGroup, selectedItems: List<String>) {

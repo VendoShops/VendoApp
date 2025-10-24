@@ -59,12 +59,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
                     is Resource.Success -> {
                         showLoading(false)
-
-                            Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT)
-                                .show()
-
-                            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                        }
+                        Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    }
 
                     is Resource.Error -> {
                         showLoading(false)
@@ -84,7 +81,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
     private fun handleError(message: String?) {
         showLoading(false)
-        Toast.makeText(requireContext(), message ?: "Something went error", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), message ?: "Something went error", Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun setupUi() {

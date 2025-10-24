@@ -1,4 +1,4 @@
-package com.example.vendoapp.ui.adapter.filter
+package com.example.vendoapp.ui.filter
 
 import android.annotation.SuppressLint
 import android.graphics.Color

@@ -100,7 +100,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    // ✅ 3. UNREAD COUNT YÜKLƏMƏSİ
     private suspend fun loadUnreadCount() {
         try {
             val unreadResponse = repository.getUnreadCount()
@@ -137,13 +136,13 @@ class HomeViewModel @Inject constructor(
                 if (product.isFavorite) {
                     val response = repository.removeFavorite(product.id.toInt())
                     if (response.isSuccessful) {
-                        _favorites.value = _favorites.value - product.id
+                        _favorites.value -= product.id
                         Log.d("HomeViewModel", "✅ Removed from favorites: ${product.productName}")
                     }
                 } else {
                     val response = repository.addFavorite(product.id.toInt())
                     if (response.isSuccessful) {
-                        _favorites.value = _favorites.value + product.id
+                        _favorites.value += product.id
                         Log.d("HomeViewModel", "✅ Added to favorites: ${product.productName}")
                     }
                 }
