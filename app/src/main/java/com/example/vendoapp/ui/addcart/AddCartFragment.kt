@@ -1,8 +1,12 @@
 package com.example.vendoapp.ui.addcart
 
 import android.annotation.SuppressLint
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.example.vendoapp.R
 import com.example.vendoapp.data.model.home.ProductDetail
 import com.example.vendoapp.databinding.FragmentAddCartBinding
 import com.example.vendoapp.ui.base.BaseFragment
@@ -14,6 +18,9 @@ class AddCartFragment : BaseFragment<FragmentAddCartBinding>(FragmentAddCartBind
     private val viewModel: ProductDetailViewModel by viewModels()
     private lateinit var imageAdapter: ProductImageAdapter
     private lateinit var colorAdapter: ProductColorAdapter
+
+    // Size buttons map
+    private val sizeButtons = mutableMapOf<String, TextView>()
 
     override fun onViewCreateFinish() {
         setupViews()
@@ -28,44 +35,72 @@ class AddCartFragment : BaseFragment<FragmentAddCartBinding>(FragmentAddCartBind
         }
         binding.viewPagerImages.adapter = imageAdapter
 
+        // Setup ViewPager page change callback for indicator
+        binding.viewPagerImages.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            @SuppressLint("SetTextI18n")
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val totalPages = imageAdapter.itemCount
+                binding.tvPageIndicator.text = "${position + 1}/$totalPages"
+            }
+        })
+
         // Setup color RecyclerView
         colorAdapter = ProductColorAdapter(emptyList()) { colorItem ->
             viewModel.selectColor(colorItem)
         }
-        binding.recyclerViewColors.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = colorAdapter
-        }
 
-        binding.viewPagerImages.registerOnPageChangeCallback(object :
-            androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                updatePageIndicator(position)
-            }
-        })
+        binding.rvColors.adapter = colorAdapter
+
+        // Map size buttons
+        sizeButtons["M"] = binding.btnSizeM
+        sizeButtons["L"] = binding.btnSizeL
+        sizeButtons["XL"] = binding.btnSizeXL
+        sizeButtons["XXL"] = binding.btnSizeXXL
     }
 
     private fun setupObservers() {
-        // Product data observer
+        // Observe product detail
         viewModel.productDetail.observe(viewLifecycleOwner) { product ->
-            updateProductUI(product)
+            bindProductData(product)
         }
 
-        // Selected color observer
-        viewModel.selectedColor.observe(viewLifecycleOwner) { color ->
-            colorAdapter.updateSelection(color)
+        // Observe selected color
+        viewModel.selectedColor.observe(viewLifecycleOwner) { colorName ->
+            // Update color adapter selection
+            colorAdapter.updateSelection(colorName)
+
+            // Update selected color text - only show when color is selected
+            if (colorName.isNotEmpty()) {
+                binding.tvSelectedColor.text = colorName
+                binding.tvSelectedColor.visibility = View.VISIBLE
+            } else {
+                binding.tvSelectedColor.text = ""
+                binding.tvSelectedColor.visibility = View.GONE
+            }
         }
 
-        // Selected size observer
+        // Observe selected size
         viewModel.selectedSize.observe(viewLifecycleOwner) { size ->
+            binding.tvSelectedSize.text = size
             updateSizeSelection(size)
         }
 
-        // Favorite status observer
+        // Observe favorite status
         viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
-            updateFavoriteIcon(isFavorite)
+            binding.btnFavorite.setImageResource(
+                if (isFavorite) R.drawable.like_dark else R.drawable.like_normal
+            )
+        }
+
+        // Observe add to cart success
+        viewModel.addToCartSuccess.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "Product added to cart", Toast.LENGTH_SHORT).show()
+                // Reset the flag
+                // viewModel.resetAddToCartFlag()
+            }
         }
     }
 
@@ -89,96 +124,75 @@ class AddCartFragment : BaseFragment<FragmentAddCartBinding>(FragmentAddCartBind
             // Navigate to store page
         }
 
-        // Ask question click
-        binding.tvAskQuestion.setOnClickListener {
-            // Open Q&A dialog
+        // Ask question button
+        binding.btnAskQuestion.setOnClickListener {
+            // Navigate to Q&A screen or show dialog
+            Toast.makeText(requireContext(), "Ask Question feature", Toast.LENGTH_SHORT).show()
+        }
+
+        // Size button listeners
+        binding.btnSizeM.setOnClickListener { viewModel.selectSize("M") }
+        binding.btnSizeL.setOnClickListener { viewModel.selectSize("L") }
+        binding.btnSizeXL.setOnClickListener { viewModel.selectSize("XL") }
+        binding.btnSizeXXL.setOnClickListener { viewModel.selectSize("XXL") }
+
+        // Add to cart button
+        binding.btnAddToCart.setOnClickListener {
+            viewModel.addToCart()
         }
 
         // Reviews click
         binding.layoutReviews.setOnClickListener {
             // Navigate to reviews page
         }
-
-        // Q&A click
-        binding.layoutQA.setOnClickListener {
-            // Navigate to Q&A page
-        }
-
-        // Size selection clicks
-        setupSizeClickListeners()
-
-        // Add to cart button
-        binding.btnAddToCart.setOnClickListener {
-            addToCart()
-        }
-    }
-
-    private fun setupSizeClickListeners() {
-        binding.chipSizeM.setOnClickListener { viewModel.selectSize("M") }
-        binding.chipSizeL.setOnClickListener { viewModel.selectSize("L") }
-        binding.chipSizeXL.setOnClickListener { viewModel.selectSize("XL") }
-        binding.chipSizeXXL.setOnClickListener { viewModel.selectSize("XXL") }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateProductUI(product: ProductDetail) {
-        binding.apply {
-            // Images
-            imageAdapter.updateImages(product.images)
-            updatePageIndicator(0)
-
+    private fun bindProductData(product: ProductDetail) {
+        with(binding) {
             // Product info
             tvProductName.text = product.name
             tvProductDescription.text = product.description
             tvRating.text = product.rating.toString()
             tvReviewCount.text = "${product.reviewCount} Reviews"
-            tvQACount.text = "${product.qaCount} Q&A"
+            tvQA.text = "${product.qaCount} Q&A"
 
             // Store info
             tvStoreName.text = product.storeName
+            ivVerifiedBadge.visibility = if (product.isVerified) View.VISIBLE else View.GONE
 
-            // Selected color
-            tvSelectedColor.text = product.defaultColor
-
-            // Colors
-            colorAdapter.updateColors(product.colors)
-
-            // Selected size
-            tvSelectedSize.text = product.defaultSize
+            // Price
+            tvPrice.text = "$${product.price}"
 
             // Shipping info
-            tvDeliveryDate.text = product.estimatedDelivery
-            tvShippingInfo.text = product.shippingInfo
+            tvEstimatedDelivery.text = "Estimared delivery: ${product.estimatedDelivery}"
+            tvShippingPrice.text = product.shippingInfo
+            tvFreeShipping.text = product.shippingPrice
 
             // Return info
             tvReturnInfo.text = product.returnInfo
 
-            // Price
-            tvPrice.text = "$${product.price}"
-            tvShippingPrice.text = product.shippingPrice
+            // Update images
+            imageAdapter.updateImages(product.images)
+            binding.tvPageIndicator.text = "1/${product.images.size}"
+
+            // Update colors
+            colorAdapter.updateColors(product.colors)
+
+            // Set initial selected color (empty initially, will be set when user selects)
+            binding.tvSelectedColor.text = ""
+            binding.tvSelectedColor.visibility = View.GONE
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun updatePageIndicator(position: Int) {
-        val totalPages = imageAdapter.itemCount
-        binding.tvPageIndicator.text = "${position + 1}/$totalPages"
-    }
-
-    private fun updateSizeSelection(size: String) {
-        // Reset all chips
-        binding.chipSizeM.isChecked = false
-        binding.chipSizeL.isChecked = false
-        binding.chipSizeXL.isChecked = false
-        binding.chipSizeXXL.isChecked = false
+    private fun updateSizeSelection(selectedSize: String) {
+        // Reset all size buttons
+        sizeButtons.values.forEach { button ->
+            button.isSelected = false
+        }
 
         // Select the chosen size
-        when (size) {
-            "M" -> binding.chipSizeM.isChecked = true
-            "L" -> binding.chipSizeL.isChecked = true
-            "XL" -> binding.chipSizeXL.isChecked = true
-            "XXL" -> binding.chipSizeXXL.isChecked = true
-        }
+        sizeButtons[selectedSize]?.isSelected = true
     }
 
     private fun updateFavoriteIcon(isFavorite: Boolean) {
@@ -189,18 +203,5 @@ class AddCartFragment : BaseFragment<FragmentAddCartBinding>(FragmentAddCartBind
     private fun shareProduct() {
         // Share product link
         // Intent.createChooser() istifadə et
-    }
-
-    private fun addToCart() {
-        val selectedColor = viewModel.selectedColor.value
-        val selectedSize = viewModel.selectedSize.value
-
-        if (selectedColor == null || selectedSize == null) {
-            // Show error - user must select color and size
-            return
-        }
-
-        viewModel.addToCart()
-        // Show success message or navigate to cart
     }
 }

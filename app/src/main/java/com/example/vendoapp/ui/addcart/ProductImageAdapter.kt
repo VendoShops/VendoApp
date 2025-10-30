@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.vendoapp.R
 import com.example.vendoapp.databinding.ItemProductImageBinding
 
 class ProductImageAdapter(
@@ -25,7 +26,7 @@ class ProductImageAdapter(
             // Load image with Glide
             Glide.with(binding.root.context)
                 .load(imageUrl)
-                .placeholder(android.R.color.darker_gray) // Placeholder
+                .placeholder(R.drawable.example_girl) // Placeholder
                 .into(binding.ivProductImage)
 
             binding.root.setOnClickListener {

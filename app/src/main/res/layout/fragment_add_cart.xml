@@ -31,7 +31,7 @@
                 <!-- Top action bar -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -52,27 +52,35 @@
                         android:layout_height="1dp"
                         android:layout_weight="1" />
 
-                    <!-- Favorite button -->
-                    <ImageView
-                        android:id="@+id/btnFavorite"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="Favorite"
-                        android:padding="8dp"
-                        android:src="@drawable/favorite_like"
-                        app:tint="#FF0000" />
+                    <!-- Action buttons vertical layout (Like & Share) -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <!-- Share button -->
-                    <ImageView
-                        android:id="@+id/btnShare"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="Share"
-                        android:padding="8dp"
-                        android:src="@drawable/share_icon" />
+                        <!-- Favorite button -->
+                        <ImageView
+                            android:id="@+id/btnFavorite"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Favorite"
+                            android:padding="8dp"
+                            android:src="@drawable/like_normal" />
+
+                        <!-- Share button -->
+                        <ImageView
+                            android:id="@+id/btnShare"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="4dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Share"
+                            android:padding="8dp"
+                            android:src="@drawable/share_icon" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -100,25 +108,39 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Product Name -->
-                <TextView
-                    android:id="@+id/tvProductName"
+                <!-- Product Name and Description in horizontal layout -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Glovy"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
 
-                <!-- Product Description -->
-                <TextView
-                    android:id="@+id/tvProductDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Super Gel with Advanced Night Ser Kadin Bordo"
-                    android:textColor="#9E9E9E"
-                    android:textSize="14sp" />
+                    <!-- Product Name -->
+                    <TextView
+                        android:id="@+id/tvProductName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="Glovy" />
+
+                    <!-- Spacer -->
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="1dp" />
+
+                    <!-- Product Description -->
+                    <TextView
+                        android:id="@+id/tvProductDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:textColor="#9E9E9E"
+                        android:textSize="14sp"
+                        tools:text="Super Gel with Advanced Night Ser Kadin Bordo" />
+
+                </LinearLayout>
 
                 <!-- Rating and Reviews -->
                 <LinearLayout
@@ -162,7 +184,6 @@
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:layout_marginStart="2dp"
                             android:src="@drawable/star"
                             app:tint="#FFD700" />
 
@@ -197,17 +218,24 @@
                         android:layout_height="1dp"
                         android:layout_weight="1" />
 
-                    <!-- Q&A Count -->
+                    <!-- Q&A -->
                     <TextView
-                        android:id="@+id/tvQACount"
+                        android:id="@+id/tvQA"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="285 QA"
+                        android:text="285 Q&amp;A"
                         android:textColor="#000000"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#E0E0E0" />
 
                 <!-- Store Info -->
                 <LinearLayout
@@ -217,7 +245,6 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <!-- Store name -->
                     <TextView
                         android:id="@+id/tvStoreName"
                         android:layout_width="wrap_content"
@@ -227,262 +254,300 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <!-- Verified badge -->
                     <ImageView
                         android:id="@+id/ivVerifiedBadge"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginStart="6dp"
-                        android:contentDescription="Verified"
-                        android:src="@drawable/verified_icon" />
+                        android:src="@drawable/verified_icon"
+                        app:tint="#2196F3" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_weight="1" />
 
-                    <!-- Ask question link -->
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/edit_icon"
-                        app:tint="#9E9E9E" />
-
-                    <TextView
-                        android:id="@+id/tvAskQuestion"
+                    <!-- Ask Question Button -->
+                    <LinearLayout
+                        android:id="@+id/btnAskQuestion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="Ask question"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/edit_icon"
+                            app:tint="#9E9E9E" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="Ask question"
+                            android:textColor="#9E9E9E"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#E0E0E0" />
+
+                <!-- Color Selection -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select Color: "
                         android:textColor="#9E9E9E"
                         android:textSize="14sp" />
 
-                </LinearLayout>
-
-                <!-- COLOR SELECTION SECTION -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
-
-                    <!-- Select Color label -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tvSelectedColor"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Select Color:"
-                            android:textColor="#9E9E9E"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tvSelectedColor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:text="Green"
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <!-- Color images horizontal RecyclerView -->
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewColors"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:clipToPadding="false"
-                        android:orientation="horizontal"
-                        tools:itemCount="4" />
-                    <!--                        tools:listitem="@layout/item_product_color" />-->
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="" />
 
                 </LinearLayout>
 
-                <!-- SIZE SELECTION SECTION -->
+                <!-- Color RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvColors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_product_color" />
+
+                <!-- Size Selection -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
-
-                    <!-- Select Size label -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Select Size:"
-                            android:textColor="#9E9E9E"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tvSelectedSize"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:text="M"
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <!-- Size chips -->
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chipGroupSizes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        app:chipSpacingHorizontal="12dp"
-                        app:chipSpacingVertical="12dp"
-                        app:singleSelection="true">
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipSizeM"
-                            style="@style/CustomFilterChipStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:text="M" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipSizeL"
-                            style="@style/CustomFilterChipStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="L" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipSizeXL"
-                            style="@style/CustomFilterChipStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="XL" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipSizeXXL"
-                            style="@style/CustomFilterChipStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="XXL" />
-
-                    </com.google.android.material.chip.ChipGroup>
-
-                </LinearLayout>
-
-                <!-- SHIPPING SECTION -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <!-- Shipping icon -->
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:contentDescription="Shipping"
-                        android:padding="8dp"
-                        android:src="@drawable/shipping_icon" />
-
-                    <!-- Shipping info -->
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
+                        android:text="Select Size: "
+                        android:textColor="#9E9E9E"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvSelectedSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="M" />
+
+                </LinearLayout>
+
+                <!-- Size Options (RecyclerView or Buttons) -->
+                <LinearLayout
+                    android:id="@+id/layoutSizes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="start"
+                    android:orientation="horizontal">
+
+                    <!-- Size M -->
+                    <TextView
+                        android:id="@+id/btnSizeM"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:background="@drawable/selector_size_button"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="M"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- Size L -->
+                    <TextView
+                        android:id="@+id/btnSizeL"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_size_button"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="L"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- Size XL -->
+                    <TextView
+                        android:id="@+id/btnSizeXL"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_size_button"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="XL"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- Size XXL -->
+                    <TextView
+                        android:id="@+id/btnSizeXXL"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_size_button"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="XXL"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#E0E0E0" />
+
+                <!-- Shipping Info -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <!-- Shipping Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/shipping_icon"
+                            app:tint="#000000" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
                             android:text="Shipping"
                             android:textColor="#000000"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tvDeliveryDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Estimated delivery: 20-30 January"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tvShippingInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="Free shipping on concerns over $25"
-                            android:textColor="#9E9E9E"
-                            android:textSize="12sp" />
-
                     </LinearLayout>
+
+                    <!-- Estimated Delivery -->
+                    <TextView
+                        android:id="@+id/tvEstimatedDelivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="#9E9E9E"
+                        android:textSize="14sp"
+                        tools:text="Estimared delivery: 20-30 January" />
+
+                    <!-- Shipping Price -->
+                    <TextView
+                        android:id="@+id/tvShippingPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="#9E9E9E"
+                        android:textSize="14sp"
+                        tools:text="Free shipping on concerns over $25" />
 
                 </LinearLayout>
 
-                <!-- RETURNS SECTION -->
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#E0E0E0" />
+
+                <!-- Return Info -->
                 <LinearLayout
-                    android:id="@+id/layoutQA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
 
-                    <!-- Returns icon -->
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:contentDescription="Returns"
-                        android:padding="8dp"
-                        android:src="@drawable/free_return_icon" />
-
-                    <!-- Returns info -->
+                    <!-- Return Header -->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/free_return_icon"
+                            app:tint="#000000" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Free returns"
+                            android:layout_marginStart="8dp"
+                            android:text="Return"
                             android:textColor="#000000"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tvReturnInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Easy and free return in 7 days from the delivered date"
-                            android:textColor="#9E9E9E"
-                            android:textSize="14sp" />
-
                     </LinearLayout>
 
-                </LinearLayout>
+                    <!-- Return Description -->
+                    <TextView
+                        android:id="@+id/tvReturnInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="#9E9E9E"
+                        android:textSize="14sp"
+                        tools:text="Easy and free return in 7 days from the delivered date" />
 
-                <!-- Bottom spacing -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -490,7 +555,7 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <!-- BOTTOM BAR (Price and Add to Cart) -->
+    <!-- Bottom Bar with Price and Add to Cart -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -501,7 +566,7 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <!-- Price section -->
+        <!-- Price Section -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -512,34 +577,33 @@
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$9"
                 android:textColor="#000000"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="$9.0" />
 
             <TextView
-                android:id="@+id/tvShippingPrice"
+                android:id="@+id/tvFreeShipping"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:text="Free shipping"
                 android:textColor="#9E9E9E"
                 android:textSize="12sp" />
 
         </LinearLayout>
 
-        <!-- Add to cart button -->
+        <!-- Add to Cart Button -->
         <Button
             android:id="@+id/btnAddToCart"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:backgroundTint="#000000"
             android:text="Add to cart"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            app:cornerRadius="8dp" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 

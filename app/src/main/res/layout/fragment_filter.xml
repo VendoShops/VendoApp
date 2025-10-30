@@ -85,23 +85,23 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipMan"
-                    style="@style/CustomFilterChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/selector_size_button"
                     android:text="Man" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipWoman"
-                    style="@style/CustomFilterChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/selector_size_button"
                     android:text="Woman" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipChild"
-                    style="@style/CustomFilterChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/selector_size_button"
                     android:text="Child" />
 
             </com.google.android.material.chip.ChipGroup>
@@ -144,7 +144,6 @@
         </LinearLayout>
 
         <!-- Category Options -->
-        <!-- DEYİŞİKLİK: ChipGroup-dakı bütün Chip-lərə style="@style/CustomFilterChipStyle" əlavə olundu -->
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupCategories"
             android:layout_width="match_parent"
@@ -158,30 +157,30 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipAccessories"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="Accessories" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipClothing"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="Clothing" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipBeauty"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="Beauty" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipElectronics"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="Electronics" />
 
         </com.google.android.material.chip.ChipGroup>
@@ -234,58 +233,58 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip2XS"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="2XS" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipXS"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="XS" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipS"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="S" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipM"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="M" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipL"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="L" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipXL"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="XL" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip2XL"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="2XL" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip3XL"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="3XL" />
 
         </com.google.android.material.chip.ChipGroup>
@@ -326,7 +325,6 @@
         </LinearLayout>
 
         <!-- Brand Options -->
-        <!-- DEYİŞİKLİK: ChipGroup-dakı bütün Chip-lərə style="@style/CustomFilterChipStyle" əlavə olundu -->
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupBrands"
             android:layout_width="match_parent"
@@ -340,37 +338,37 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipNike"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="Nike" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipSephore"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="Sephore" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipPuma"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="Puma" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipGucci"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="Gucci" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipAdidas"
-                style="@style/CustomFilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selector_size_button"
                 android:text="Adidas" />
 
         </com.google.android.material.chip.ChipGroup>

@@ -14,21 +14,34 @@ class ProductColorAdapter(
     private val onColorSelected: (ProductColorItem) -> Unit,
 ) : RecyclerView.Adapter<ProductColorAdapter.ColorViewHolder>() {
 
-    private var selectedPosition = 0
+    private var selectedPosition = RecyclerView.NO_POSITION // Start with no selection
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateColors(newColors: List<ProductColorItem>) {
         colors = newColors
+        selectedPosition = RecyclerView.NO_POSITION // Reset selection when colors update
         notifyDataSetChanged()
     }
 
     fun updateSelection(colorName: String?) {
-        val newPosition = colors.indexOfFirst { it.colorName == colorName }
-        if (newPosition != -1 && newPosition != selectedPosition) {
+        if (colorName.isNullOrEmpty()) {
+            // Clear selection
             val oldPosition = selectedPosition
-            selectedPosition = newPosition
-            notifyItemChanged(oldPosition)
-            notifyItemChanged(selectedPosition)
+            selectedPosition = RecyclerView.NO_POSITION
+            if (oldPosition != RecyclerView.NO_POSITION) {
+                notifyItemChanged(oldPosition)
+            }
+        } else {
+            // Find and select new color
+            val newPosition = colors.indexOfFirst { it.colorName == colorName }
+            if (newPosition != -1 && newPosition != selectedPosition) {
+                val oldPosition = selectedPosition
+                selectedPosition = newPosition
+                if (oldPosition != RecyclerView.NO_POSITION) {
+                    notifyItemChanged(oldPosition)
+                }
+                notifyItemChanged(selectedPosition)
+            }
         }
     }
 

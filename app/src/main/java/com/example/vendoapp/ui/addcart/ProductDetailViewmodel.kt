@@ -54,7 +54,7 @@ class ProductDetailViewModel @Inject constructor() : ViewModel() {
                 ProductColorItem("Green", "https://via.placeholder.com/80x100/00FF00/000000?text=Green"),
                 ProductColorItem("Gray", "https://via.placeholder.com/80x100/808080/FFFFFF?text=Gray")
             ),
-            defaultColor = "Green",
+            defaultColor = "",  // No default color - user must select
             sizes = listOf("M", "L", "XL", "XXL"),
             defaultSize = "M",
             estimatedDelivery = "20-30 January",
@@ -63,7 +63,8 @@ class ProductDetailViewModel @Inject constructor() : ViewModel() {
             returnInfo = "Easy and free return in 7 days from the delivered date"
         )
 
-        _selectedColor.value = "Green"
+        // Start with empty selected color - user must select
+        _selectedColor.value = ""
         _selectedSize.value = "M"
         _isFavorite.value = false
     }
@@ -72,7 +73,11 @@ class ProductDetailViewModel @Inject constructor() : ViewModel() {
         // TODO: API call
         // repository.getProductDetail(productId).observe { result ->
         //     when (result) {
-        //         is Success -> _productDetail.value = result.data
+        //         is Success -> {
+        //             _productDetail.value = result.data
+        //             _selectedColor.value = ""  // Reset color selection
+        //             _selectedSize.value = result.data.defaultSize
+        //         }
         //         is Error -> // Handle error
         //     }
         // }
@@ -94,12 +99,23 @@ class ProductDetailViewModel @Inject constructor() : ViewModel() {
 
     fun addToCart() {
         val product = _productDetail.value ?: return
-        val color = _selectedColor.value ?: return
+        val color = _selectedColor.value
         val size = _selectedSize.value ?: return
+
+        // Validate color selection
+        if (color.isNullOrEmpty()) {
+            // Show error - color must be selected
+            // You can add a separate LiveData for showing errors
+            return
+        }
 
         // TODO: API call to add to cart
         // repository.addToCart(product.id, color, size, quantity = 1)
 
         _addToCartSuccess.value = true
+    }
+
+    fun resetAddToCartFlag() {
+        _addToCartSuccess.value = false
     }
 }
