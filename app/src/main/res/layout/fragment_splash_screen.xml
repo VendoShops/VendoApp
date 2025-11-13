@@ -7,9 +7,11 @@
     tools:context=".ui.splashscreen.SplashScreenFragment">
 
     <ImageView
+        android:id="@+id/ivSplash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/vendosplash"
-        android:layout_marginHorizontal="16dp"/>
+        android:layout_marginHorizontal="16dp"
+        android:alpha="0.0"/>
 
 </LinearLayout>
