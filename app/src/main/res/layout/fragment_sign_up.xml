@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.signup.SignUpFragment">
+        tools:context=".ui.login.signup.SignUpFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/dmsansmedium"
                 android:hint="Email adress"
-                android:inputType="textPassword"
+                android:inputType="textEmailAddress"
                 android:padding="12dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_9f"
@@ -228,15 +228,15 @@
             android:layout_marginTop="30dp"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/dmsansmedium"
-            android:paddingStart="52dp"
             android:text="Continue with Google"
-            android:textAlignment="textStart"
             android:textColor="@color/black"
+            android:textAlignment="center"
             android:textSize="16sp"
             app:cornerRadius="8dp"
+            app:iconGravity="textStart"
             app:icon="@drawable/google"
-            app:iconPadding="26dp"
             app:iconTintMode="multiply"
+            app:iconPadding="13dp"
             app:layout_constraintEnd_toEndOf="@id/guideline2"
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/tvOtherChoice"

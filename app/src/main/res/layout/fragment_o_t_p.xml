@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:id="@+id/main"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.otp.OTPFragment">
+    tools:context=".ui.login.otp.OTPFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -64,11 +64,15 @@
             app:length="4"
             app:otp=""/>
 
-        <Button
-            android:id="@+id/btnSendOTP"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirmOTP"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Send OTP"
+            android:text="Confirm OTP"
+            android:fontFamily="@font/dmsansmedium"
+            android:backgroundTint="@color/black"
+            app:cornerRadius="8dp"
+            android:textSize="16sp"
             android:layout_marginTop="36dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -105,6 +109,16 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -58,12 +58,16 @@
         app:layout_constraintTop_toBottomOf="@id/ivBack"
         tools:listitem="@layout/item_payment_methods" />
 
-    <com.example.vendoapp.ui.custom.CustomPrimaryButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddNewCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="26dp"
         android:text="Add new card"
+        android:fontFamily="@font/dmsansmedium"
+        android:backgroundTint="@color/black"
+        app:cornerRadius="8dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="@id/guideline" />

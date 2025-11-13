@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/main"
     android:background="@color/white"
-    tools:context=".ui.termsandconditions.TermsAndConditionsFragment">
+    tools:context=".ui.profile.termsandconditions.TermsAndConditionsFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

@@ -11,4 +11,7 @@
     <string name="cart_nav">Cart</string>
     <string name="profile_nav">Profile</string>
     <string name="search_home">Search</string>
+    <string name="back_btn_filterpage">Back</string>
+    <string name="filter_txt_filterpage">Filter</string>
+    <string name="gender">Gender</string>
 </resources>

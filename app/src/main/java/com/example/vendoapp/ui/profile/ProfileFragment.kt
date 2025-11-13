@@ -32,6 +32,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         binding.myPaymentMethodsConstraint.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_paymentMethodFragment)
         }
+        binding.myOrderConstraint.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_myOrdersFragment)
+        }
+        binding.myReturnsConstraint.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_myReturnsFragment)
+        }
     }
 
 

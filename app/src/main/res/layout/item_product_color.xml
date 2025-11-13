@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="100dp"
+    android:layout_marginEnd="8dp">
+
+    <!-- Product color image -->
+    <ImageView
+        android:id="@+id/ivColorImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_color_item"
+        android:contentDescription="Color variant"
+        android:scaleType="centerCrop" />
+
+    <!-- Selection indicator (border) -->
+    <View
+        android:id="@+id/viewSelectionBorder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_color_item_selected"
+        android:visibility="gone" />
+
+</FrameLayout>

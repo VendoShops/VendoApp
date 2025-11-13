@@ -3,6 +3,7 @@ package com.example.vendoapp.ui.home
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -11,13 +12,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.vendoapp.R
+import com.example.vendoapp.data.model.home.Product
 import com.example.vendoapp.databinding.FragmentHomeBinding
 import com.example.vendoapp.ui.adapter.home.BrandAdapter
 import com.example.vendoapp.ui.adapter.home.ProductAdapter
 import com.example.vendoapp.ui.base.BaseFragment
-import com.example.vendoapp.ui.viewmodel.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,6 +35,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         setupRecyclerViews()
         setupSearchFunctionality()
         observeViewModel()
+        setUpClickListeners()
+
+        viewModel.loadHomeData()
     }
 
     private fun setupRecyclerViews() {
@@ -48,14 +54,39 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         // Setup Product RecyclerView (vertical)
         productAdapter = ProductAdapter(
             onProductClick = { product -> viewModel.onProductClick(product) },
-            onFavoriteClick = { product -> viewModel.onFavoriteClick(product) }
+            onFavoriteClick = { product -> viewModel.onFavoriteClick(product) },
+            onItemClick = { product -> viewModel.onItemClicked(product) }
         )
 
+        // Set up the RecyclerView with a GridLayoutManager
         binding.rvForYou.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = productAdapter
             isNestedScrollingEnabled = false
         }
+    }
+
+    private fun setUpClickListeners() {
+        binding.let { home ->
+            home.ivNotification.setOnClickListener { viewModel.onNotificationClick() }
+//            home.ivFilter.setOnClickListener { viewModel.onSearchClick() }
+            home.btnShopNow.setOnClickListener { viewModel.onShopNowClick() }
+            home.tvTopBrandsMore.setOnClickListener { /* Navigate to brands page */ }
+            home.tvForYouMore.setOnClickListener { /* Navigate to products page */ }
+
+            home.ivFilter.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_filterFragment)
+            }
+
+            home.tvForYouMore.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_forYouFragment)
+            }
+
+            home.main.setOnClickListener {
+                hideKeyboardAndClearFocus()
+            }
+        }
+
     }
 
     private fun setupUi() {
@@ -66,35 +97,40 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 insets
             }
 
-            // Click listeners
-            it.ivNotification.setOnClickListener { viewModel.onNotificationClick() }
-            it.ivFilter.setOnClickListener { viewModel.onSearchClick() }
-            it.btnShopNow.setOnClickListener { viewModel.onShopNowClick() }
-            it.tvTopBrandsMore.setOnClickListener { /* Navigate to brands page */ }
-            it.tvForYouMore.setOnClickListener { /* Navigate to products page */ }
-
             it.etSearch.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     showKeyboard(it.etSearch)
                 }
             }
+        }
+    }
 
-            it.main.setOnClickListener {
-                hideKeyboardAndClearFocus()
+    private fun observeViewModel() {
+        // Location
+        lifecycleScope.launchWhenStarted {
+            viewModel.location.collect { location ->
+                binding.tvLocation.text = location
             }
+        }
 
-            // Handle end icon clicks (scanner/clear toggle)
-//            it.tilSearch.setEndIconOnClickListener {
-//                val currentText = it.etSearch.text?.toString() ?: ""
-//                if (currentText.isEmpty()) {
-//                    // Scanner icon clicked
-//                    viewModel.onQrCodeClick()
-//                } else {
-//                    // Clear icon clicked
-//                    it.etSearch.text?.clear()
-//                    hideKeyboardAndClearFocus()
-//                }
-//            }
+        // Brands (500 error olduğu üçün boş qalacaq)
+        lifecycleScope.launchWhenStarted {
+            viewModel.topBrands.collect { brands ->
+                brandAdapter.submitList(brands)
+                Log.d("HomeFragment", "Brands updated: ${brands.size}")
+            }
+        }
+
+        // Products - İŞLƏYƏCƏK
+        lifecycleScope.launchWhenStarted {
+            viewModel.products.collect { products ->
+                productAdapter.submitList(products)
+                Log.d("HomeFragment", "✅ Products updated: ${products.size}")
+
+                if (products.isEmpty()) {
+                    Log.w("HomeFragment", "⚠️ No products to display - backend has no data")
+                }
+            }
         }
     }
 
@@ -176,20 +212,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             binding.tilSearch.endIconDrawable =
                 ContextCompat.getDrawable(requireContext(), R.drawable.scanner)
             binding.tilSearch.endIconContentDescription = "Scanner"
-        }
-    }
-
-    private fun observeViewModel() {
-        viewModel.location.observe(viewLifecycleOwner) { location ->
-            binding.tvLocation.text = location
-        }
-
-        viewModel.topBrands.observe(viewLifecycleOwner) { brands ->
-            brandAdapter.submitList(brands)
-        }
-
-        viewModel.products.observe(viewLifecycleOwner) { products ->
-            productAdapter.submitList(products)
         }
     }
 }
