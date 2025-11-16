@@ -65,7 +65,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <!-- Search Bar using TextInputLayout -->
+            <!-- Custom SearchBar inside TextInputLayout -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilSearch"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -74,34 +74,59 @@
                 android:layout_marginEnd="12dp"
                 android:layout_weight="1"
                 app:boxBackgroundColor="#FFFFFF"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
                 app:boxStrokeColor="#E0E0E0"
                 app:boxStrokeWidth="1dp"
-                app:endIconContentDescription="Scanner"
-                app:endIconDrawable="@drawable/scanner"
-                app:endIconMode="custom"
-                app:hintEnabled="false"
-                app:startIconContentDescription="Search"
-                app:startIconDrawable="@drawable/search">
+                app:hintEnabled="false">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etSearch"
+                <!-- Figma style search bar container -->
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/search_home"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:paddingStart="12dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="12dp"
-                    android:paddingBottom="8dp"
-                    android:textColor="#333333"
-                    android:textColorHint="#CCCCCC"
-                    android:textSize="14sp" />
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp">
+
+                        <!-- Search icon (left) -->
+                        <ImageView
+                            android:id="@+id/ivSearchIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/search" />
+
+                        <!-- EditText -->
+                        <EditText
+                            android:id="@+id/etSearch"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:hint="Search"
+                            android:maxLines="1"
+                            android:padding="0dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#BBBBBB"
+                            android:textSize="14sp" />
+
+                        <!-- Scanner button (INSIDE searchbar) -->
+                        <ImageView
+                            android:id="@+id/btnScanner"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/scanner" />
+                    </LinearLayout>
+
+                </FrameLayout>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,10 +135,7 @@
                 android:id="@+id/ivFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
                 android:padding="4dp"
                 android:src="@drawable/filter" />
 

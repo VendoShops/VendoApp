@@ -86,7 +86,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 hideKeyboardAndClearFocus()
             }
         }
-
     }
 
     private fun setupUi() {
