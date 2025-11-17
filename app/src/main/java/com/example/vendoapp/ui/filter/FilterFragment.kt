@@ -24,6 +24,9 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
         setupViews()
         setupObservers()
         setupClickListeners()
+
+        // Initially hide the Apply Filter button
+        binding.btnApplyFilter.visibility = View.GONE
     }
 
     @SuppressLint("SetTextI18n")
@@ -31,6 +34,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
         // Setup color RecyclerView
         colorAdapter = ColorAdapter(emptyList()) { colorItem ->
             viewModel.updateColorSelection(colorItem)
+            checkAndShowApplyButton()
         }
 
         binding.recyclerViewColors.apply {
@@ -49,6 +53,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
             binding.etMaxPrice.setText(values[1].toInt().toString())
 
             viewModel.updatePriceRange(values[0], values[1])
+            checkAndShowApplyButton()
         }
 
         binding.etMinPrice.addTextChangedListener(object : TextWatcher {
@@ -79,6 +84,10 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
     private fun setupObservers() {
         viewModel.expandedSections.observe(viewLifecycleOwner) { expandedSections ->
             updateSectionVisibility(expandedSections)
+
+            if (expandedSections.isNotEmpty()) {
+                binding.btnApplyFilter.visibility = View.VISIBLE
+            }
         }
 
         viewModel.colorList.observe(viewLifecycleOwner) { colors ->
@@ -237,5 +246,20 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
         val isPriceExpanded = expandedSections.contains(FilterSection.PRICE)
         binding.layoutPriceOptions.visibility = if (isPriceExpanded) View.VISIBLE else View.GONE
         rotateArrow(binding.ivPriceArrow, isPriceExpanded)
+    }
+
+    private fun checkAndShowApplyButton() {
+        val filterData = viewModel.filterData.value ?: return
+
+        val hasSelection = filterData.selectedGenders.isNotEmpty() ||
+                filterData.selectedCategories.isNotEmpty() ||
+                filterData.selectedSizes.isNotEmpty() ||
+                filterData.selectedBrands.isNotEmpty() ||
+                filterData.selectedColors.isNotEmpty() ||
+                (filterData.minPrice != 0f || filterData.maxPrice != 20000f)
+
+        if (hasSelection) {
+            binding.btnApplyFilter.visibility = View.VISIBLE
+        }
     }
 }

@@ -58,84 +58,80 @@
 
         </LinearLayout>
 
-        <!-- Search bar row -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <!-- Custom SearchBar inside TextInputLayout -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilSearch"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="12dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:boxBackgroundColor="#FFFFFF"
-                app:boxCornerRadiusBottomEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusTopStart="16dp"
-                app:boxStrokeColor="#E0E0E0"
-                app:boxStrokeWidth="1dp"
-                app:hintEnabled="false">
+                android:elevation="2dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp">
 
-                <!-- Figma style search bar container -->
-                <FrameLayout
+                <!-- Search bar row -->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="10dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp">
+                    <!-- Search icon -->
+                    <ImageView
+                        android:id="@+id/search_category_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:contentDescription="Search icon"
+                        android:src="@drawable/search" />
 
-                        <!-- Search icon (left) -->
-                        <ImageView
-                            android:id="@+id/ivSearchIcon"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginEnd="8dp"
-                            android:src="@drawable/search" />
+                    <!-- Search text -->
+                    <EditText
+                        android:id="@+id/searchEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="Search"
+                        android:inputType="text"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:singleLine="true"
+                        android:textColor="#000000"
+                        android:textColorHint="#808080" />
 
-                        <!-- EditText -->
-                        <EditText
-                            android:id="@+id/etSearch"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@android:color/transparent"
-                            android:hint="Search"
-                            android:maxLines="1"
-                            android:padding="0dp"
-                            android:textColor="#333333"
-                            android:textColorHint="#BBBBBB"
-                            android:textSize="14sp" />
+                    <!-- Scan/Camera icon -->
+                    <ImageView
+                        android:id="@+id/qr_scanner_category"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="QR Scanner"
+                        android:focusable="true"
+                        android:src="@drawable/scanner" />
 
-                        <!-- Scanner button (INSIDE searchbar) -->
-                        <ImageView
-                            android:id="@+id/btnScanner"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            android:layout_marginStart="8dp"
-                            android:src="@drawable/scanner" />
-                    </LinearLayout>
+                </LinearLayout>
 
-                </FrameLayout>
-
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Filter button -->
             <ImageView
                 android:id="@+id/ivFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Filter"
+                android:focusable="true"
                 android:padding="4dp"
                 android:src="@drawable/filter" />
 

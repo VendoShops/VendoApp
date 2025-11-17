@@ -220,6 +220,7 @@
 
         </LinearLayout>
 
+        <!-- Size Options -->
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupSizes"
             android:layout_width="match_parent"
@@ -230,13 +231,6 @@
             app:chipSpacingHorizontal="12dp"
             app:chipSpacingVertical="12dp"
             app:singleSelection="false">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip2XS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="2XS" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipXS"
@@ -273,20 +267,6 @@
                 android:background="@drawable/selector_size_button"
                 android:text="XL" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip2XL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="2XL" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip3XL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="3XL" />
-
         </com.google.android.material.chip.ChipGroup>
 
         <!-- Divider -->
@@ -310,7 +290,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Brands"
+                android:text="Brand"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -344,11 +324,11 @@
                 android:text="Nike" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipSephore"
+                android:id="@+id/chipAdidas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_size_button"
-                android:text="Sephore" />
+                android:text="Adidas" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipPuma"
@@ -358,18 +338,11 @@
                 android:text="Puma" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipGucci"
+                android:id="@+id/chipZara"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_size_button"
-                android:text="Gucci" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipAdidas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="Adidas" />
+                android:text="Zara" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -408,7 +381,7 @@
 
         </LinearLayout>
 
-        <!-- Color Options (RecyclerView) -->
+        <!-- Color Options -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewColors"
             android:layout_width="match_parent"
@@ -424,7 +397,6 @@
             android:layout_marginHorizontal="16dp"
             android:background="#E5E7EB" />
 
-        <!-- PRICE SECTION -->
         <LinearLayout
             android:id="@+id/layoutPriceHeader"
             android:layout_width="match_parent"
@@ -453,6 +425,7 @@
 
         </LinearLayout>
 
+        <!-- Price Options -->
         <LinearLayout
             android:id="@+id/layoutPriceOptions"
             android:layout_width="match_parent"
@@ -552,18 +525,25 @@
 
         </LinearLayout>
 
-        <!-- Apply Filter Button -->
-        <Button
+        <!-- Spacer to push button to bottom when needed -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Apply Filter Button - Initially Hidden -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnApplyFilter"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_margin="16dp"
-            android:backgroundTint="#000000"
+            android:backgroundTint="@android:color/black"
             android:text="Apply filter"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@android:color/white"
             android:textSize="16sp"
-            app:cornerRadius="4dp" />
+            android:visibility="gone"
+            app:cornerRadius="12dp" />
 
     </LinearLayout>
 
