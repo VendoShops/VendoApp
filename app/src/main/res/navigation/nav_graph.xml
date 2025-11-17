@@ -195,4 +195,9 @@
         android:name="com.example.vendoapp.ui.addcart.AddCartFragment"
         tools:layout="@layout/fragment_add_cart"
         android:label="AddCartFragment" />
+    <fragment
+        android:id="@+id/paymentSuccessful"
+        android:name="com.example.vendoapp.ui.successfulpayment.PaymentSuccessful"
+        android:label="fragment_payment_succesful"
+        tools:layout="@layout/fragment_payment_succesful" />
 </navigation>
