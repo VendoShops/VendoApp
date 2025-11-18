@@ -5,20 +5,26 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.vendoapp.R
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentLoginBinding
 import com.example.vendoapp.utils.Resource
+import com.example.vendoapp.utils.TokenManager
 import com.example.vendoapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(
     FragmentLoginBinding::inflate
 ) {
+
+    @Inject lateinit var tokenManager: TokenManager
+
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreateFinish() {
@@ -34,6 +40,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
+            val remember = binding.cbRememberMe.isChecked
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(
@@ -43,7 +50,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                 ).show()
                 return@setOnClickListener
             }
-            viewModel.login(email, password)
+
+            viewModel.login(email, password, remember)
+
+            if (remember) {
+                tokenManager.saveRememberMe(true)
+            } else {
+                tokenManager.saveRememberMe(false)
+            }
         }
         observeLoginState()
     }
@@ -61,6 +75,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                         showLoading(false)
                         Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+
+                        val token = state.data?.accessToken
+                        val refresh = state.data?.refreshToken
+
+                        if (binding.cbRememberMe.isChecked) {
+                            viewModel.saveLoginData(
+                                email = binding.etEmail.text.toString(),
+                                password = binding.etPassword.text.toString(),
+                                accessToken = token,
+                                refreshToken = refresh
+                            )
+                        }
+
+                        findNavController().navigate(
+                            R.id.homeFragment,
+                            null,
+                            NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
+                        )
                     }
 
                     is Resource.Error -> {

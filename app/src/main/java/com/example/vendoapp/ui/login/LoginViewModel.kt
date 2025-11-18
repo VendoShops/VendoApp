@@ -6,6 +6,7 @@ import com.example.vendoapp.data.model.auth.login.LoginRequest
 import com.example.vendoapp.data.model.auth.login.LoginResponse
 import com.example.vendoapp.domain.usecase.LoginUseCase
 import com.example.vendoapp.utils.Resource
+import com.example.vendoapp.utils.TokenManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,17 +15,32 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val tokenManager: TokenManager
 ) : ViewModel() {
 
     private val _loginState = MutableStateFlow<Resource<LoginResponse>>(Resource.Idle())
     val loginState: StateFlow<Resource<LoginResponse>> = _loginState
 
-    fun login(email: String, password: String) {
+    fun login(email: String, password: String, remember: Boolean) {
         viewModelScope.launch {
             _loginState.value = Resource.Loading()
             val result = loginUseCase(LoginRequest(email, password))
             _loginState.value = result
+
+            if (result is Resource.Success && remember) {
+                saveLoginData(
+                    email,
+                    password,
+                    result.data?.accessToken,
+                    result.data?.refreshToken
+                )
+            }
         }
+    }
+
+    fun saveLoginData(email: String, password: String, accessToken: String?, refreshToken: String?) {
+        tokenManager.saveTokens(accessToken, refreshToken)
+        tokenManager.saveUserCredentials(email, password)
     }
 }

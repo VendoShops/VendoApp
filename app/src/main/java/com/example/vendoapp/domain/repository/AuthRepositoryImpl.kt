@@ -45,9 +45,9 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun sendOtp(request: SendOtpRequest): Resource<String> =
-        safeApiCall { apiService.sendOtp(request).body() ?: "OTP sent successfully" }
+        safeApiCall { apiService.sendOtp(request) }
 
     override suspend fun verifyOtp(request: VerifyOtpRequest): Resource<String> =
-        safeApiCall { apiService.verifyOtp(request).body() ?: "OTP verified successfully" }
+        safeApiCall { apiService.verifyOtp(request) }
 
 }

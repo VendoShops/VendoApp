@@ -25,22 +25,22 @@ import retrofit2.http.Path
 interface ApiService {
 
     @POST("api/v1/auth/register")
-    suspend fun register(@Body registerRequest: RegisterRequest): RegisterResponse
+    suspend fun register(@Body registerRequest: RegisterRequest): ApiResponse<RegisterResponse>
 
     @POST("api/v1/auth/login")
-    suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
+    suspend fun login(@Body loginRequest: LoginRequest): ApiResponse<LoginResponse>
 
     @POST("api/v1/auth/refresh")
     suspend fun refreshToken(@Body refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse
 
     @POST("/api/v1/auth/forgot-password")
-    suspend fun forgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse
+    suspend fun forgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest): ApiResponse<ForgotPasswordResponse>
 
     @POST("api/v1/otp/send")
-    suspend fun sendOtp(@Body request: SendOtpRequest): Response<String>
+    suspend fun sendOtp(@Body request: SendOtpRequest): ApiResponse<String>
 
     @POST("api/v1/otp/verify")
-    suspend fun verifyOtp(@Body request: VerifyOtpRequest): Response<String>
+    suspend fun verifyOtp(@Body request: VerifyOtpRequest): ApiResponse<String>
 
     @GET("api/v1/banners")
     suspend fun getBanners(): Response<ApiResponse<List<BannerResponse>>>
