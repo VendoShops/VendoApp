@@ -75,8 +75,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(
     private fun setUpNavigate() {
         binding.apply {
             btnCheckOut.setOnClickListener {
-                // CheckOut Fragment navigate
-//                findNavController().navigate(R.id.action_cartFragment_to_checkOutFragment)
+                // TEST NAVIGATE
+                findNavController().navigate(R.id.checkOutFragment)
             }
             btnBack.setOnClickListener {
                 findNavController().navigateUp()

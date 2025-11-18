@@ -12,19 +12,19 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment"/>
+            app:destination="@id/signUpFragment" />
         <action
             android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment"/>
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.vendoapp.ui.login.signup.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" >
+        tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUpFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
@@ -39,7 +39,7 @@
         android:id="@+id/forgotPasswordFragment"
         android:name="com.example.vendoapp.ui.login.forgotpassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" >
+        tools:layout="@layout/fragment_forgot_password">
         <action
             android:id="@+id/action_forgotPasswordFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -51,7 +51,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.vendoapp.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_filterFragment"
             app:destination="@id/filterFragment" />
@@ -78,7 +78,7 @@
         android:id="@+id/profileFragment"
         android:name="com.example.vendoapp.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_selectLanguageFragment"
             app:destination="@id/selectLanguageFragment" />
@@ -108,7 +108,7 @@
         android:id="@+id/splashScreenFragment"
         android:name="com.example.vendoapp.ui.splashscreen.SplashScreenFragment"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" >
+        tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreenFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -119,7 +119,7 @@
         android:id="@+id/OTPFragment"
         android:name="com.example.vendoapp.ui.login.otp.OTPFragment"
         android:label="fragment_o_t_p"
-        tools:layout="@layout/fragment_o_t_p" >
+        tools:layout="@layout/fragment_o_t_p">
         <action
             android:id="@+id/action_OTPFragment_to_newPasswordFragment"
             app:destination="@id/newPasswordFragment" />
@@ -131,7 +131,7 @@
         android:id="@+id/newPasswordFragment"
         android:name="com.example.vendoapp.ui.login.newpassword.NewPasswordFragment"
         android:label="fragment_new_password"
-        tools:layout="@layout/fragment_new_password" >
+        tools:layout="@layout/fragment_new_password">
         <action
             android:id="@+id/action_newPasswordFragment_to_changedPasswordFragment"
             app:destination="@id/changedPasswordFragment" />
@@ -140,7 +140,7 @@
         android:id="@+id/changedPasswordFragment"
         android:name="com.example.vendoapp.ui.login.changedpassword.ChangedPasswordFragment"
         android:label="fragment_changed_password"
-        tools:layout="@layout/fragment_changed_password" >
+        tools:layout="@layout/fragment_changed_password">
         <action
             android:id="@+id/action_changedPasswordFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -173,13 +173,13 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.example.vendoapp.ui.filter.FilterFragment"
-        tools:layout="@layout/fragment_filter"
-        android:label="FilterFragment" />
+        android:label="FilterFragment"
+        tools:layout="@layout/fragment_filter" />
     <fragment
         android:id="@+id/forYouFragment"
         android:name="com.example.vendoapp.ui.for_you.ForYouFragment"
-        tools:layout="@layout/fragment_for_you"
-        android:label="ForYouFragment" />
+        android:label="ForYouFragment"
+        tools:layout="@layout/fragment_for_you" />
     <fragment
         android:id="@+id/myOrdersFragment"
         android:name="com.example.vendoapp.ui.profile.myorders.MyOrdersFragment"
@@ -193,11 +193,17 @@
     <fragment
         android:id="@+id/addCartFragment"
         android:name="com.example.vendoapp.ui.addcart.AddCartFragment"
-        tools:layout="@layout/fragment_add_cart"
-        android:label="AddCartFragment" />
+        android:label="AddCartFragment"
+        tools:layout="@layout/fragment_add_cart" />
     <fragment
         android:id="@+id/paymentSuccessful"
         android:name="com.example.vendoapp.ui.successfulpayment.PaymentSuccessful"
         android:label="fragment_payment_succesful"
         tools:layout="@layout/fragment_payment_succesful" />
+    <fragment
+        android:id="@+id/checkOutFragment"
+        android:name="com.example.vendoapp.ui.checkout.CheckOutFragment"
+        android:label="CheckOutFragment"
+        tools:layout="@layout/fragment_check_out" />
+
 </navigation>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/checkOutFragment"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -159,7 +160,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/white"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:hint="Number"
                     android:inputType="phone"
                     android:maxLength="9"
@@ -232,28 +233,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputLayout
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/cityInput"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="2dp"
-                    app:boxStrokeWidthFocused="3dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/cityInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:enabled="false"
-                        android:hint="City"
-                        android:inputType="phone"
-                        android:maxLength="9"
-                        android:padding="12dp"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:enabled="false"
+                    android:hint="City"
+                    android:inputType="phone"
+                    android:maxLength="9"
+                    android:padding="12dp"
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -349,8 +340,8 @@
             android:layout_height="390dp"
             android:layout_marginTop="24dp"
             app:layout_constraintBottom_toTopOf="@+id/view"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 
