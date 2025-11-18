@@ -55,6 +55,14 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(
                 originalPrice = "$12",
                 imageResId = com.example.vendoapp.R.drawable.fake_girl,
                 badge = 1
+            ),
+            CartItem(
+                title = "Women manfi fashion fashinon fashion fash...",
+                variant = "Brown/L",
+                currentPrice = "$9",
+                originalPrice = "$12",
+                imageResId = com.example.vendoapp.R.drawable.fake_girl,
+                badge = 1
             )
         )
 
