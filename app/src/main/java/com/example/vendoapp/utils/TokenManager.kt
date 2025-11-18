@@ -3,7 +3,9 @@ package com.example.vendoapp.utils
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class TokenManager @Inject constructor(@ApplicationContext context: Context) {
     private val prefs = context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
 
@@ -15,6 +17,21 @@ class TokenManager @Inject constructor(@ApplicationContext context: Context) {
     }
 
     fun getAccessToken(): String? = prefs.getString("access_token", null)
+
     fun getRefreshToken(): String? = prefs.getString("refresh_token", null)
+
     fun clearTokens() { prefs.edit().clear().apply() }
+
+    fun saveUserCredentials(email: String, password: String) {
+        prefs.edit().apply {
+            putString("email", email)
+            putString("password", password)
+        }.apply()
+    }
+
+    fun isRememberMeChecked(): Boolean = prefs.getBoolean("remember_me", false)
+
+    fun saveRememberMe(checked: Boolean) {
+        prefs.edit().putBoolean("remember_me", checked).apply()
+    }
 }

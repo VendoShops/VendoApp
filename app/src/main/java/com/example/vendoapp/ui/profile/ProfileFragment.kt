@@ -6,14 +6,22 @@ import android.view.LayoutInflater
 import android.widget.Button
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.vendoapp.R
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentProfileBinding
+import com.example.vendoapp.utils.TokenManager
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     FragmentProfileBinding::inflate
 ) {
+
+    @Inject lateinit var tokenManager: TokenManager
+
     override fun onViewCreateFinish() {
         setupUi()
         tvLogoutClick()
@@ -44,7 +52,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     private fun tvLogoutClick() {
         binding.tvLogOut.setOnClickListener {
             showLogoutDialog(requireContext()) {
-                // Hesabdan cixis
+                tokenManager.clearTokens()
             }
         }
     }
@@ -58,10 +66,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         val btnCancel = view.findViewById<Button>(R.id.btnCancel)
 
         btnLogout.setOnClickListener {
-            onLogoutConfirmed()
-            findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
             dialog.dismiss()
+            onLogoutConfirmed()
+            findNavController().navigate(
+                R.id.loginFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.homeFragment, true).build()
+            )
         }
+
 
         btnCancel.setOnClickListener {
             dialog.dismiss()

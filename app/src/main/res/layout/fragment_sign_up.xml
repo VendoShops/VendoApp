@@ -196,6 +196,34 @@
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/etPasswordLayout" />
 
+        <LinearLayout
+            android:id="@+id/cbLinear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintTop_toTopOf="@id/tvForgotPassword"
+            app:layout_constraintBottom_toBottomOf="@id/tvForgotPassword" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remember Me"
+                android:padding="4dp"
+                android:textAlignment="textStart"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/dmsansmedium" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cbRememberMe"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:checked="false"
+                app:buttonTint="@color/grey_9f"/>
+
+        </LinearLayout>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignUp"
             android:layout_width="0dp"
