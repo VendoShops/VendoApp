@@ -3,6 +3,7 @@ package com.example.vendoapp.ui.checkout
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.vendoapp.R
 import com.example.vendoapp.databinding.FragmentCheckOutBinding
 import com.example.vendoapp.ui.adapter.checkout.CartItem
 import com.example.vendoapp.ui.adapter.checkout.CheckOutAdapter
@@ -76,7 +77,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(
             }
 
             btnCheckOut.setOnClickListener {
-                // Navigate
+                findNavController().navigate(R.id.addNewAddressFragment)
             }
         }
     }

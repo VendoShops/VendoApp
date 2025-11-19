@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".ui.addnewaddress.AddNewAddressFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="18dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="14dp" />
+
+    <ImageView
+        android:id="@+id/icBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="21dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dmsanssemibold"
+        android:text="Customer Detail"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:layout_marginStart="11dp"
+        app:layout_constraintBottom_toBottomOf="@+id/icBack"
+        app:layout_constraintStart_toEndOf="@+id/icBack"
+        app:layout_constraintTop_toTopOf="@+id/icBack" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="33dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="1dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView4"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:id="@+id/tvCountryCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:drawableEnd="@drawable/icon_down"
+                android:drawablePadding="6dp"
+                android:enabled="false"
+                android:focusable="true"
+                android:fontFamily="@font/dmsansmedium"
+                android:gravity="center_vertical"
+                android:padding="12dp"
+                android:paddingEnd="6dp"
+                android:text="+994"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/countryBox"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="27dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="1dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/cvInput"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/countryInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:enabled="false"
+                    android:hint="Country"
+                    android:inputType="phone"
+                    android:maxLength="9"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingEnd="6dp"
+                    android:src="@drawable/icon_down" />
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cityBox"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="27dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="1dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/cvInput"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/cityInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:enabled="false"
+                    android:hint="City"
+                    android:inputType="phone"
+                    android:maxLength="9"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingEnd="6dp"
+                    android:src="@drawable/icon_down" />
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/fullAddressBox"
+            android:layout_width="match_parent"
+            android:layout_height="169dp"
+            android:layout_marginTop="27dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="1dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/cvInput"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fullAdress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:enabled="true"
+                    android:gravity="top|start"
+                    android:hint="My full address"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLines="10"
+                    android:minLines="3"
+                    android:padding="12dp"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSaveAdress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:backgroundTint="@color/black"
+        android:text="Save adress"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

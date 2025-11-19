@@ -208,5 +208,10 @@
         android:name="com.example.vendoapp.ui.checkout.CheckOutFragment"
         android:label="CheckOutFragment"
         tools:layout="@layout/fragment_check_out" />
+    <fragment
+        android:id="@+id/addNewAddressFragment"
+        android:name="com.example.vendoapp.ui.addnewaddress.AddNewAddressFragment"
+        android:label="fragment_add_new_adress"
+        tools:layout="@layout/fragment_add_new_adress" />
 
 </navigation>
