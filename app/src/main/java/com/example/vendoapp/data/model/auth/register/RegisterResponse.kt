@@ -6,5 +6,7 @@ data class RegisterResponse (
     val fullName: String,
     val accessToken: String,
     val refreshToken: String,
-    val success: Boolean = true
+    val tokenType: String?,
+    val accessTokenExpiryDate: String?,
+    val refreshTokenExpiryDate: String?
 )

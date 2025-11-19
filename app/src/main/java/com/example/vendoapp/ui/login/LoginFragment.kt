@@ -33,7 +33,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
         }
         binding.tvForgotPassword.setOnClickListener {
-
             findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
         binding.btnLogin.setOnClickListener {
@@ -67,24 +66,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             viewModel.loginState.collectLatest { state ->
                 when (state) {
                     is Resource.Idle -> showLoading(false)
-                    is Resource.Loading -> {
-                        showLoading(true)
-                    }
-
+                    is Resource.Loading -> showLoading(true)
                     is Resource.Success -> {
                         showLoading(false)
                         Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
 
                         val token = state.data?.accessToken
                         val refresh = state.data?.refreshToken
+                        val accessExpiry = state.data?.accessTokenExpiryDate
+                        val refreshExpiry = state.data?.refreshTokenExpiryDate
 
                         if (binding.cbRememberMe.isChecked) {
                             viewModel.saveLoginData(
                                 email = binding.etEmail.text.toString(),
                                 password = binding.etPassword.text.toString(),
                                 accessToken = token,
-                                refreshToken = refresh
+                                refreshToken = refresh,
+                                accessExpiry = accessExpiry,
+                                refreshExpiry = refreshExpiry
                             )
                         }
 

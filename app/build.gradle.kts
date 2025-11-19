@@ -84,5 +84,8 @@ dependencies {
     // Glide
     implementation ("com.github.bumptech.glide:glide:5.0.5")
 
+    // Java 8+ API-lərini köhnə Android versiyalarında dəstəkləmək üçün
+    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.1.5")
+
 
 }

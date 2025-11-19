@@ -33,14 +33,19 @@ class LoginViewModel @Inject constructor(
                     email,
                     password,
                     result.data?.accessToken,
-                    result.data?.refreshToken
+                    result.data?.refreshToken,
+                    result.data?.accessTokenExpiryDate,
+                    result.data?.refreshTokenExpiryDate
                 )
             }
         }
     }
 
-    fun saveLoginData(email: String, password: String, accessToken: String?, refreshToken: String?) {
-        tokenManager.saveTokens(accessToken, refreshToken)
+    fun saveLoginData(
+        email: String, password: String, accessToken: String?,
+        refreshToken: String?, accessExpiry: String?, refreshExpiry: String?
+    ) {
+        tokenManager.saveTokens(accessToken, refreshToken, accessExpiry, refreshExpiry)
         tokenManager.saveUserCredentials(email, password)
     }
 }

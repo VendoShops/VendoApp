@@ -5,18 +5,23 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.vendoapp.R
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentSignUpBinding
 import com.example.vendoapp.utils.Resource
+import com.example.vendoapp.utils.TokenManager
 import com.example.vendoapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
     FragmentSignUpBinding::inflate
 ) {
+
+    @Inject lateinit var tokenManager: TokenManager
 
     private val signUpViewModel : SignUpViewModel by viewModels()
 
@@ -39,6 +44,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
         val fullName = binding.etFullName.text.toString().trim()
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString().trim()
+        val remember = binding.cbRememberMe.isChecked
 
         if (fullName.isEmpty()){
             Toast.makeText(requireContext(), "FullName can't be empty", Toast.LENGTH_SHORT).show()
@@ -47,39 +53,51 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
         } else if (password.isEmpty()) {
             Toast.makeText(requireContext(), "Password can't be empty", Toast.LENGTH_SHORT).show()
         } else {
-            signUpViewModel.register(fullName, email, password)
+            signUpViewModel.register(fullName, email, password, remember)
         }
     }
 
     private fun observes() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            signUpViewModel.registerState.collect { resource ->
-                when (resource) {
+            signUpViewModel.registerState.collect { state ->
+                when (state) {
                     is Resource.Idle -> showLoading(false)
-                    is Resource.Loading -> {
-                        showLoading(true)
-                    }
+                    is Resource.Loading -> showLoading(true)
                     is Resource.Success -> {
                         showLoading(false)
-
                         Toast.makeText(requireContext(), "Qeydiyyat uğurlu!", Toast.LENGTH_SHORT).show()
 
-                        // Test    ------------------------>
+                        val token = state.data?.accessToken
+                        val refresh = state.data?.refreshToken
+                        val accessExpiry = state.data?.accessTokenExpiryDate
+                        val refreshExpiry = state.data?.refreshTokenExpiryDate
 
-                        //  Burani ATLMovie kimi eliye bilerik homeden geri qayidisda AlertDialog cixsin
+                        if (binding.cbRememberMe.isChecked) {
+                            signUpViewModel.saveLoginData(
+                                email = binding.etEmail.text.toString(),
+                                password = binding.etPassword.text.toString(),
+                                accessToken = token,
+                                refreshToken = refresh,
+                                accessExpiry = accessExpiry,
+                                refreshExpiry = refreshExpiry
+                            )
+                            tokenManager.saveRememberMe(true)
+                        } else {
+                            tokenManager.saveRememberMe(false)
+                        }
+
+
 
                         findNavController().navigate(
-                            R.id.action_signUpFragment_to_homeFragment,
+                            R.id.homeFragment,
                             null,
-                            androidx.navigation.NavOptions.Builder()
-                                .setPopUpTo(R.id.signUpFragment, true)
-                                .build()
+                            NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
                         )
                     }
 
                     is Resource.Error -> {
                         showLoading(false)
-                        handleError(resource.message)
+                        handleError(state.message)
                     }
                 }
             }

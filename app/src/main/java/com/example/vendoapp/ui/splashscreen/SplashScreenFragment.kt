@@ -51,7 +51,6 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>(
                             NavOptions.Builder().setPopUpTo(R.id.splashScreenFragment, true).build()
                         )
                     }
-
                 }
             }
         })
