@@ -12,7 +12,9 @@ import com.example.vendoapp.ui.base.BaseFragment
 class AddNewAddressFragment : BaseFragment<FragmentAddNewAdressBinding>(
     FragmentAddNewAdressBinding::inflate
 ) {
+
     private lateinit var adapter: AddAddressAdapter
+
 
     override fun onViewCreateFinish() {
         setupRecyclerView()
