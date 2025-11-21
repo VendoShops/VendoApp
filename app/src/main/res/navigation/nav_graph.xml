@@ -73,7 +73,11 @@
         android:id="@+id/cartFragment"
         android:name="com.example.vendoapp.ui.cart.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_addNewAddressFragment"
+            app:destination="@id/addNewAddressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.vendoapp.ui.profile.ProfileFragment"
@@ -207,11 +211,19 @@
         android:id="@+id/checkOutFragment"
         android:name="com.example.vendoapp.ui.checkout.CheckOutFragment"
         android:label="CheckOutFragment"
-        tools:layout="@layout/fragment_check_out" />
+        tools:layout="@layout/fragment_check_out" >
+        <action
+            android:id="@+id/action_checkOutFragment_to_paymentSuccessful"
+            app:destination="@id/paymentSuccessful" />
+    </fragment>
     <fragment
         android:id="@+id/addNewAddressFragment"
-        android:name="com.example.vendoapp.ui.addnewaddress.AddNewAddressFragment"
+        android:name="com.example.vendoapp.ui.addnewaddress.AddNewAdressFragment"
         android:label="fragment_add_new_adress"
-        tools:layout="@layout/fragment_add_new_adress" />
+        tools:layout="@layout/fragment_add_new_adress" >
+        <action
+            android:id="@+id/action_addNewAddressFragment_to_checkOutFragment"
+            app:destination="@id/checkOutFragment" />
+    </fragment>
 
 </navigation>

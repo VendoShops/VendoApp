@@ -8,8 +8,7 @@ import com.example.vendoapp.ui.adapter.addaddress.AddAddressAdapter
 import com.example.vendoapp.ui.adapter.addaddress.AddressItem
 import com.example.vendoapp.ui.base.BaseFragment
 
-
-class AddNewAddressFragment : BaseFragment<FragmentAddNewAdressBinding>(
+class AddNewAdressFragment : BaseFragment<FragmentAddNewAdressBinding>(
     FragmentAddNewAdressBinding::inflate
 ) {
 
@@ -34,7 +33,7 @@ class AddNewAddressFragment : BaseFragment<FragmentAddNewAdressBinding>(
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = this@AddNewAddressFragment.adapter
+            adapter = this@AddNewAdressFragment.adapter
         }
     }
 
@@ -66,10 +65,10 @@ class AddNewAddressFragment : BaseFragment<FragmentAddNewAdressBinding>(
     private fun setUpButtons() {
         binding.apply {
             icBack.setOnClickListener {
-                findNavController().navigateUp()
+                findNavController().popBackStack()
             }
             btnSaveAdress.setOnClickListener {
-                findNavController().navigate(R.id.paymentSuccessful)
+                findNavController().navigate(R.id.action_addNewAddressFragment_to_checkOutFragment)
             }
         }
     }

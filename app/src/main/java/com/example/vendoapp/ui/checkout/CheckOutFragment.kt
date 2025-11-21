@@ -73,11 +73,11 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(
     private fun setUpButtons(){
         binding.apply {
             btnBack.setOnClickListener {
-                findNavController().navigateUp()
+                findNavController().popBackStack()
             }
 
             btnCheckOut.setOnClickListener {
-                findNavController().navigate(R.id.addNewAddressFragment)
+                findNavController().navigate(R.id.action_checkOutFragment_to_paymentSuccessful)
             }
         }
     }
