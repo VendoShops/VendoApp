@@ -40,24 +40,21 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(
                 originalPrice = "$12",
                 imageResId = com.example.vendoapp.R.drawable.fake_girl,
                 badge = 1
-            ),
-            CartItem(
+            ), CartItem(
                 title = "Women manfi fashion fashinon fashion fash...",
                 variant = "Brown/L",
                 currentPrice = "$9",
                 originalPrice = "$12",
                 imageResId = com.example.vendoapp.R.drawable.fake_girl,
                 badge = 1
-            ),
-            CartItem(
+            ), CartItem(
                 title = "Women manfi fashion fashinon fashion fash...",
                 variant = "Brown/L",
                 currentPrice = "$9",
                 originalPrice = "$12",
                 imageResId = com.example.vendoapp.R.drawable.fake_girl,
                 badge = 1
-            ),
-            CartItem(
+            ), CartItem(
                 title = "Women manfi fashion fashinon fashion fash...",
                 variant = "Brown/L",
                 currentPrice = "$9",
@@ -70,7 +67,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(
         adapter.submitList(demoList)
     }
 
-    private fun setUpButtons(){
+    private fun setUpButtons() {
         binding.apply {
             btnBack.setOnClickListener {
                 findNavController().popBackStack()

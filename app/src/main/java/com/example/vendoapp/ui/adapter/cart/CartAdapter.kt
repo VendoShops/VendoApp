@@ -4,13 +4,16 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.bumptech.glide.Glide
+import com.example.vendoapp.R
 import com.example.vendoapp.data.model.cartModel.CartTestModel
 import com.example.vendoapp.databinding.ItemCartBinding
-import com.example.vendoapp.ui.adapter.cart.CartAdapter.CartAdapterViewHolder
+import com.example.vendoapp.ui.cart.CartViewModel
 
-class CartAdapter : Adapter<CartAdapter.CartAdapterViewHolder>() {
+class CartAdapter(
+    private val viewModel: CartViewModel,
+    private val onItemToggle: (CartTestModel) -> Unit
+) : RecyclerView.Adapter<CartAdapter.CartAdapterViewHolder>() {
 
     private var cartItems: List<CartTestModel> = emptyList()
 
@@ -19,42 +22,46 @@ class CartAdapter : Adapter<CartAdapter.CartAdapterViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): CartAdapterViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapterViewHolder {
         val binding = ItemCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CartAdapterViewHolder(binding)
     }
 
-    override fun onBindViewHolder(
-        holder: CartAdapterViewHolder,
-        position: Int
-    ) {
-        val item = cartItems[position]
-        holder.bind(item)
+    override fun onBindViewHolder(holder: CartAdapterViewHolder, position: Int) {
+        holder.bind(cartItems[position], position)
     }
 
-    override fun getItemCount(): Int {
-        return cartItems.size
-    }
+    override fun getItemCount(): Int = cartItems.size
 
-    class CartAdapterViewHolder(val itemCartBinding: ItemCartBinding) :
-        RecyclerView.ViewHolder(itemCartBinding.root) {
+    inner class CartAdapterViewHolder(private val binding: ItemCartBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: CartTestModel) {
-            itemCartBinding.apply {
+        fun bind(item: CartTestModel, position: Int) {
+            binding.apply {
                 title.text = item.title
                 price.text = item.price
                 oldPrice.text = item.oldPrice
                 oldPrice.paintFlags = oldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 size.text = item.size
 
-                Glide.with(itemView.context)
-                    .load(item.imageRes)
-                    .into(imgCart)
+                count.text = viewModel.countMap.value?.get(position)?.toString() ?: item.count.toString()
 
+                Glide.with(itemView.context).load(item.imageRes).into(imgCart)
+
+                checkbox.setImageResource(
+                    if (item.isSelected) R.drawable.checkbox_selected
+                    else R.drawable.checkbox_unselected
+                )
+
+                checkbox.setOnClickListener {
+                    onItemToggle(item)
+                }
+
+                plusIcon.setOnClickListener { viewModel.incrementCount(position) }
+                minusIcon.setOnClickListener { viewModel.decrementCount(position) }
             }
         }
+
     }
+
 }
