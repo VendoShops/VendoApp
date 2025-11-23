@@ -4,8 +4,8 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vendoapp.R
+import com.example.vendoapp.data.model.cartModel.CartItem
 import com.example.vendoapp.databinding.FragmentCheckOutBinding
-import com.example.vendoapp.ui.adapter.checkout.CartItem
 import com.example.vendoapp.ui.adapter.checkout.CheckOutAdapter
 import com.example.vendoapp.ui.base.BaseFragment
 
@@ -38,7 +38,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(
                 variant = "Brown/L",
                 currentPrice = "$9",
                 originalPrice = "$12",
-                imageResId = com.example.vendoapp.R.drawable.fake_girl,
+                imageResId = R.drawable.fake_girl,
                 badge = 1
             ), CartItem(
                 title = "Women manfi fashion fashinon fashion fash...",

@@ -4,16 +4,10 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.vendoapp.data.model.cartModel.CartItem
 import com.example.vendoapp.databinding.ItemCheckoutBinding
 
-data class CartItem(
-    val title: String,
-    val variant: String,
-    val currentPrice: String,
-    val originalPrice: String?,
-    val imageResId: Int,
-    val badge: Int = 0
-)
+
 
 class CheckOutAdapter(
     private var items: MutableList<CartItem> = mutableListOf(),
