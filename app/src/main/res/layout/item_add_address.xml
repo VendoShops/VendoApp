@@ -33,7 +33,7 @@
         android:id="@+id/tvRemove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remove"
+        android:text="@string/remove"
         android:fontFamily="@font/dmsanssemibold"
         android:textColor="#9B959F"
         android:textSize="12sp"

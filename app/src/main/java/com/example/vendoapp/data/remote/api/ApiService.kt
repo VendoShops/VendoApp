@@ -15,11 +15,14 @@ import com.example.vendoapp.data.model.home.BannerResponse
 import com.example.vendoapp.data.model.home.BrandResponse
 import com.example.vendoapp.data.model.home.FavoriteResponse
 import com.example.vendoapp.data.model.home.Product
+import com.example.vendoapp.data.model.profile.ProfileModel
+import com.example.vendoapp.data.model.profile.personalinformation.UpdateProfileRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
@@ -41,6 +44,15 @@ interface ApiService {
 
     @POST("api/v1/otp/verify")
     suspend fun verifyOtp(@Body request: VerifyOtpRequest): ApiResponse<String>
+
+    @GET("api/v1/user-profiles/{userId}")
+    suspend fun getUserProfile(@Path("userId") userId: Int): ApiResponse<ProfileModel>
+
+    @PUT("api/v1/user-profiles/{id}")
+    suspend fun updateUserProfile(
+        @Path("id") userId: Int,
+        @Body request: UpdateProfileRequest
+    ): ApiResponse<ProfileModel>
 
     @GET("api/v1/banners")
     suspend fun getBanners(): Response<ApiResponse<List<BannerResponse>>>

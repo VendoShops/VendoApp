@@ -75,6 +75,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                         val refresh = state.data?.refreshToken
                         val accessExpiry = state.data?.accessTokenExpiryDate
                         val refreshExpiry = state.data?.refreshTokenExpiryDate
+                        val userId = state.data?.userId
+
+                        if (userId != null) {
+                            tokenManager.saveUserId(userId)
+                        }
 
                         if (binding.cbRememberMe.isChecked) {
                             viewModel.saveLoginData(

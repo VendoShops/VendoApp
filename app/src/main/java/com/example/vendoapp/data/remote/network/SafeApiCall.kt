@@ -15,7 +15,6 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> ApiResponse<T>): Resource<T> 
         try {
             val response = apiCall()
             Log.d("safeApiCall", "Success response=$response")
-//            Resource.Success(response)
             if (response.success) {
                 Resource.Success(response.data)
             } else {

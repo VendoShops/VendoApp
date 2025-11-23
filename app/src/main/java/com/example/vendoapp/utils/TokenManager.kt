@@ -1,6 +1,5 @@
 package com.example.vendoapp.utils
 
-import android.annotation.SuppressLint
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.text.SimpleDateFormat
@@ -64,5 +63,25 @@ class TokenManager @Inject constructor(@ApplicationContext context: Context) {
 
     fun saveRememberMe(checked: Boolean) {
         prefs.edit().putBoolean("remember_me", checked).apply()
+    }
+
+    fun saveUserId(userId: Int) {
+        prefs.edit().putInt("user_id", userId).apply()
+    }
+
+    fun getUserId(): Int = prefs.getInt("user_id", -1)
+
+    fun saveLanguage(languageCode: String) {
+        prefs.edit().putString("app_language", languageCode).apply()
+    }
+
+    fun getLanguage(): String = prefs.getString("app_language", "en") ?: "en"
+
+    fun applyLocale(context: Context, languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = context.resources.configuration
+        config.setLocale(locale)
+        context.resources.updateConfiguration(config, context.resources.displayMetrics)
     }
 }

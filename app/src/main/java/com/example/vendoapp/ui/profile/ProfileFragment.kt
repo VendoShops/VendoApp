@@ -4,14 +4,19 @@ import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.vendoapp.R
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentProfileBinding
+import com.example.vendoapp.utils.Resource
 import com.example.vendoapp.utils.TokenManager
+import com.example.vendoapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -21,10 +26,22 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
 ) {
 
     @Inject lateinit var tokenManager: TokenManager
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun onViewCreateFinish() {
         setupUi()
         tvLogoutClick()
+        observes()
+
+        val userId = tokenManager.getUserId()
+        if (userId != -1) {
+            viewModel.loadUserProfile(userId)
+        } else {
+            findNavController().navigate(R.id.loginFragment)
+            Toast.makeText(requireContext(), "UserId tapilmadi", Toast.LENGTH_SHORT).show()
+        }
+
+        //  Navigations
         binding.termsAndConditionsConstraint.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_termsAndConditionsFragment)
         }
@@ -48,6 +65,26 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         }
     }
 
+    private fun observes() {
+        viewModel.profile.observe(viewLifecycleOwner) { resource ->
+            when(resource) {
+                is Resource.Idle -> { /* Show loading */ }        //////////////////////////////
+                is Resource.Loading -> { /* Show loading */ }     //////////////////////////////
+                is Resource.Success -> {
+                    val profile = resource.data
+                    binding.tvProfileName.text = profile?.fullName ?: "No Name"
+                    binding.tvProfileEmail.text = "User ID: ${profile?.userId}"
+                    Glide.with(this)
+                        .load(profile?.avatarUrl)
+                        .placeholder(R.drawable.testprofileimage)
+                        .into(binding.ivProfile)
+                }
+                is Resource.Error -> {
+                    binding.ivProfile.setImageResource(R.drawable.testprofileimage)
+                }
+            }
+        }
+    }
 
     private fun tvLogoutClick() {
         binding.tvLogOut.setOnClickListener {

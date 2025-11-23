@@ -5,7 +5,10 @@ import com.example.vendoapp.data.remote.api.ApiService
 import com.example.vendoapp.data.remote.network.AuthInterceptor
 import com.example.vendoapp.domain.repository.AuthRepositoryImpl
 import com.example.vendoapp.domain.repository.AuthRepository
+import com.example.vendoapp.domain.repository.ProfileRepository
+import com.example.vendoapp.domain.repository.ProfileRepositoryImpl
 import com.example.vendoapp.domain.usecase.LoginUseCase
+import com.example.vendoapp.domain.usecase.ProfileUseCase
 import com.example.vendoapp.domain.usecase.RegisterUseCase
 import com.example.vendoapp.utils.TokenManager
 import com.google.gson.Gson
@@ -84,4 +87,13 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideLoginUseCase(repository: AuthRepository) = LoginUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideProfileUseCase(repository: ProfileRepository) = ProfileUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideProfileRepository(api: ApiService) : ProfileRepository =
+        ProfileRepositoryImpl(api)
 }

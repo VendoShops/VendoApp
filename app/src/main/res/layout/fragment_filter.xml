@@ -23,7 +23,7 @@
                 android:id="@+id/btnBack"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Back"
+                android:contentDescription="@string/back"
                 android:src="@drawable/back" />
 
             <TextView
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Filter"
+                android:text="@string/filter"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -52,7 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Gender"
+                android:text="@string/gender"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -61,7 +61,7 @@
                 android:id="@+id/ivGenderArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Expand"
+                android:contentDescription="@string/expand"
                 android:src="@drawable/more_icon_svg" />
 
         </LinearLayout>
@@ -88,21 +88,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_size_button"
-                    android:text="Man" />
+                    android:text="@string/man" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipWoman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_size_button"
-                    android:text="Woman" />
+                    android:text="@string/woman" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipChild"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_size_button"
-                    android:text="Child" />
+                    android:text="@string/child" />
 
             </com.google.android.material.chip.ChipGroup>
 
@@ -129,7 +129,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Categories"
+                android:text="@string/categories"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -160,28 +160,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_size_button"
-                android:text="Accessories" />
+                android:text="@string/accessories" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipClothing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_size_button"
-                android:text="Clothing" />
+                android:text="@string/clothing" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipBeauty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_size_button"
-                android:text="Beauty" />
+                android:text="@string/beauty" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipElectronics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_size_button"
-                android:text="Electronics" />
+                android:text="@string/electronics" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -206,7 +206,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Size"
+                android:text="@string/size"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -215,7 +215,7 @@
                 android:id="@+id/ivSizeArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Expand"
+                android:contentDescription="@string/expand"
                 android:src="@drawable/more_icon_svg" />
 
         </LinearLayout>
@@ -290,7 +290,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Brand"
+                android:text="@string/brand"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -299,7 +299,7 @@
                 android:id="@+id/ivBrandArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Expand"
+                android:contentDescription="@string/expand"
                 android:src="@drawable/more_icon_svg" />
 
         </LinearLayout>
@@ -367,7 +367,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Color"
+                android:text="@string/color"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -376,7 +376,7 @@
                 android:id="@+id/ivColorArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Expand"
+                android:contentDescription="@string/expand"
                 android:src="@drawable/more_icon_svg" />
 
         </LinearLayout>
@@ -411,7 +411,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Price"
+                android:text="@string/price"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -420,7 +420,7 @@
                 android:id="@+id/ivPriceArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Expand"
+                android:contentDescription="@string/expand"
                 android:src="@drawable/more_icon_svg" />
 
         </LinearLayout>
@@ -538,7 +538,7 @@
             android:layout_height="56dp"
             android:layout_margin="16dp"
             android:backgroundTint="@android:color/black"
-            android:text="Apply filter"
+            android:text="@string/apply_filter"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp"

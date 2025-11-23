@@ -287,7 +287,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
-                            android:text="Ask question"
+                            android:text="@string/ask_question"
                             android:textColor="#9E9E9E"
                             android:textSize="14sp" />
 
@@ -313,7 +313,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Select Color: "
+                        android:text="@string/select_color"
                         android:textColor="#9E9E9E"
                         android:textSize="14sp" />
 
@@ -350,7 +350,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Select Size: "
+                        android:text="@string/select_size"
                         android:textColor="#9E9E9E"
                         android:textSize="14sp" />
 
@@ -470,7 +470,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="Shipping"
+                            android:text="@string/shipping"
                             android:textColor="#000000"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -530,7 +530,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="Return"
+                            android:text="@string/return1"
                             android:textColor="#000000"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -586,7 +586,7 @@
                 android:id="@+id/tvFreeShipping"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Free shipping"
+                android:text="@string/free_shipping"
                 android:textColor="#9E9E9E"
                 android:textSize="12sp" />
 
@@ -599,7 +599,7 @@
             android:layout_height="56dp"
             android:layout_weight="1.5"
             android:backgroundTint="#000000"
-            android:text="Add to cart"
+            android:text="@string/add_to_cart"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="16sp"

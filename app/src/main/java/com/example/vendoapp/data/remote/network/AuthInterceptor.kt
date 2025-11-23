@@ -3,7 +3,6 @@ package com.example.vendoapp.data.remote.network
 import com.example.vendoapp.data.model.auth.token.RefreshTokenRequest
 import com.example.vendoapp.data.remote.api.ApiService
 import com.example.vendoapp.utils.TokenManager
-import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -15,13 +14,6 @@ class AuthInterceptor @Inject constructor(
     private val tokenManager: TokenManager,
 ) : Interceptor {
 
-//    private val refreshRetrofit: Retrofit by lazy {
-//        Retrofit.Builder()
-//            .baseUrl("http://138.68.111.115:8080/")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//    }
-
     private val refreshApi: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl("http://138.68.111.115:8080/")
@@ -29,8 +21,6 @@ class AuthInterceptor @Inject constructor(
             .build()
             .create(ApiService::class.java)
     }
-
-//    private val apiService by lazy { refreshRetrofit.create(ApiService::class.java) }
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var accessToken = tokenManager.getAccessToken()
@@ -77,44 +67,4 @@ class AuthInterceptor @Inject constructor(
         }
         return chain.proceed(originalRequest)
     }
-
-            /*
-        var request = chain.request().newBuilder().apply {
-            accessToken?.let { addHeader("Authorization", "Bearer $it") }
-        }.build()
-
-        var response = chain.proceed(request)
-
-        if (response.code == 401) {
-            response.close()
-
-            if (!refreshToken.isNullOrEmpty()) {
-                val newAccessToken = runBlocking {
-                    try {
-                        val refreshResponse = apiService.refreshToken(
-                            RefreshTokenRequest(refreshToken)
-                        )
-                        val newToken = refreshResponse.accessToken
-                        tokenManager.saveTokens(newToken, refreshToken)
-                        newToken
-                    } catch (e: Exception) {
-                        null
-                    }
-                }
-
-                if (newAccessToken != null) {
-                    request = request.newBuilder()
-                        .removeHeader("Authorization")
-                        .addHeader("Authorization", "Bearer $newAccessToken")
-                        .build()
-                    response = chain.proceed(request)
-                } else {
-                    tokenManager.clearTokens()
-                }
-            }
-        }
-
-         */
-
-
 }

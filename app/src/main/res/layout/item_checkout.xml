@@ -53,7 +53,7 @@
                 android:fontFamily="@font/dmsanssemibold"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Women manfi fashion fashinon fashion fash..."
+                android:text="@string/women_manfi_fashion_fashinon_fashion_fash"
                 android:textColor="@android:color/black"
                 android:textSize="12sp" />
 

@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Addresses"
+        android:text="@string/addresses"
         android:layout_marginStart="11dp"
         android:textColor="@color/black"
         android:fontFamily="@font/dmsanssemibold"
@@ -63,7 +63,7 @@
         android:id="@+id/btnAddNewAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Add new address"
+        android:text="@string/add_new_address"
         app:cornerRadius="8dp"
         android:fontFamily="@font/dmsansmedium"
         android:backgroundTint="@color/black"
