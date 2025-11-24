@@ -66,12 +66,11 @@ interface ApiService {
 
     @GET("api/v1/products/for-you")
     suspend fun getForYouProducts(): Response<ApiResponse<List<Product>>>
-
     @GET("api/v1/favorites")
     suspend fun getFavorites(): Response<ApiResponse<List<FavoriteResponse>>>
 
     @POST("api/v1/favorites/{productId}")
-    suspend fun addFavorite(@Path("productId") productId: Int): Response<Unit>
+    suspend fun addFavorite(@Path("productId") productId: Int): Response<FavoriteResponse>
 
     @DELETE("api/v1/favorites/{productId}")
     suspend fun removeFavorite(@Path("productId") productId: Int): Response<Unit>
@@ -83,4 +82,10 @@ interface ApiService {
     suspend fun getMyOrders(
         @Path("customerId") customerId: Int,
     ): ApiResponse<OrdersModel>
+
+//    @GET(value = "api/v1/customers/{customerId}/carts")
+//    suspend fun getMyCart(
+//        @Path("customerId") customerId: Int,
+//    ): ApiResponse<List<Cart>>
+
 }

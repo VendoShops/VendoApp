@@ -51,7 +51,7 @@ class LikeFragment : BaseFragment<FragmentLikeBinding>(FragmentLikeBinding::infl
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                likeViewModel.likedProducts.collect { products ->
+                likeViewModel.favoriteProducts.collect { products ->
                     adapter.submitList(products.toList())
                 }
             }
