@@ -85,6 +85,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             home.main.setOnClickListener {
                 hideKeyboardAndClearFocus()
             }
+
+            home.qrScannerCategory.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_scannerBottomSheetFragment)
+            }
         }
     }
 
@@ -112,7 +116,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
-        // Brands (500 error olduğu üçün boş qalacaq)
         lifecycleScope.launchWhenStarted {
             viewModel.topBrands.collect { brands ->
                 brandAdapter.submitList(brands)
@@ -120,7 +123,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
-        // Products - İŞLƏYƏCƏK
         lifecycleScope.launchWhenStarted {
             viewModel.products.collect { products ->
                 productAdapter.submitList(products)

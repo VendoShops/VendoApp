@@ -16,23 +16,56 @@
     </style>
 
     // for chip
+
     <style name="CustomFilterChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="chipBackgroundColor">@android:color/white</item>
-        <item name="android:background">@drawable/chip_selector</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="chipBackgroundColor">@color/chip_background_color_selector</item>
+
+        <item name="chipStrokeColor">@color/chip_stroke_color_selector</item>
+        <item name="chipStrokeWidth">1dp</item>
+
+        <item name="android:textColor">@color/chip_text_color_selector</item>
         <item name="android:textSize">14sp</item>
 
-        <item name="chipMinHeight">26dp</item>
+        <item name="chipCornerRadius">20dp</item>
 
-        <item name="chipStartPadding">20dp</item>
-        <item name="chipEndPadding">20dp</item>
+        <item name="chipMinHeight">40dp</item>
 
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
+        <!-- Padding -->
+        <item name="chipStartPadding">16dp</item>
+        <item name="chipEndPadding">16dp</item>
 
-        <item name="rippleColor">@android:color/transparent</item>
         <item name="checkedIconVisible">false</item>
-        <item name="chipIconVisible">false</item>
-        <item name="chipStrokeWidth">0dp</item>
+
+        <item name="rippleColor">#1A9C27B0</item>
     </style>
+
+    // thumb style
+    <style name="FigmaRangeSliderStyle" parent="Widget.MaterialComponents.Slider">
+        <item name="trackHeight">8dp</item>
+
+        <item name="trackColorActive">@android:color/black</item>
+
+        <item name="trackColorInactive">#E5E7EB</item>
+
+        <item name="thumbColor">@android:color/black</item>
+
+        <item name="thumbRadius">0dp</item>
+
+        <item name="labelBehavior">gone</item>
+
+        <item name="haloRadius">0dp</item>
+    </style>
+
+    <!-- Bottom Sheet Dialog Theme -->
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>

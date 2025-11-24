@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_homeFragment_to_forYouFragment"
             app:destination="@id/forYouFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_scannerBottomSheetFragment"
+            app:destination="@id/scannerBottomSheetFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -225,5 +228,10 @@
             android:id="@+id/action_addNewAddressFragment_to_checkOutFragment"
             app:destination="@id/checkOutFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/scannerBottomSheetFragment"
+        android:name="com.example.vendoapp.ui.ScannerBottomSheetFragment"
+        tools:layout="@layout/bottom_sheet_scanner"
+        android:label="ScannerBottomSheetFragment" />
 
 </navigation>
