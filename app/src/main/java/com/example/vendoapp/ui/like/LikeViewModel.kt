@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vendoapp.data.model.home.Product
-import com.example.vendoapp.domain.repository.HomeRepository
+import com.example.vendoapp.domain.repository.LikeRepository
+import com.example.vendoapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -12,11 +13,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LikeViewModel @Inject constructor(
-    private val repository: HomeRepository
+    private val repository: LikeRepository
 ) : ViewModel() {
 
-    private val _products = MutableStateFlow<List<Product>>(emptyList())
-    private val _favorites = MutableStateFlow<Set<Long>>(emptySet())
+    private val _favoriteProducts = MutableStateFlow<List<Product>>(emptyList())
+    val favoriteProducts: StateFlow<List<Product>> = _favoriteProducts.asStateFlow()
 
     private val _loading = MutableStateFlow(false)
     val loading: StateFlow<Boolean> = _loading.asStateFlow()
@@ -24,117 +25,115 @@ class LikeViewModel @Inject constructor(
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error.asStateFlow()
 
-    val likedProducts: StateFlow<List<Product>> = combine(
-        _products,
-        _favorites
-    ) { products, favorites ->
-        products.filter { favorites.contains(it.id) }
-    }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
-
     init {
-        refresh()
+        Log.d("LIKE_VM", "LikeViewModel init edildi")
+        loadFavorites()
     }
 
-    fun loadProductsAndFavorites() {
+    fun loadFavorites() {
+        Log.d("LIKE_VM", "loadFavorites() çağırılır")
         viewModelScope.launch {
             _loading.value = true
             _error.value = null
+            Log.d("LIKE_VM", "Loading started")
 
-            try {
-                // 1) Favorites
-                val favResp = try { repository.getFavorites() } catch (e: Exception) {
-                    _error.value = "Favorites request failed: ${e.localizedMessage ?: e.toString()}"
-                    Log.e("LikeVM", "Favorites request exception", e)
-                    _loading.value = false
-                    return@launch
-                }
+            when (val result = repository.getMyFavorites()) {
+                is Resource.Success -> {
+                    Log.d("LIKE_VM", "getMyFavorites SUCCESS")
+                    val favorites = result.data ?: emptyList()
+                    Log.d("LIKE_VM", "Raw favorites count: ${favorites.size}")
 
-                if (favResp.isSuccessful) {
-                    val favList = favResp.body()?.data ?: emptyList()
-                    _favorites.value = favList.map { it.productId }.toSet()
-                    Log.d("LikeVM", "Favorites loaded: ${_favorites.value.size}")
-                } else {
-                    _error.value = "Favorites API error: ${favResp.code()}"
-                    Log.e("LikeVM", "Favorites failed: ${favResp.code()}")
-                    _loading.value = false
-                    return@launch
-                }
-
-                val prodResp = try { repository.getForYouProducts() } catch (e: Exception) {
-                    _error.value = "Products request failed: ${e.localizedMessage ?: e.toString()}"
-                    Log.e("LikeVM", "Products request exception", e)
-                    _loading.value = false
-                    return@launch
-                }
-
-                if (prodResp.isSuccessful) {
-                    val productsData = prodResp.body()?.data ?: emptyList()
-                    // mark favorites in product objects
-                    val productsWithFav = productsData.map { p ->
-                        p.copy(isFavorite = _favorites.value.contains(p.id))
+                    // FavoriteResponse-ları Product-a çevirin
+                    val products = favorites.mapNotNull { favorite ->
+                        Log.d("LIKE_VM", "Processing favorite: ${favorite.id}, product=${favorite.product}")
+                        favorite.product?.copy(isFavorite = true)
                     }
-                    _products.value = productsWithFav
-                    Log.d("LikeVM", "Products loaded: ${productsWithFav.size}")
-                } else {
-                    _error.value = "Products API error: ${prodResp.code()}"
-                    Log.e("LikeVM", "Products failed: ${prodResp.code()}")
-                    _loading.value = false
-                    return@launch
+                    Log.d("LIKE_VM", "Mapped products count: ${products.size}")
+                    _favoriteProducts.value = products
+
+                    if (products.isEmpty()) {
+                        Log.d("LIKE_VM", "No products found in favorites")
+                    }
                 }
-
-                _error.value = null
-
-            } catch (e: Exception) {
-                _error.value = "Unexpected error: ${e.localizedMessage ?: e.toString()}"
-                Log.e("LikeVM", "loadProductsAndFavorites error", e)
-            } finally {
-                _loading.value = false
+                is Resource.Error -> {
+                    Log.e("LIKE_VM", "getMyFavorites ERROR: ${result.message}")
+                    _error.value = result.message
+                }
+                else -> {
+                    Log.d("LIKE_VM", "getMyFavorites UNKNOWN RESULT")
+                }
             }
+            _loading.value = false
+            Log.d("LIKE_VM", "Loading finished")
         }
     }
 
-    fun refresh() {
-        loadProductsAndFavorites()
-    }
-
     fun onFavoriteClick(product: Product) {
+        Log.d("LIKE_VM", "onFavoriteClick: productId=${product.id}, isFavorite=${product.isFavorite}")
         viewModelScope.launch {
-            try {
-                val wasFavorite = product.isFavorite
-                _products.value = _products.value.map {
-                    if (it.id == product.id) it.copy(isFavorite = !it.isFavorite) else it
-                }
-                _favorites.value = if (wasFavorite) _favorites.value - product.id else _favorites.value + product.id
+            val productId = product.id.toInt()
 
-                if (wasFavorite) {
-                    val resp = repository.removeFavorite(product.id.toInt())
-                    if (!resp.isSuccessful) {
-                        _products.value = _products.value.map {
-                            if (it.id == product.id) it.copy(isFavorite = wasFavorite) else it
-                        }
-                        _favorites.value = if (wasFavorite) _favorites.value + product.id else _favorites.value - product.id
-                        _error.value = "Remove favorite failed: ${resp.code()}"
-                        Log.e("LikeVM", "Remove favorite failed: ${resp.code()}")
+            if (product.isFavorite) {
+                Log.d("LIKE_VM", "Removing favorite: $productId")
+                when (val result = repository.removeFavorite(productId)) {
+                    is Resource.Success -> {
+                        Log.d("LIKE_VM", "Remove favorite SUCCESS")
+                        // UI-da sil
+                        _favoriteProducts.value = _favoriteProducts.value.filter { it.id != product.id }
+                        Log.d("LIKE_VM", "Product removed from UI, new count: ${_favoriteProducts.value.size}")
                     }
-                } else {
-                    val resp = repository.addFavorite(product.id.toInt())
-                    if (!resp.isSuccessful) {
-                        _products.value = _products.value.map {
-                            if (it.id == product.id) it.copy(isFavorite = wasFavorite) else it
-                        }
-                        _favorites.value = if (wasFavorite) _favorites.value + product.id else _favorites.value - product.id
-                        _error.value = "Add favorite failed: ${resp.code()}"
-                        Log.e("LikeVM", "Add favorite failed: ${resp.code()}")
+                    is Resource.Error -> {
+                        Log.e("LIKE_VM", "Remove favorite ERROR: ${result.message}")
+                        _error.value = "Remove failed: ${result.message}"
+                    }
+                    else -> {
+                        Log.d("LIKE_VM", "Remove favorite UNKNOWN RESULT")
                     }
                 }
-            } catch (e: Exception) {
-                _error.value = "Favorite toggle error: ${e.localizedMessage ?: e.toString()}"
-                Log.e("LikeVM", "favorite toggle error", e)
+            } else {
+                Log.d("LIKE_VM", "Adding favorite: $productId")
+                when (val result = repository.addFavorite(productId)) {
+                    is Resource.Success -> {
+                        Log.d("LIKE_VM", "Add favorite SUCCESS: ${result.data}")
+                        result.data?.product?.let { newProduct ->
+                            _favoriteProducts.value += newProduct.copy(isFavorite = true)
+                            Log.d("LIKE_VM", "Product added to UI, new count: ${_favoriteProducts.value.size}")
+                        } ?: Log.e("LIKE_VM", "Add favorite success but product is null")
+                    }
+                    is Resource.Error -> {
+                        Log.e("LIKE_VM", "Add favorite ERROR: ${result.message}")
+                        _error.value = "Add failed: ${result.message}"
+                    }
+                    else -> {
+                        Log.d("LIKE_VM", "Add favorite UNKNOWN RESULT")
+                    }
+                }
             }
         }
     }
 
     fun onProductClick(product: Product) {
-        Log.d("LikeVM", "Product clicked: ${product.productName}")
+        Log.d("LIKE_VM", "Product clicked: ${product.productName}, id=${product.id}")
+        // Navigate to product detail
+    }
+
+    fun refresh() {
+        Log.d("LIKE_VM", "refresh() çağırılır")
+        loadFavorites()
+    }
+
+    // Test funksiyası
+    fun testApiCalls() {
+        Log.d("LIKE_VM", "=== API TEST BAŞLADI ===")
+        viewModelScope.launch {
+            Log.d("LIKE_VM", "1. getMyFavorites test...")
+            val result = repository.getMyFavorites()
+            when (result) {
+                is Resource.Success -> Log.d("LIKE_VM", "TEST SUCCESS: ${result.data?.size ?: 0} favorites")
+                is Resource.Error -> Log.e("LIKE_VM", "TEST ERROR: ${result.message}")
+                else -> {}
+            }
+            Log.d("LIKE_VM", "=== API TEST BİTDİ ===")
+        }
     }
 }

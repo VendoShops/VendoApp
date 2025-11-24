@@ -5,6 +5,8 @@ import com.example.vendoapp.data.remote.api.ApiService
 import com.example.vendoapp.data.remote.network.AuthInterceptor
 import com.example.vendoapp.domain.repository.AuthRepositoryImpl
 import com.example.vendoapp.domain.repository.AuthRepository
+import com.example.vendoapp.domain.repository.LikeRepository
+import com.example.vendoapp.domain.repository.LikeRepositoryImpl
 import com.example.vendoapp.domain.repository.MyOrdersRepository
 import com.example.vendoapp.domain.repository.MyOrdersRepositoryImpl
 import com.example.vendoapp.domain.repository.ProfileRepository
@@ -108,4 +110,9 @@ object NetworkModule {
     @Singleton
     fun provideMyOrdersRepository(api: ApiService) : MyOrdersRepository =
         MyOrdersRepositoryImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideLikeRepository(api: ApiService): LikeRepository =
+        LikeRepositoryImpl(api)
 }
