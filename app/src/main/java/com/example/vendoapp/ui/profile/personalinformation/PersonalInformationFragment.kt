@@ -5,6 +5,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.vendoapp.R
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentPersonalInformationBinding
 import com.example.vendoapp.utils.TokenManager
@@ -33,7 +34,7 @@ class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBind
             val userId = tokenManager.getUserId()
             if (userId != null) {
                 if (fullName.isEmpty()) {
-                    Toast.makeText(requireContext(), "Full name cannot be empty", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.full_name_empty), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 viewModel.updateProfile(userId, fullName, null)
@@ -48,12 +49,12 @@ class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBind
                 is Resource.Loading -> showLoading(true)
                 is Resource.Success -> {
                     showLoading(false)
-                    Toast.makeText(requireContext(), "Profile updated", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.profile_updated), Toast.LENGTH_SHORT).show()
                 }
 
                 is Resource.Error -> {
                     showLoading(false)
-                    Toast.makeText(requireContext(), state.message ?: "Error", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), state.message ?: getString(R.string.error), Toast.LENGTH_SHORT)
                         .show()
                 }
             }

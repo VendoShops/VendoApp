@@ -15,6 +15,7 @@ import com.example.vendoapp.data.model.home.BannerResponse
 import com.example.vendoapp.data.model.home.BrandResponse
 import com.example.vendoapp.data.model.home.FavoriteResponse
 import com.example.vendoapp.data.model.home.Product
+import com.example.vendoapp.data.model.myorderstestmodel.OrdersModel
 import com.example.vendoapp.data.model.profile.ProfileModel
 import com.example.vendoapp.data.model.profile.personalinformation.UpdateProfileRequest
 import retrofit2.Response
@@ -77,4 +78,9 @@ interface ApiService {
 
     @GET("api/v1/notifications/unread-count")
     suspend fun getUnreadNotificationCount(): Response<Int>
+
+    @GET("api/v1/orders/customers/{customerId}")
+    suspend fun getMyOrders(
+        @Path("customerId") customerId: Int,
+    ): ApiResponse<OrdersModel>
 }

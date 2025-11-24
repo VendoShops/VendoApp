@@ -4,9 +4,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
 import com.example.vendoapp.data.model.address.AddressesModelTest
-import com.example.vendoapp.ui.adapter.AddressesAdapter
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentAddressesBinding
+import com.example.vendoapp.ui.adapter.profile.address.AddressesAdapter
 
 class AddressesFragment : BaseFragment<FragmentAddressesBinding>(
     FragmentAddressesBinding::inflate

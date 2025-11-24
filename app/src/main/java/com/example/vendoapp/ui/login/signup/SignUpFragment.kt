@@ -47,11 +47,14 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
         val remember = binding.cbRememberMe.isChecked
 
         if (fullName.isEmpty()){
-            Toast.makeText(requireContext(), "FullName can't be empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),
+                getString(R.string.fullname_can_t_be_empty), Toast.LENGTH_SHORT).show()
         } else if (email.isEmpty()) {
-            Toast.makeText(requireContext(), "Email can't be empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),
+                getString(R.string.email_can_t_be_empty), Toast.LENGTH_SHORT).show()
         } else if (password.isEmpty()) {
-            Toast.makeText(requireContext(), "Password can't be empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),
+                getString(R.string.password_can_t_be_empty), Toast.LENGTH_SHORT).show()
         } else {
             signUpViewModel.register(fullName, email, password, remember)
         }
@@ -65,7 +68,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
                     is Resource.Loading -> showLoading(true)
                     is Resource.Success -> {
                         showLoading(false)
-                        Toast.makeText(requireContext(), "Qeydiyyat uğurlu!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(),
+                            getString(R.string.qeydiyyat_u_urlu), Toast.LENGTH_SHORT).show()
 
                         val token = state.data?.accessToken
                         val refresh = state.data?.refreshToken
@@ -113,7 +117,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
 
     private fun handleError(message: String?) {
         showLoading(false)
-        Toast.makeText(requireContext(), message ?: "Something went error", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), message ?: getString(R.string.something_went_error), Toast.LENGTH_SHORT).show()
     }
 
     private fun setupUi() {

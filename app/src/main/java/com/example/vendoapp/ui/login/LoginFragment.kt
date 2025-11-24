@@ -44,7 +44,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(
                     requireContext(),
-                    "Email and password cannot be empty",
+                    getString(R.string.email_and_password_cannot_be_empty),
                     Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
@@ -69,7 +69,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                     is Resource.Loading -> showLoading(true)
                     is Resource.Success -> {
                         showLoading(false)
-                        Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(),
+                            getString(R.string.login_successful), Toast.LENGTH_SHORT).show()
 
                         val token = state.data?.accessToken
                         val refresh = state.data?.refreshToken
@@ -117,7 +118,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
     private fun handleError(message: String?) {
         showLoading(false)
-        Toast.makeText(requireContext(), message ?: "Something went error", Toast.LENGTH_SHORT)
+        Toast.makeText(requireContext(), message ?: getString(R.string.something_went_error), Toast.LENGTH_SHORT)
             .show()
     }
 

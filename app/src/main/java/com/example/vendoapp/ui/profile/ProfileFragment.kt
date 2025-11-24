@@ -38,7 +38,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
             viewModel.loadUserProfile(userId)
         } else {
             findNavController().navigate(R.id.loginFragment)
-            Toast.makeText(requireContext(), "UserId tapilmadi", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),  getString(R.string.user_id_not_found), Toast.LENGTH_SHORT).show()
         }
 
         //  Navigations
@@ -72,7 +72,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
                 is Resource.Loading -> { /* Show loading */ }     //////////////////////////////
                 is Resource.Success -> {
                     val profile = resource.data
-                    binding.tvProfileName.text = profile?.fullName ?: "No Name"
+                    binding.tvProfileName.text = profile?.fullName ?: getString(R.string.no_name)
                     binding.tvProfileEmail.text = "User ID: ${profile?.userId}"
                     Glide.with(this)
                         .load(profile?.avatarUrl)

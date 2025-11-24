@@ -1,4 +1,4 @@
-package com.example.vendoapp.ui.adapter.payment
+package com.example.vendoapp.ui.adapter.profile.payment
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
