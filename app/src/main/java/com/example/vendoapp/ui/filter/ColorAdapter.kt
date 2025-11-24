@@ -23,17 +23,17 @@ class ColorAdapter(
 
     inner class ColorViewHolder(private val binding: ItemColorBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         @SuppressLint("UseKtx")
         fun bind(colorItem: ColorItem) {
             // Create circular background with color
             val drawable = GradientDrawable().apply {
                 shape = GradientDrawable.OVAL
-
                 setColor(Color.parseColor(colorItem.colorHex))
 
                 setStroke(
-                    if (colorItem.isSelected) 6 else 2,
-                    if (colorItem.isSelected) Color.BLACK else Color.GRAY
+                    if (colorItem.isSelected) 4 else 0,
+                    if (colorItem.isSelected) Color.BLACK else Color.TRANSPARENT
                 )
             }
 

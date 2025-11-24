@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingVertical="12dp">
 
     <FrameLayout
-        android:layout_width="40dp"
-        android:layout_height="40dp">
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center">
 
+        <!-- Color Circle -->
         <View
             android:id="@+id/colorCircle"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center" />
 
         <ImageView
             android:id="@+id/checkMark"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center"
-            android:contentDescription="@string/selected"
+            android:contentDescription="Selected"
             android:src="@drawable/ic_check"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="visible" />
 
     </FrameLayout>
 
+    <!-- Color Name -->
     <TextView
         android:id="@+id/colorName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textColor="@android:color/black"
-        android:textSize="12sp" />
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="#374151"
+        android:textSize="12sp"
+        tools:text="Green" />
 
 </LinearLayout>
