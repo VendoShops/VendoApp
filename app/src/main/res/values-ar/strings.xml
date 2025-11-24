@@ -95,7 +95,6 @@
     <string name="payment_methods">طرق الدفع</string>
     <string name="add_new_card">إضافة بطاقة جديدة</string>
     <string name="your_payment_is_successful">تمت عملية الدفع بنجاح</string>
-    <string name="track_my_order">تتبع طلبي</string>
     <string name="personal_information">المعلومات الشخصية</string>
     <string name="full_name">الاسم الكامل</string>
     <string name="update">تحديث</string>
@@ -137,4 +136,6 @@
     <string name="qeydiyyat_u_urlu">تم التسجيل بنجاح</string>
     <string name="your_review">مراجعتك</string>
     <string name="iade_nedeni">سبب الإرجاع</string>
+    <string name="home_page">الصفحة الرئيسية</string>
+
 </resources>

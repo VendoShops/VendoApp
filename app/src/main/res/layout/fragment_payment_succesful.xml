@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        android:text="@string/track_my_order"
+        android:text="@string/home_page"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:strokeWidth="1dp"

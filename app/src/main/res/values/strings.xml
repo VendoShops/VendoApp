@@ -92,7 +92,6 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="add_new_card">Add new card</string>
     <string name="your_payment_is_successful">Your Payment is Successful</string>
-    <string name="track_my_order">Track my order</string>
     <string name="personal_information">Personal Information</string>
     <string name="full_name">Full Name</string>
     <string name="update">Update</string>
@@ -134,4 +133,5 @@
     <string name="qeydiyyat_u_urlu">Qeydiyyat uğurlu!</string>
     <string name="your_review">Your Review</string>
     <string name="iade_nedeni">Iade nedeni</string>
+    <string name="home_page">Home page</string>
 </resources>
