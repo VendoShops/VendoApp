@@ -1,10 +1,9 @@
 package com.example.vendoapp.ui.checkout
 
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vendoapp.R
-import com.example.vendoapp.data.model.cartModel.CartItem
+import com.example.vendoapp.data.model.cartModel.CartItems
 import com.example.vendoapp.databinding.FragmentCheckOutBinding
 import com.example.vendoapp.ui.adapter.checkout.CheckOutAdapter
 import com.example.vendoapp.ui.base.BaseFragment
@@ -23,7 +22,6 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(
 
     private fun setupRecycler() {
         adapter = CheckOutAdapter(mutableListOf(), onItemClick = { position, item ->
-            Toast.makeText(requireContext(), "Clicked: ${item.title}", Toast.LENGTH_SHORT).show()
         })
 
         binding.orderRecycler.layoutManager =
@@ -33,28 +31,28 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(
 
     private fun loadDemoData() {
         val demoList = listOf(
-            CartItem(
+            CartItems(
                 title = "Women manfi fashion fashinon fashion fash...",
                 variant = "Brown/L",
                 currentPrice = "$9",
                 originalPrice = "$12",
                 imageResId = R.drawable.fake_girl,
                 badge = 1
-            ), CartItem(
+            ), CartItems(
                 title = "Women manfi fashion fashinon fashion fash...",
                 variant = "Brown/L",
                 currentPrice = "$9",
                 originalPrice = "$12",
                 imageResId = com.example.vendoapp.R.drawable.fake_girl,
                 badge = 1
-            ), CartItem(
+            ), CartItems(
                 title = "Women manfi fashion fashinon fashion fash...",
                 variant = "Brown/L",
                 currentPrice = "$9",
                 originalPrice = "$12",
                 imageResId = com.example.vendoapp.R.drawable.fake_girl,
                 badge = 1
-            ), CartItem(
+            ), CartItems(
                 title = "Women manfi fashion fashinon fashion fash...",
                 variant = "Brown/L",
                 currentPrice = "$9",

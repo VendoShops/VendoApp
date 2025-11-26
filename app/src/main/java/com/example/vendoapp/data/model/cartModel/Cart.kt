@@ -1,18 +1,52 @@
 package com.example.vendoapp.data.model.cartModel
 
-//data class Cart(
-//    val id: Int,
-//    val status: String,
-//    val totalPrice: Double,
-//    val items: List<CartItems>,
-//    val customerFullName: String
-//)
-//
-//data class CartItems(
-//    val id: Int,
-//    val productName: String,
-//    val productPrice: Double,
-//    val quantity: Int,
-//    val status: String,
-//    val totalPrice: Double
-//)
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class CartItem(
+    @SerializedName("id")
+    val id: Int = 0,
+
+    @SerializedName("productName")
+    val productName: String = "",
+
+    @SerializedName("productPrice")
+    val productPrice: Double = 0.0,
+
+    @SerializedName("quantity")
+    val quantity: Int = 0,
+
+    @SerializedName("color")
+    val color: String? = null,
+
+    @SerializedName("size")
+    val size: String? = null,
+
+    @SerializedName("discountPrice")
+    val discountPrice: Double? = null,
+
+    @SerializedName("status")
+    val status: String = "ACTIVE",
+
+    @SerializedName("totalPrice")
+    val totalPrice: Double = 0.0,
+
+    @SerializedName("selectionStatus")
+    val selectionStatus: String = "SELECTED",
+
+    @SerializedName("image")
+    val image: String? = null
+) : Parcelable {
+    val computedTotalPrice: Double
+        get() = (discountPrice ?: productPrice) * quantity
+
+    fun isSelected(): Boolean = selectionStatus.equals("SELECTED", ignoreCase = true)
+}
+
+data class CartItemRequest(
+    val quantity: Int,
+    val color: String? = null,
+    val size: String? = null
+)

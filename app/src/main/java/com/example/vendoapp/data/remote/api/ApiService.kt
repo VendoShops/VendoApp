@@ -11,6 +11,8 @@ import com.example.vendoapp.data.model.auth.register.RegisterRequest
 import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.data.model.auth.token.RefreshTokenRequest
 import com.example.vendoapp.data.model.auth.token.RefreshTokenResponse
+import com.example.vendoapp.data.model.cartModel.CartItem
+import com.example.vendoapp.data.model.cartModel.CartItemRequest
 import com.example.vendoapp.data.model.home.BannerResponse
 import com.example.vendoapp.data.model.home.BrandResponse
 import com.example.vendoapp.data.model.home.FavoriteResponse
@@ -66,6 +68,7 @@ interface ApiService {
 
     @GET("api/v1/products/for-you")
     suspend fun getForYouProducts(): Response<ApiResponse<List<Product>>>
+
     @GET("api/v1/favorites")
     suspend fun getFavorites(): Response<ApiResponse<List<FavoriteResponse>>>
 
@@ -83,9 +86,33 @@ interface ApiService {
         @Path("customerId") customerId: Int,
     ): ApiResponse<OrdersModel>
 
-//    @GET(value = "api/v1/customers/{customerId}/carts")
-//    suspend fun getMyCart(
-//        @Path("customerId") customerId: Int,
-//    ): ApiResponse<List<Cart>>
+    @GET("api/v1/customers/{customerId}/carts/{cartId}/items")
+    suspend fun getCartItems(
+        @Path("customerId") customerId: Int,
+        @Path("cartId") cartId: Int
+    ): Response<ApiResponse<List<CartItem>>>
+
+    @POST("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
+    suspend fun addToCart(
+        @Path("customerId") customerId: Int,
+        @Path("cartId") cartId: Int,
+        @Path("productId") productId: Int,
+        @Body request: CartItemRequest
+    ): Response<ApiResponse<CartItem>>
+
+    @PUT("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
+    suspend fun updateCartItem(
+        @Path("customerId") customerId: Int,
+        @Path("cartId") cartId: Int,
+        @Path("productId") productId: Int,
+        @Body request: CartItemRequest
+    ): Response<ApiResponse<CartItem>>
+
+    @DELETE("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
+    suspend fun deleteCartItem(
+        @Path("customerId") customerId: Int,
+        @Path("cartId") cartId: Int,
+        @Path("productId") productId: Int,
+    ): Response<Unit>
 
 }

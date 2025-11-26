@@ -1,6 +1,6 @@
 package com.example.vendoapp.data.model.cartModel
 
-data class CartItem(
+data class CartItems(
     val title: String,
     val variant: String,
     val currentPrice: String,

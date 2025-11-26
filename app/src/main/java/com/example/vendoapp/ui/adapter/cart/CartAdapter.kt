@@ -6,18 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vendoapp.R
+import com.example.vendoapp.data.model.cartModel.CartItem
 import com.example.vendoapp.data.model.cartModel.CartTestModel
 import com.example.vendoapp.databinding.ItemCartBinding
 import com.example.vendoapp.ui.cart.CartViewModel
 
 class CartAdapter(
-    private val viewModel: CartViewModel,
-    private val onItemToggle: (CartTestModel) -> Unit
+    private val viewModel: CartViewModel
 ) : RecyclerView.Adapter<CartAdapter.CartAdapterViewHolder>() {
 
-    private var cartItems: List<CartTestModel> = emptyList()
+    private var cartItems: List<CartItem> = emptyList()
 
-    fun submitList(list: List<CartTestModel>) {
+    fun submitList(list: List<CartItem>) {
         cartItems = list
         notifyDataSetChanged()
     }
@@ -28,7 +28,7 @@ class CartAdapter(
     }
 
     override fun onBindViewHolder(holder: CartAdapterViewHolder, position: Int) {
-        holder.bind(cartItems[position], position)
+        holder.bind(cartItems[position])
     }
 
     override fun getItemCount(): Int = cartItems.size
@@ -36,32 +36,28 @@ class CartAdapter(
     inner class CartAdapterViewHolder(private val binding: ItemCartBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: CartTestModel, position: Int) {
+        fun bind(item: CartItem) {
             binding.apply {
-                title.text = item.title
-                price.text = item.price
-                oldPrice.text = item.oldPrice
+                title.text = item.productName
+                price.text = "$${item.productPrice}"
+                oldPrice.text = item.discountPrice?.let { "$$it" } ?: ""
                 oldPrice.paintFlags = oldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                size.text = item.size
+                sizeAndColor.text = item.size ?: "-"
 
-                count.text = viewModel.countMap.value?.get(position)?.toString() ?: item.count.toString()
-
-                Glide.with(itemView.context).load(item.imageRes).into(imgCart)
+                count.text = item.quantity.toString()
+                Glide.with(itemView.context).load(item.image).into(imgCart)
 
                 checkbox.setImageResource(
-                    if (item.isSelected) R.drawable.checkbox_selected
+                    if (item.isSelected()) R.drawable.checkbox_selected
                     else R.drawable.checkbox_unselected
                 )
+                checkbox.setOnClickListener { viewModel.toggleSelection(item.id) }
 
-                checkbox.setOnClickListener {
-                    onItemToggle(item)
-                }
+                plusIcon.setOnClickListener { viewModel.incrementQuantity(item.id) }
+                minusIcon.setOnClickListener { viewModel.decrementQuantity(item.id) }
 
-                plusIcon.setOnClickListener { viewModel.incrementCount(position) }
-                minusIcon.setOnClickListener { viewModel.decrementCount(position) }
+                txtRemove.setOnClickListener { viewModel.removeItem(item.id) }
             }
         }
-
     }
-
 }
