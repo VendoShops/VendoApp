@@ -11,7 +11,6 @@ import com.example.vendoapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 import android.util.Log
 
 @HiltViewModel
@@ -22,6 +21,21 @@ class CartViewModel @Inject constructor(
     private val _cartItems = MutableLiveData<List<CartItem>>()
     val cartItems: LiveData<List<CartItem>> = _cartItems
 
+    private val _itemsCount = MutableLiveData<Int>(0)
+    val itemsCount: LiveData<Int> = _itemsCount
+
+    private val _subtotal = MutableLiveData<Double>(0.0)
+    val subtotal: LiveData<Double> = _subtotal
+
+    private val _discount = MutableLiveData<Double>(0.0)
+    val discount: LiveData<Double> = _discount
+
+    private val _shipping = MutableLiveData<Double>(0.0)
+    val shipping: LiveData<Double> = _shipping
+
+    private val _total = MutableLiveData<Double>(0.0)
+    val total: LiveData<Double> = _total
+
     var customerId: Int = 0
     var cartId: Int = 0
 
@@ -31,10 +45,32 @@ class CartViewModel @Inject constructor(
             is Resource.Success -> {
                 Log.d("CartVM", "Fetched ${response.data?.size ?: 0} items")
                 _cartItems.value = response.data ?: emptyList()
+                computeSummary()
             }
             is Resource.Error -> Log.e("CartVM", "Error fetching cart items: ${response.message}")
             else -> {}
         }
+    }
+
+    private fun computeSummary() {
+        val items = _cartItems.value ?: emptyList()
+        val selected = items.filter { it.isSelected() }
+
+        val itemsCount = selected.sumOf { it.quantity }
+        val originalTotal = selected.sumOf { it.productPrice * it.quantity }
+        val discountedTotal = selected.sumOf { (it.discountPrice ?: it.productPrice) * it.quantity }
+
+        val discount = (originalTotal - discountedTotal).coerceAtLeast(0.0)
+        val shipping = if (discountedTotal > 0.0) 6.0 else 0.0
+        val total = discountedTotal + shipping
+
+        _itemsCount.value = itemsCount
+        _subtotal.value = discountedTotal
+        _discount.value = discount
+        _shipping.value = shipping
+        _total.value = total
+
+        Log.d("CartVM", "Summary computed: items=$itemsCount, subtotal=$discountedTotal, discount=$discount, shipping=$shipping, total=$total")
     }
 
     fun incrementQuantity(itemId: Int) = viewModelScope.launch {
@@ -85,6 +121,7 @@ class CartViewModel @Inject constructor(
             } else it
         }
         _cartItems.value = updatedList
+        computeSummary()
     }
 
     fun removeItem(itemId: Int) = viewModelScope.launch {
@@ -99,4 +136,3 @@ class CartViewModel @Inject constructor(
         }
     }
 }
-

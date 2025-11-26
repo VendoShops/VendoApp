@@ -36,7 +36,32 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         viewModel.cartItems.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
         }
+
+        viewModel.itemsCount.observe(viewLifecycleOwner) { count ->
+            binding.textItemsCount.text = count.toString()
+        }
+
+        viewModel.subtotal.observe(viewLifecycleOwner) { sub ->
+            binding.textSubtotal.text = formatPrice(sub)
+        }
+
+        viewModel.discount.observe(viewLifecycleOwner) { disc ->
+            binding.textDiscount.text = if (disc > 0) "-${formatPrice(disc)}" else formatPrice(0.0)
+        }
+
+        viewModel.shipping.observe(viewLifecycleOwner) { ship ->
+            binding.textShipping.text = formatPrice(ship)
+        }
+
+        viewModel.total.observe(viewLifecycleOwner) { tot ->
+            binding.textTotal.text = formatPrice(tot)
+        }
     }
+
+    private fun formatPrice(value: Double): String {
+        return "$${"%.2f".format(value)}"
+    }
+
 
     private fun setUpNavigate() {
         binding.apply {

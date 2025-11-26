@@ -209,7 +209,11 @@
         android:id="@+id/paymentSuccessful"
         android:name="com.example.vendoapp.ui.successfulpayment.PaymentSuccessful"
         android:label="fragment_payment_succesful"
-        tools:layout="@layout/fragment_payment_succesful" />
+        tools:layout="@layout/fragment_payment_succesful" >
+        <action
+            android:id="@+id/action_paymentSuccessful_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/checkOutFragment"
         android:name="com.example.vendoapp.ui.checkout.CheckOutFragment"
