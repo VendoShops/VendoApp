@@ -172,7 +172,7 @@
         tools:layout="@layout/fragment_personal_information" />
     <fragment
         android:id="@+id/addressesFragment"
-        android:name="com.example.vendoapp.ui.addresses.AddressesFragment"
+        android:name="com.example.vendoapp.ui.profile.addresses.AddressesFragment"
         android:label="fragment_addresses"
         tools:layout="@layout/fragment_addresses" />
     <fragment

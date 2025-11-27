@@ -1,4 +1,4 @@
-package com.example.vendoapp.ui.addresses
+package com.example.vendoapp.ui.profile.addresses
 
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
