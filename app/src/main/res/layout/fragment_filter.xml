@@ -506,7 +506,7 @@
 
                 </LinearLayout>
 
-                <!-- Price Range Slider - Figma-ya uyğun qalın track -->
+                <!-- Price Range Slider -->
                 <com.google.android.material.slider.RangeSlider
                     android:id="@+id/priceRangeSlider"
                     android:layout_width="match_parent"
@@ -514,11 +514,14 @@
                     android:valueFrom="0"
                     android:valueTo="20000"
                     app:labelBehavior="gone"
-                    app:thumbColor="#000000"
-                    app:thumbRadius="0dp"
+                    app:thumbColor="@android:color/white"
+                    app:thumbStrokeColor="#000000"
+                    app:thumbStrokeWidth="2dp"
+                    app:thumbRadius="8dp"
+                    app:thumbElevation="0dp"
                     app:trackColorActive="#000000"
                     app:trackColorInactive="#D1D5DB"
-                    app:trackHeight="8dp" />
+                    app:trackHeight="4dp" />
 
                 <!-- Price Labels -->
                 <LinearLayout

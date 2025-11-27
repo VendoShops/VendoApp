@@ -1,18 +1,22 @@
 package com.example.vendoapp.ui.filter
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.vendoapp.data.model.filter.FilterData
+import com.example.vendoapp.data.model.filter.FilterSection
 import com.example.vendoapp.databinding.FragmentFilterBinding
 import com.example.vendoapp.ui.base.BaseFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
-import android.text.Editable
-import android.text.TextWatcher
-import com.example.vendoapp.data.model.filter.FilterData
-import com.example.vendoapp.data.model.filter.FilterSection
 
 @AndroidEntryPoint
 class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding::inflate) {
@@ -22,6 +26,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
 
     override fun onViewCreateFinish() {
         setupViews()
+        setupPriceSlider()
         setupObservers()
         setupClickListeners()
 
@@ -42,7 +47,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
             adapter = colorAdapter
         }
 
-        // Setup price range slider
+        // Setup price range slider values and listener
         binding.priceRangeSlider.setValues(0f, 20000f)
         binding.priceRangeSlider.addOnChangeListener { slider, _, _ ->
             val values = slider.values
@@ -79,6 +84,28 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
                 }
             }
         })
+    }
+
+    private fun setupPriceSlider() {
+        binding.priceRangeSlider.apply {
+            trackActiveTintList = ColorStateList.valueOf(Color.BLACK)
+            trackInactiveTintList = ColorStateList.valueOf(Color.parseColor("#E5E7EB"))
+
+            trackHeight = 4.dpToPx(requireContext())
+
+            val thumbDrawable = GradientDrawable().apply {
+                shape = GradientDrawable.OVAL
+                setColor(Color.WHITE)
+                setStroke(2.dpToPx(requireContext()), Color.BLACK)
+                setSize(5.dpToPx(requireContext()), 9.dpToPx(requireContext()))
+            }
+
+            setCustomThumbDrawable(thumbDrawable)
+
+            thumbElevation = 0f
+
+            labelBehavior = com.google.android.material.slider.LabelFormatter.LABEL_GONE
+        }
     }
 
     private fun setupObservers() {
@@ -261,5 +288,9 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
         if (hasSelection) {
             binding.btnApplyFilter.visibility = View.VISIBLE
         }
+    }
+
+    private fun Int.dpToPx(context: Context): Int {
+        return (this * context.resources.displayMetrics.density).toInt()
     }
 }
