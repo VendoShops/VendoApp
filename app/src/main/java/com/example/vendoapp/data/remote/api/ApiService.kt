@@ -13,6 +13,7 @@ import com.example.vendoapp.data.model.auth.token.RefreshTokenRequest
 import com.example.vendoapp.data.model.auth.token.RefreshTokenResponse
 import com.example.vendoapp.data.model.cartModel.CartItem
 import com.example.vendoapp.data.model.cartModel.CartItemRequest
+import com.example.vendoapp.data.model.cartModel.CartSummary
 import com.example.vendoapp.data.model.home.BannerResponse
 import com.example.vendoapp.data.model.home.BrandResponse
 import com.example.vendoapp.data.model.home.FavoriteResponse
@@ -115,4 +116,19 @@ interface ApiService {
         @Path("productId") productId: Int,
     ): Response<Unit>
 
+
+    // New
+    @GET("api/v1/customers/{customerId}/carts/{cartId}/summary")
+    suspend fun getCartSummary(
+        @Path("customerId") customerId: Int,
+        @Path("cartId") cartId: Int
+    ): Response<ApiResponse<CartSummary>>
+
+    @PUT("api/v1/customers/{customerId}/carts/{cartId}/items/{itemId}/selection")
+    suspend fun toggleItemSelection(
+        @Path("customerId") customerId: Int,
+        @Path("cartId") cartId: Int,
+        @Path("itemId") itemId: Int,
+        @Body request: Map<String, String>
+    ): Response<ApiResponse<CartItem>>
 }

@@ -39,11 +39,28 @@ data class CartItem(
     @SerializedName("image")
     val image: String? = null
 ) : Parcelable {
-    val computedTotalPrice: Double
-        get() = (discountPrice ?: productPrice) * quantity
-
     fun isSelected(): Boolean = selectionStatus.equals("SELECTED", ignoreCase = true)
 }
+
+data class CartSummary(
+    @SerializedName("items")
+    val items: List<CartItem>,
+
+    @SerializedName("itemsCount")
+    val itemsCount: Int,
+
+    @SerializedName("subtotal")
+    val subtotal: Double,
+
+    @SerializedName("discount")
+    val discount: Double,
+
+    @SerializedName("shipping")
+    val shipping: Double,
+
+    @SerializedName("total")
+    val total: Double
+)
 
 data class CartItemRequest(
     val quantity: Int,
