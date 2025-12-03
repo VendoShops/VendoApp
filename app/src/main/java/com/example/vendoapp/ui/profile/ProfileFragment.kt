@@ -5,8 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -16,7 +18,6 @@ import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentProfileBinding
 import com.example.vendoapp.utils.Resource
 import com.example.vendoapp.utils.TokenManager
-import com.example.vendoapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,6 +28,22 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
 
     @Inject lateinit var tokenManager: TokenManager
     private val viewModel: ProfileViewModel by viewModels()
+
+    private val imagePicker =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri ?: return@registerForActivityResult
+
+            val mimeType = requireContext().contentResolver.getType(uri) ?: "image/jpeg"
+
+            val inputStream = requireContext().contentResolver.openInputStream(uri)
+            val bytes = inputStream?.readBytes() ?: return@registerForActivityResult
+
+            viewModel.updateAvatar(
+                userId = tokenManager.getUserId(),
+                fileBytes = bytes,
+                mimeType = mimeType
+            )
+        }
 
     override fun onViewCreateFinish() {
         setupUi()
@@ -63,24 +80,62 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         binding.myReturnsConstraint.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_myReturnsFragment)
         }
+        binding.ivProfile.setOnClickListener {
+            imagePicker.launch("image/*")
+        }
     }
 
     private fun observes() {
         viewModel.profile.observe(viewLifecycleOwner) { resource ->
             when(resource) {
-                is Resource.Idle -> { /* Show loading */ }        //////////////////////////////
-                is Resource.Loading -> { /* Show loading */ }     //////////////////////////////
+                is Resource.Idle -> {
+                    binding.progressBar.isVisible = true
+                }
+                is Resource.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
                 is Resource.Success -> {
+                    binding.progressBar.isVisible = false
                     val profile = resource.data
                     binding.tvProfileName.text = profile?.fullName ?: getString(R.string.no_name)
                     binding.tvProfileEmail.text = "User ID: ${profile?.userId}"
                     Glide.with(this)
                         .load(profile?.avatarUrl)
-                        .placeholder(R.drawable.testprofileimage)
+                        .placeholder(R.drawable.profile)
                         .into(binding.ivProfile)
                 }
                 is Resource.Error -> {
-                    binding.ivProfile.setImageResource(R.drawable.testprofileimage)
+                    binding.progressBar.isVisible = false
+                    binding.ivProfile.setImageResource(R.color.red_09)
+                }
+            }
+        }
+
+        viewModel.avatar.observe(viewLifecycleOwner) { resource ->
+            when(resource) {
+                is Resource.Idle -> {
+                    binding.progressBar.isVisible = true
+                }
+
+                is Resource.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+
+                is Resource.Success -> {
+                    binding.progressBar.isVisible = false
+
+                    Glide.with(this)
+                        .load(resource.data?.avatarUrl)
+                        .placeholder(R.drawable.profile)
+                        .into(binding.ivProfile)
+
+                    Toast.makeText(requireContext(), getString(R.string.avatar_updated), Toast.LENGTH_SHORT).show()
+
+                }
+
+                is Resource.Error -> {
+                    binding.progressBar.isVisible = false
+                    Toast.makeText(requireContext(), resource.message ?: "Avatar update failed", Toast.LENGTH_SHORT).show()
                 }
             }
         }

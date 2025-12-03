@@ -17,6 +17,7 @@ import com.example.vendoapp.domain.usecase.LoginUseCase
 import com.example.vendoapp.domain.usecase.MyOrdersUseCase
 import com.example.vendoapp.domain.usecase.ProfileUseCase
 import com.example.vendoapp.domain.usecase.RegisterUseCase
+import com.example.vendoapp.domain.usecase.UpdateAvatarUseCase
 import com.example.vendoapp.utils.TokenManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -52,11 +53,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideTokenManager(@ApplicationContext context: Context): TokenManager = TokenManager(context)
+    fun provideTokenManager(@ApplicationContext context: Context): TokenManager =
+        TokenManager(context)
 
     @Provides
     @Singleton
-    fun provideAuthInterceptor(tokenManager: TokenManager): AuthInterceptor = AuthInterceptor(tokenManager)
+    fun provideAuthInterceptor(tokenManager: TokenManager): AuthInterceptor =
+        AuthInterceptor(tokenManager)
 
     @Provides
     @Singleton
@@ -70,7 +73,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient,  gson: Gson): Retrofit =
+    fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
@@ -85,7 +88,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideAuthRepository(api: ApiService, tokenManager: TokenManager): AuthRepository =
-        AuthRepositoryImpl(api,tokenManager)
+        AuthRepositoryImpl(api, tokenManager)
 
     @Provides
     @Singleton
@@ -101,7 +104,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideProfileRepository(api: ApiService) : ProfileRepository =
+    fun provideUpdateAvatarUseCase(repository: ProfileRepository) = UpdateAvatarUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideProfileRepository(api: ApiService): ProfileRepository =
         ProfileRepositoryImpl(api)
 
     @Provides
@@ -110,7 +117,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMyOrdersRepository(api: ApiService) : MyOrdersRepository =
+    fun provideMyOrdersRepository(api: ApiService): MyOrdersRepository =
         MyOrdersRepositoryImpl(api)
 
     @Provides

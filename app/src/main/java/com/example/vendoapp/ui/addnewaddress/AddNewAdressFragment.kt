@@ -1,5 +1,7 @@
 package com.example.vendoapp.ui.addnewaddress
 
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vendoapp.R
@@ -16,6 +18,7 @@ class AddNewAdressFragment : BaseFragment<FragmentAddNewAdressBinding>(
 
 
     override fun onViewCreateFinish() {
+        setupUi()
         setupRecyclerView()
         loadFakeData()
         setUpButtons()
@@ -69,6 +72,16 @@ class AddNewAdressFragment : BaseFragment<FragmentAddNewAdressBinding>(
             }
             btnSaveAdress.setOnClickListener {
                 findNavController().navigate(R.id.action_addNewAddressFragment_to_checkOutFragment)
+            }
+        }
+    }
+
+    private fun setupUi() {
+        binding.let {
+            ViewCompat.setOnApplyWindowInsetsListener(it.main) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(0, systemBars.top, 0, systemBars.bottom)
+                insets
             }
         }
     }

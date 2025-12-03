@@ -1,4 +1,4 @@
-package com.example.vendoapp.data.model.myorderstestmodel
+package com.example.vendoapp.data.model.profile.myorderstestmodel
 
 
 import com.google.gson.annotations.SerializedName

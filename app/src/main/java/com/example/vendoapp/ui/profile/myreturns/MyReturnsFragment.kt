@@ -8,7 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.vendoapp.R
-import com.example.vendoapp.data.model.myreturns.MyReturnsPhotosModel
+import com.example.vendoapp.data.model.profile.myreturns.MyReturnsPhotosModel
 import com.example.vendoapp.databinding.FragmentMyReturnsBinding
 import com.example.vendoapp.ui.adapter.profile.myreturns.MyReturnsPhotosAdapter
 import com.example.vendoapp.ui.base.BaseFragment

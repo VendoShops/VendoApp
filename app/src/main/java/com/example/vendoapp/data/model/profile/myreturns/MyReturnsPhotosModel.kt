@@ -1,4 +1,4 @@
-package com.example.vendoapp.data.model.myreturns
+package com.example.vendoapp.data.model.profile.myreturns
 
 import android.net.Uri
 

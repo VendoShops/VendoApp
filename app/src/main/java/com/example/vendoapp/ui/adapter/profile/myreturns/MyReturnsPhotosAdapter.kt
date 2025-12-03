@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.vendoapp.R
-import com.example.vendoapp.data.model.myreturns.MyReturnsPhotosModel
+import com.example.vendoapp.data.model.profile.myreturns.MyReturnsPhotosModel
 import com.example.vendoapp.databinding.ItemReturnsPhotosBinding
 
 class MyReturnsPhotosAdapter(private val context: Context) : RecyclerView.Adapter<MyReturnsPhotosAdapter.MyReturnsPhotosViewHolder>() {

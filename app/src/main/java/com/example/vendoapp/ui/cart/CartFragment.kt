@@ -1,5 +1,7 @@
 package com.example.vendoapp.ui.cart
 
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
     private lateinit var adapter: CartAdapter
 
     override fun onViewCreateFinish() {
+        setupUi()
         setUpNavigate()
         setupRecyclerView()
         viewModel.customerId = 1
@@ -69,6 +72,16 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                 findNavController().navigate(R.id.action_cartFragment_to_addNewAddressFragment)
             }
             btnBack.setOnClickListener { findNavController().navigateUp() }
+        }
+    }
+
+    private fun setupUi() {
+        binding.let {
+            ViewCompat.setOnApplyWindowInsetsListener(it.main) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(0, systemBars.top, 0, 0)
+                insets
+            }
         }
     }
 }

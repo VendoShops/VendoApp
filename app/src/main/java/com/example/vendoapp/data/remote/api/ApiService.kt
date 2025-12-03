@@ -17,15 +17,19 @@ import com.example.vendoapp.data.model.home.BannerResponse
 import com.example.vendoapp.data.model.home.BrandResponse
 import com.example.vendoapp.data.model.home.FavoriteResponse
 import com.example.vendoapp.data.model.home.Product
-import com.example.vendoapp.data.model.myorderstestmodel.OrdersModel
+import com.example.vendoapp.data.model.profile.myorderstestmodel.OrdersModel
 import com.example.vendoapp.data.model.profile.ProfileModel
+import com.example.vendoapp.data.model.profile.UpdateAvatarModelX
 import com.example.vendoapp.data.model.profile.personalinformation.UpdateProfileRequest
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
@@ -56,6 +60,13 @@ interface ApiService {
         @Path("id") userId: Int,
         @Body request: UpdateProfileRequest
     ): ApiResponse<ProfileModel>
+
+    @Multipart
+    @PUT("/api/v1/user-profiles/{id}/avatar")
+    suspend fun updateUserProfileImage(
+        @Path("id") userId: Int,
+        @Part avatar: MultipartBody.Part
+    ) : ApiResponse<UpdateAvatarModelX>
 
     @GET("api/v1/banners")
     suspend fun getBanners(): Response<ApiResponse<List<BannerResponse>>>

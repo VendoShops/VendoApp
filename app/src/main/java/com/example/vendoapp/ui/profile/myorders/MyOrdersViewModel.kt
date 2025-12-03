@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vendoapp.data.model.myorderstestmodel.OrdersModel
+import com.example.vendoapp.data.model.profile.myorderstestmodel.OrdersModel
 import com.example.vendoapp.domain.usecase.MyOrdersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
