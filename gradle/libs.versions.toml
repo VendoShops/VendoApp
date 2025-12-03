@@ -15,6 +15,7 @@ loggingInterceptor = "4.12.0"
 googleGmsGoogleServices = "4.4.3"
 otpView = "1.1"
 compiler = "3.2.0-alpha11"
+recyclerview = "1.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,6 +33,7 @@ logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", ver
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 otp-view = { module = "com.github.appsfeature:otp-view", version.ref = "otpView" }
 androidx-compiler = { group = "androidx.databinding", name = "compiler", version.ref = "compiler" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

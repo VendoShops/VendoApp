@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvEdit"
-            android:text="Edit"
+            android:text="@string/edit"
             android:textColor="@color/grey_9f"
             android:textSize="12sp"
             android:fontFamily="@font/dmsansregular"

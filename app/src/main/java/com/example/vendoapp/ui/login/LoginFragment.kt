@@ -5,20 +5,26 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.vendoapp.R
 import com.example.vendoapp.ui.base.BaseFragment
 import com.example.vendoapp.databinding.FragmentLoginBinding
 import com.example.vendoapp.utils.Resource
+import com.example.vendoapp.utils.TokenManager
 import com.example.vendoapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(
     FragmentLoginBinding::inflate
 ) {
+
+    @Inject lateinit var tokenManager: TokenManager
+
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreateFinish() {
@@ -27,23 +33,30 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
         }
         binding.tvForgotPassword.setOnClickListener {
-
             findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
         binding.btnLogin.setOnClickListener {
 
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
+            val remember = binding.cbRememberMe.isChecked
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(
                     requireContext(),
-                    "Email and password cannot be empty",
+                    getString(R.string.email_and_password_cannot_be_empty),
                     Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
             }
-            viewModel.login(email, password)
+
+            viewModel.login(email, password, remember)
+
+            if (remember) {
+                tokenManager.saveRememberMe(true)
+            } else {
+                tokenManager.saveRememberMe(false)
+            }
         }
         observeLoginState()
     }
@@ -53,14 +66,38 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             viewModel.loginState.collectLatest { state ->
                 when (state) {
                     is Resource.Idle -> showLoading(false)
-                    is Resource.Loading -> {
-                        showLoading(true)
-                    }
-
+                    is Resource.Loading -> showLoading(true)
                     is Resource.Success -> {
                         showLoading(false)
-                        Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                        Toast.makeText(requireContext(),
+                            getString(R.string.login_successful), Toast.LENGTH_SHORT).show()
+
+                        val token = state.data?.accessToken
+                        val refresh = state.data?.refreshToken
+                        val accessExpiry = state.data?.accessTokenExpiryDate
+                        val refreshExpiry = state.data?.refreshTokenExpiryDate
+                        val userId = state.data?.userId
+
+                        if (userId != null) {
+                            tokenManager.saveUserId(userId)
+                        }
+
+                        if (binding.cbRememberMe.isChecked) {
+                            viewModel.saveLoginData(
+                                email = binding.etEmail.text.toString(),
+                                password = binding.etPassword.text.toString(),
+                                accessToken = token,
+                                refreshToken = refresh,
+                                accessExpiry = accessExpiry,
+                                refreshExpiry = refreshExpiry
+                            )
+                        }
+
+                        findNavController().navigate(
+                            R.id.homeFragment,
+                            null,
+                            NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
+                        )
                     }
 
                     is Resource.Error -> {
@@ -81,7 +118,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
     private fun handleError(message: String?) {
         showLoading(false)
-        Toast.makeText(requireContext(), message ?: "Something went error", Toast.LENGTH_SHORT)
+        Toast.makeText(requireContext(), message ?: getString(R.string.something_went_error), Toast.LENGTH_SHORT)
             .show()
     }
 

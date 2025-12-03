@@ -5,8 +5,19 @@ import com.example.vendoapp.data.remote.api.ApiService
 import com.example.vendoapp.data.remote.network.AuthInterceptor
 import com.example.vendoapp.domain.repository.AuthRepositoryImpl
 import com.example.vendoapp.domain.repository.AuthRepository
+import com.example.vendoapp.domain.repository.CartRepository
+import com.example.vendoapp.domain.repository.CartRepositoryImpl
+import com.example.vendoapp.domain.repository.LikeRepository
+import com.example.vendoapp.domain.repository.LikeRepositoryImpl
+import com.example.vendoapp.domain.repository.MyOrdersRepository
+import com.example.vendoapp.domain.repository.MyOrdersRepositoryImpl
+import com.example.vendoapp.domain.repository.ProfileRepository
+import com.example.vendoapp.domain.repository.ProfileRepositoryImpl
 import com.example.vendoapp.domain.usecase.LoginUseCase
+import com.example.vendoapp.domain.usecase.MyOrdersUseCase
+import com.example.vendoapp.domain.usecase.ProfileUseCase
 import com.example.vendoapp.domain.usecase.RegisterUseCase
+import com.example.vendoapp.domain.usecase.UpdateAvatarUseCase
 import com.example.vendoapp.utils.TokenManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -42,11 +53,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideTokenManager(@ApplicationContext context: Context): TokenManager = TokenManager(context)
+    fun provideTokenManager(@ApplicationContext context: Context): TokenManager =
+        TokenManager(context)
 
     @Provides
     @Singleton
-    fun provideAuthInterceptor(tokenManager: TokenManager): AuthInterceptor = AuthInterceptor(tokenManager)
+    fun provideAuthInterceptor(tokenManager: TokenManager): AuthInterceptor =
+        AuthInterceptor(tokenManager)
 
     @Provides
     @Singleton
@@ -60,7 +73,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient,  gson: Gson): Retrofit =
+    fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
@@ -75,7 +88,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideAuthRepository(api: ApiService, tokenManager: TokenManager): AuthRepository =
-        AuthRepositoryImpl(api,tokenManager)
+        AuthRepositoryImpl(api, tokenManager)
 
     @Provides
     @Singleton
@@ -84,4 +97,36 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideLoginUseCase(repository: AuthRepository) = LoginUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideProfileUseCase(repository: ProfileRepository) = ProfileUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideUpdateAvatarUseCase(repository: ProfileRepository) = UpdateAvatarUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideProfileRepository(api: ApiService): ProfileRepository =
+        ProfileRepositoryImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideMyOrdersUseCase(repository: MyOrdersRepository) = MyOrdersUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideMyOrdersRepository(api: ApiService): MyOrdersRepository =
+        MyOrdersRepositoryImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideLikeRepository(api: ApiService): LikeRepository =
+        LikeRepositoryImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideCartRepository(api: ApiService): CartRepository =
+        CartRepositoryImpl(api)
 }

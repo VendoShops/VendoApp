@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvSubtitle"
-            android:text="We have sent SMS code to your mobile phone number: +994001234567"
+            android:text="@string/we_have_sent_sms_code_to_your_mobile_phone_number_994001234567"
             android:textColor="@color/black"
             android:layout_marginTop="80dp"
             android:textSize="14sp"
@@ -68,7 +68,7 @@
             android:id="@+id/btnConfirmOTP"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Confirm OTP"
+            android:text="@string/confirm_otp"
             android:fontFamily="@font/dmsansmedium"
             android:backgroundTint="@color/black"
             app:cornerRadius="8dp"
@@ -84,7 +84,7 @@
             android:id="@+id/bottomText"
             android:orientation="horizontal"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/btnSendOTP"
+            app:layout_constraintTop_toBottomOf="@id/btnConfirmOTP"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNoAccount"
                 android:textColor="@color/grey_9f"
-                android:text="Didn’t receive a code? "
+                android:text="@string/didn_t_receive_a_code"
                 android:textSize="14sp" />
 
             <TextView
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvRequestAgain"
                 android:textColor="@color/black"
-                android:text="Request again"
+                android:text="@string/request_again"
                 android:textSize="14sp"
                 android:fontFamily="@font/dmsansmedium"
                 app:layout_constraintStart_toStartOf="@id/guideline"

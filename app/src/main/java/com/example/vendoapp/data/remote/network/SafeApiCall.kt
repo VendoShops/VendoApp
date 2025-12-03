@@ -1,6 +1,7 @@
 package com.example.vendoapp.data.remote.network
 
 import android.util.Log
+import com.example.vendoapp.data.model.ApiResponse
 import com.example.vendoapp.data.model.auth.ErrorResponse
 import com.example.vendoapp.utils.Resource
 import com.google.gson.Gson
@@ -9,12 +10,16 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> {
+suspend fun <T> safeApiCall(apiCall: suspend () -> ApiResponse<T>): Resource<T> {
     return withContext(Dispatchers.IO) {
         try {
             val response = apiCall()
             Log.d("safeApiCall", "Success response=$response")
-            Resource.Success(response)
+            if (response.success) {
+                Resource.Success(response.data)
+            } else {
+                Resource.Error(response.message ?: "Unknown error")
+            }
         } catch (e: IOException) {
             Log.d("safeApiCall", "IOException: ${e.message}")
             Resource.Error(message = "No Internet")

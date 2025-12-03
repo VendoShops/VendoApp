@@ -1,18 +1,22 @@
 package com.example.vendoapp.ui.filter
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.vendoapp.data.model.filter.FilterData
+import com.example.vendoapp.data.model.filter.FilterSection
 import com.example.vendoapp.databinding.FragmentFilterBinding
 import com.example.vendoapp.ui.base.BaseFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
-import android.text.Editable
-import android.text.TextWatcher
-import com.example.vendoapp.data.model.filter.FilterData
-import com.example.vendoapp.data.model.filter.FilterSection
 
 @AndroidEntryPoint
 class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding::inflate) {
@@ -22,8 +26,12 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
 
     override fun onViewCreateFinish() {
         setupViews()
+        setupPriceSlider()
         setupObservers()
         setupClickListeners()
+
+        // Initially hide the Apply Filter button
+        binding.btnApplyFilter.visibility = View.GONE
     }
 
     @SuppressLint("SetTextI18n")
@@ -31,6 +39,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
         // Setup color RecyclerView
         colorAdapter = ColorAdapter(emptyList()) { colorItem ->
             viewModel.updateColorSelection(colorItem)
+            checkAndShowApplyButton()
         }
 
         binding.recyclerViewColors.apply {
@@ -38,7 +47,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
             adapter = colorAdapter
         }
 
-        // Setup price range slider
+        // Setup price range slider values and listener
         binding.priceRangeSlider.setValues(0f, 20000f)
         binding.priceRangeSlider.addOnChangeListener { slider, _, _ ->
             val values = slider.values
@@ -49,6 +58,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
             binding.etMaxPrice.setText(values[1].toInt().toString())
 
             viewModel.updatePriceRange(values[0], values[1])
+            checkAndShowApplyButton()
         }
 
         binding.etMinPrice.addTextChangedListener(object : TextWatcher {
@@ -76,9 +86,35 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
         })
     }
 
+    private fun setupPriceSlider() {
+        binding.priceRangeSlider.apply {
+            trackActiveTintList = ColorStateList.valueOf(Color.BLACK)
+            trackInactiveTintList = ColorStateList.valueOf(Color.parseColor("#E5E7EB"))
+
+            trackHeight = 4.dpToPx(requireContext())
+
+            val thumbDrawable = GradientDrawable().apply {
+                shape = GradientDrawable.OVAL
+                setColor(Color.WHITE)
+                setStroke(2.dpToPx(requireContext()), Color.BLACK)
+                setSize(5.dpToPx(requireContext()), 9.dpToPx(requireContext()))
+            }
+
+            setCustomThumbDrawable(thumbDrawable)
+
+            thumbElevation = 0f
+
+            labelBehavior = com.google.android.material.slider.LabelFormatter.LABEL_GONE
+        }
+    }
+
     private fun setupObservers() {
         viewModel.expandedSections.observe(viewLifecycleOwner) { expandedSections ->
             updateSectionVisibility(expandedSections)
+
+            if (expandedSections.isNotEmpty()) {
+                binding.btnApplyFilter.visibility = View.VISIBLE
+            }
         }
 
         viewModel.colorList.observe(viewLifecycleOwner) { colors ->
@@ -237,5 +273,24 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
         val isPriceExpanded = expandedSections.contains(FilterSection.PRICE)
         binding.layoutPriceOptions.visibility = if (isPriceExpanded) View.VISIBLE else View.GONE
         rotateArrow(binding.ivPriceArrow, isPriceExpanded)
+    }
+
+    private fun checkAndShowApplyButton() {
+        val filterData = viewModel.filterData.value ?: return
+
+        val hasSelection = filterData.selectedGenders.isNotEmpty() ||
+                filterData.selectedCategories.isNotEmpty() ||
+                filterData.selectedSizes.isNotEmpty() ||
+                filterData.selectedBrands.isNotEmpty() ||
+                filterData.selectedColors.isNotEmpty() ||
+                (filterData.minPrice != 0f || filterData.maxPrice != 20000f)
+
+        if (hasSelection) {
+            binding.btnApplyFilter.visibility = View.VISIBLE
+        }
+    }
+
+    private fun Int.dpToPx(context: Context): Int {
+        return (this * context.resources.displayMetrics.density).toInt()
     }
 }

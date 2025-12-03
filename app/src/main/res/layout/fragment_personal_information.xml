@@ -15,6 +15,7 @@
         android:layout_marginStart="21dp"
         android:layout_marginTop="40dp"
         android:src="@drawable/back"
+        android:padding="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="11dp"
         android:fontFamily="@font/dmsanssemibold"
-        android:text="Personal Information"
+        android:text="@string/personal_information"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/ivBack"
@@ -66,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/dmsansmedium"
-            android:hint="Full Name"
+            android:hint="@string/full_name"
             android:inputType="text"
             android:padding="12dp"
             android:textColor="@color/black"
@@ -102,6 +103,7 @@
                 android:drawableEnd="@drawable/icon_down"
                 android:drawablePadding="6dp"
                 android:focusable="true"
+                android:enabled="false"
                 android:fontFamily="@font/dmsansmedium"
                 android:gravity="center_vertical"
                 android:padding="12dp"
@@ -115,7 +117,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:hint="Number"
+                android:hint="@string/number"
+                android:enabled="false"
                 android:inputType="phone"
                 android:maxLength="7"
                 android:padding="12dp"
@@ -148,7 +151,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/dmsansmedium"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:padding="12dp"
             android:textColor="@color/black"
@@ -162,7 +165,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="26dp"
-        android:text="Update"
+        android:text="@string/update"
         android:backgroundTint="@color/black"
         app:cornerRadius="8dp"
         android:textSize="16sp"
@@ -170,5 +173,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="@id/guideline" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

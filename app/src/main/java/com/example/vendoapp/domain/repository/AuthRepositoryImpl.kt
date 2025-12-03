@@ -10,7 +10,6 @@ import com.example.vendoapp.data.model.auth.register.RegisterRequest
 import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.data.remote.api.ApiService
 import com.example.vendoapp.data.remote.network.safeApiCall
-import com.example.vendoapp.domain.repository.AuthRepository
 import com.example.vendoapp.utils.Resource
 import com.example.vendoapp.utils.TokenManager
 import javax.inject.Inject
@@ -25,9 +24,12 @@ class AuthRepositoryImpl @Inject constructor(
                 result.data?.let {
                     val access = it.accessToken
                     val refresh = it.refreshToken
+                    val accessExpiry = it.accessTokenExpiryDate
+                    val refreshExpiry = it.refreshTokenExpiryDate
 
-                    if (!access.isNullOrBlank() && !refresh.isNullOrBlank()) {
-                        tokenManager.saveTokens(access, refresh)
+                    if (!access.isNullOrBlank() && !refresh.isNullOrBlank()
+                        && !refreshExpiry.isNullOrBlank() && !accessExpiry.isNullOrBlank()) {
+                        tokenManager.saveTokens(access, refresh, accessExpiry, refreshExpiry)
                     }
                 }
             }
@@ -36,7 +38,15 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun login(loginRequest: LoginRequest): Resource<LoginResponse> =
         safeApiCall { apiService.login(loginRequest) }.also { result ->
             if (result is Resource.Success) {
-                result.data?.let { tokenManager.saveTokens(it.accessToken, it.refreshToken) }
+                result.data?.let {
+                    tokenManager.saveTokens(
+                        it.accessToken,
+                        it.refreshToken,
+                        it.accessTokenExpiryDate,
+                        it.refreshTokenExpiryDate
+
+                    )
+                }
             }
         }
 
@@ -45,9 +55,9 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun sendOtp(request: SendOtpRequest): Resource<String> =
-        safeApiCall { apiService.sendOtp(request).body() ?: "OTP sent successfully" }
+        safeApiCall { apiService.sendOtp(request) }
 
     override suspend fun verifyOtp(request: VerifyOtpRequest): Resource<String> =
-        safeApiCall { apiService.verifyOtp(request).body() ?: "OTP verified successfully" }
+        safeApiCall { apiService.verifyOtp(request) }
 
 }

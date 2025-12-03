@@ -1,570 +1,579 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:background="#FFFFFF">
 
-    <LinearLayout
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
-
-        <!-- Header -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp">
-
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="Back"
-                android:src="@drawable/back" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:text="Filter"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_marginBottom="130dp"
+        android:fillViewport="false"
+        android:overScrollMode="always"
+        android:scrollbars="vertical">
 
         <LinearLayout
-            android:id="@+id/layoutGenderHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingVertical="12dp">
+            android:layout_marginTop="50dp"
+            android:paddingBottom="16dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Gender"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
 
-            <ImageView
-                android:id="@+id/ivGenderArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Expand"
-                android:src="@drawable/more_icon_svg" />
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/back"
+                    android:src="@drawable/back" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/filter"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/layoutGenderOptions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="vertical"
-            android:visibility="gone">
+            </LinearLayout>
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroupGender"
+            <!-- Gender Section Header -->
+            <LinearLayout
+                android:id="@+id/layoutGenderHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/gender"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivGenderArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/expand"
+                    android:src="@drawable/more_icon_svg" />
+
+            </LinearLayout>
+
+            <!-- Gender Options -->
+            <LinearLayout
+                android:id="@+id/layoutGenderOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="12dp"
+                    app:chipSpacingVertical="12dp"
+                    app:singleSelection="false">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipMan"
+                        style="@style/CustomFilterChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/man" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipWoman"
+                        style="@style/CustomFilterChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/woman" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipChild"
+                        style="@style/CustomFilterChipStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/child" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="#E5E7EB" />
+
+            <!-- Categories Section Header -->
+            <LinearLayout
+                android:id="@+id/layoutCategoriesHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/categories"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivCategoriesArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Expand"
+                    android:src="@drawable/more_icon_svg" />
+
+            </LinearLayout>
+
+            <!-- Category Options -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
                 app:chipSpacingHorizontal="12dp"
                 app:chipSpacingVertical="12dp"
                 app:singleSelection="false">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipMan"
+                    android:id="@+id/chipAccessories"
+                    style="@style/CustomFilterChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_size_button"
-                    android:text="Man" />
+                    android:text="@string/accessories" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipWoman"
+                    android:id="@+id/chipClothing"
+                    style="@style/CustomFilterChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_size_button"
-                    android:text="Woman" />
+                    android:text="@string/clothing" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipChild"
+                    android:id="@+id/chipBeauty"
+                    style="@style/CustomFilterChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_size_button"
-                    android:text="Child" />
+                    android:text="@string/beauty" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipElectronics"
+                    style="@style/CustomFilterChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/electronics" />
 
             </com.google.android.material.chip.ChipGroup>
 
-        </LinearLayout>
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="#E5E7EB" />
 
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="16dp"
-            android:background="#E5E7EB" />
-
-        <LinearLayout
-            android:id="@+id/layoutCategoriesHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingVertical="12dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Categories"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/ivCategoriesArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Expand"
-                android:src="@drawable/more_icon_svg" />
-
-        </LinearLayout>
-
-        <!-- Category Options -->
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroupCategories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"
-            app:chipSpacingHorizontal="12dp"
-            app:chipSpacingVertical="12dp"
-            app:singleSelection="false">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipAccessories"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="Accessories" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipClothing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="Clothing" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipBeauty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="Beauty" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipElectronics"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="Electronics" />
-
-        </com.google.android.material.chip.ChipGroup>
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="16dp"
-            android:background="#E5E7EB" />
-
-        <LinearLayout
-            android:id="@+id/layoutSizeHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingVertical="12dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Size"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/ivSizeArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Expand"
-                android:src="@drawable/more_icon_svg" />
-
-        </LinearLayout>
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroupSizes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"
-            app:chipSpacingHorizontal="12dp"
-            app:chipSpacingVertical="12dp"
-            app:singleSelection="false">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip2XS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="2XS" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipXS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="XS" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="S" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="M" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="L" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipXL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="XL" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip2XL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="2XL" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip3XL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="3XL" />
-
-        </com.google.android.material.chip.ChipGroup>
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="16dp"
-            android:background="#E5E7EB" />
-
-        <LinearLayout
-            android:id="@+id/layoutBrandHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingVertical="12dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Brands"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/ivBrandArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Expand"
-                android:src="@drawable/more_icon_svg" />
-
-        </LinearLayout>
-
-        <!-- Brand Options -->
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroupBrands"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"
-            app:chipSpacingHorizontal="12dp"
-            app:chipSpacingVertical="12dp"
-            app:singleSelection="false">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipNike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="Nike" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipSephore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="Sephore" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipPuma"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="Puma" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipGucci"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="Gucci" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipAdidas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_size_button"
-                android:text="Adidas" />
-
-        </com.google.android.material.chip.ChipGroup>
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="16dp"
-            android:background="#E5E7EB" />
-
-        <LinearLayout
-            android:id="@+id/layoutColorHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingVertical="12dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Color"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/ivColorArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Expand"
-                android:src="@drawable/more_icon_svg" />
-
-        </LinearLayout>
-
-        <!-- Color Options (RecyclerView) -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewColors"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone" />
-
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginHorizontal="16dp"
-            android:background="#E5E7EB" />
-
-        <!-- PRICE SECTION -->
-        <LinearLayout
-            android:id="@+id/layoutPriceHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingVertical="12dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Price"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/ivPriceArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Expand"
-                android:src="@drawable/more_icon_svg" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutPriceOptions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <!-- Min and Max Price Input Fields -->
+            <!-- Size Section Header -->
             <LinearLayout
+                android:id="@+id/layoutSizeHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
-
-                <!-- Min Price Input -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:hint="min"
-                    app:boxStrokeColor="#D1D5DB"
-                    app:boxStrokeWidth="1dp"
-                    app:hintTextColor="#6B7280">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etMinPrice"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:textColor="#000000"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- Max Price Input -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:hint="max"
-                    app:boxStrokeColor="#D1D5DB"
-                    app:boxStrokeWidth="1dp"
-                    app:hintTextColor="#6B7280">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etMaxPrice"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:textColor="#000000"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <!-- Price Range Slider -->
-            <com.google.android.material.slider.RangeSlider
-                android:id="@+id/priceRangeSlider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:valueFrom="0"
-                android:valueTo="20000"
-                app:labelBehavior="gone"
-                app:thumbColor="#000000"
-                app:trackColorActive="#000000"
-                app:trackColorInactive="#D1D5DB" />
-
-            <!-- Price Labels -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp">
 
                 <TextView
-                    android:id="@+id/tvMinPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="$0"
-                    android:textColor="#6B7280"
-                    android:textSize="12sp" />
+                    android:text="@string/size"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvMaxPrice"
+                <ImageView
+                    android:id="@+id/ivSizeArrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$20000"
-                    android:textColor="#6B7280"
-                    android:textSize="12sp" />
+                    android:contentDescription="@string/expand"
+                    android:src="@drawable/more_icon_svg" />
 
             </LinearLayout>
 
+            <!-- Size Options -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupSizes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                app:chipSpacingHorizontal="12dp"
+                app:chipSpacingVertical="12dp"
+                app:singleSelection="false">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipXS"
+                    style="@style/CustomFilterChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XS" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipS"
+                    style="@style/CustomFilterChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipM"
+                    style="@style/CustomFilterChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipL"
+                    style="@style/CustomFilterChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="L" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipXL"
+                    style="@style/CustomFilterChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XL" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="#E5E7EB" />
+
+            <!-- Brand Section Header -->
+            <LinearLayout
+                android:id="@+id/layoutBrandHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/brand"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivBrandArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/expand"
+                    android:src="@drawable/more_icon_svg" />
+
+            </LinearLayout>
+
+            <!-- Brand Options -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupBrands"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                app:chipSpacingHorizontal="12dp"
+                app:chipSpacingVertical="12dp"
+                app:singleSelection="false">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipNike"
+                    style="@style/CustomFilterChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nike" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAdidas"
+                    style="@style/CustomFilterChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Adidas" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipPuma"
+                    style="@style/CustomFilterChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Puma" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipZara"
+                    style="@style/CustomFilterChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zara" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="#E5E7EB" />
+
+            <!-- Color Section Header -->
+            <LinearLayout
+                android:id="@+id/layoutColorHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/color"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivColorArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/expand"
+                    android:src="@drawable/more_icon_svg" />
+
+            </LinearLayout>
+
+            <!-- Color Options RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewColors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="8dp"
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone" />
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="#E5E7EB" />
+
+            <!-- Price Section Header -->
+            <LinearLayout
+                android:id="@+id/layoutPriceHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/price"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivPriceArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/expand"
+                    android:src="@drawable/more_icon_svg" />
+
+            </LinearLayout>
+
+            <!-- Price Options -->
+            <LinearLayout
+                android:id="@+id/layoutPriceOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Min and Max Price Input Fields -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal">
+
+                    <!-- Min Price Input -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:hint="min"
+                        app:boxStrokeColor="#D1D5DB"
+                        app:boxStrokeWidth="1dp"
+                        app:hintTextColor="#6B7280">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etMinPrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Max Price Input -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:hint="max"
+                        app:boxStrokeColor="#D1D5DB"
+                        app:boxStrokeWidth="1dp"
+                        app:hintTextColor="#6B7280">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etMaxPrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <!-- Price Range Slider -->
+                <com.google.android.material.slider.RangeSlider
+                    android:id="@+id/priceRangeSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:valueFrom="0"
+                    android:valueTo="20000"
+                    app:labelBehavior="gone"
+                    app:thumbColor="@android:color/white"
+                    app:thumbStrokeColor="#000000"
+                    app:thumbStrokeWidth="2dp"
+                    app:thumbRadius="8dp"
+                    app:thumbElevation="0dp"
+                    app:trackColorActive="#000000"
+                    app:trackColorInactive="#D1D5DB"
+                    app:trackHeight="4dp" />
+
+                <!-- Price Labels -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvMinPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="$0"
+                        android:textColor="#6B7280"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvMaxPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$20000"
+                        android:textColor="#6B7280"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Extra bottom padding for scroll space -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
         </LinearLayout>
 
-        <!-- Apply Filter Button -->
-        <Button
-            android:id="@+id/btnApplyFilter"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_margin="16dp"
-            android:backgroundTint="#000000"
-            android:text="Apply filter"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            app:cornerRadius="4dp" />
+    </androidx.core.widget.NestedScrollView>
 
-    </LinearLayout>
+    <!-- Apply Filter Button - Fixed at bottom -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnApplyFilter"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="@android:color/black"
+        android:text="@string/apply_filter"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:cornerRadius="12dp" />
 
-</ScrollView>
+</FrameLayout>

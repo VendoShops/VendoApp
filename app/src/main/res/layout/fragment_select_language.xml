@@ -15,13 +15,14 @@
         android:src="@drawable/back"
         android:layout_marginTop="40dp"
         android:layout_marginStart="21dp"
+        android:padding="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Language"
+        android:text="@string/select_language"
         android:layout_marginStart="11dp"
         android:textColor="@color/black"
         android:fontFamily="@font/dmsanssemibold"
@@ -60,7 +61,7 @@
             android:layout_marginVertical="8dp"
             android:layout_marginStart="12dp"
             android:fontFamily="@font/dmsanssemibold"
-            android:text="English"
+            android:text="@string/english"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -96,7 +97,7 @@
             android:layout_marginVertical="8dp"
             android:layout_marginStart="12dp"
             android:fontFamily="@font/dmsanssemibold"
-            android:text="Arabic"
+            android:text="@string/arabic"
             android:textColor="@color/grey_9f"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

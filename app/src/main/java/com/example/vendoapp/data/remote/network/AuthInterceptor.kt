@@ -14,52 +14,57 @@ class AuthInterceptor @Inject constructor(
     private val tokenManager: TokenManager,
 ) : Interceptor {
 
-    private val refreshRetrofit: Retrofit by lazy {
+    private val refreshApi: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl("http://138.68.111.115:8080/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+            .create(ApiService::class.java)
     }
 
-    private val apiService by lazy { refreshRetrofit.create(ApiService::class.java) }
-
     override fun intercept(chain: Interceptor.Chain): Response {
-        val accessToken = tokenManager.getAccessToken()
-        var request = chain.request().newBuilder().apply {
-            accessToken?.let { addHeader("Authorization", "Bearer $it") }
-        }.build()
+        var accessToken = tokenManager.getAccessToken()
+        val refreshToken = tokenManager.getRefreshToken()
+        val accessExpiry = tokenManager.getAccessExpiry()
+        val refreshExpiry = tokenManager.getRefreshExpiry()
+        var originalRequest = chain.request()
+        var mustRetry = false
 
-        var response = chain.proceed(request)
+        if (tokenManager.isTokenExpired(accessExpiry)) {
 
-        if (response.code == 401) {
-            response.close()
-            val refreshToken = tokenManager.getRefreshToken()
-
-            if (!refreshToken.isNullOrEmpty()) {
-                val newAccessToken = runBlocking {
+            if (tokenManager.isTokenExpired(refreshExpiry)) {
+                tokenManager.clearTokens()
+                accessToken = null
+            } else if (!refreshToken.isNullOrEmpty()) {
+                val newTokens = runBlocking {
                     try {
-                        val refreshResponse = apiService.refreshToken(
-                            RefreshTokenRequest(refreshToken)
-                        )
-                        val newToken = refreshResponse.accessToken
-                        tokenManager.saveTokens(newToken, refreshToken)
-                        newToken
+                        refreshApi.refreshToken(RefreshTokenRequest(refreshToken))
                     } catch (e: Exception) {
                         null
                     }
                 }
 
-                if (newAccessToken != null) {
-                    request = request.newBuilder()
-                        .removeHeader("Authorization")
-                        .addHeader("Authorization", "Bearer $newAccessToken")
-                        .build()
-                    response = chain.proceed(request)
+                if (newTokens != null) {
+                    tokenManager.saveTokens(
+                        newTokens.accessToken,
+                        newTokens.refreshToken,
+                        newTokens.accessTokenExpiryDate,
+                        newTokens.refreshTokenExpiryDate
+                    )
+                    accessToken = newTokens.accessToken
+                    mustRetry = true
                 } else {
                     tokenManager.clearTokens()
+                    accessToken = null
                 }
             }
         }
-        return response
+
+        if (!accessToken.isNullOrEmpty()) {
+            originalRequest = originalRequest.newBuilder()
+                .addHeader("Authorization", "Bearer $accessToken")
+                .build()
+        }
+        return chain.proceed(originalRequest)
     }
 }

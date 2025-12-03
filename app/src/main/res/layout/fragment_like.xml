@@ -1,16 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:id="@+id/main"
-    tools:context=".ui.like.LikeFragment">
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Sabit Search Bar -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="42dp"
+        android:layout_margin="17dp"
+        android:elevation="2dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="12dp">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/ivClearSearch"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="2dp"
+            android:src="@drawable/clear_svg"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
+
+            <!-- Search icon -->
+            <ImageView
+                android:id="@+id/search_category_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/search_icon"
+                android:src="@drawable/search" />
+
+            <!-- Search text -->
+            <EditText
+                android:id="@+id/searchEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/search"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textColorHint="#808080"
+                tools:ignore="RtlSymmetry" />
+
+            <!-- Scan/Camera icon -->
+            <ImageView
+                android:id="@+id/qr_scanner_category"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/scanner" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recylerLike"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:orientation="vertical"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_product"
+        android:padding="16dp" />
+
+</LinearLayout>

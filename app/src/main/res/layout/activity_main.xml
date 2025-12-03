@@ -42,11 +42,10 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             app:itemIconTint="@color/bottom_nav_item_color"
-            app:itemPaddingBottom="6dp"
-            app:itemPaddingTop="8dp"
             app:itemTextColor="@color/bottom_nav_item_color"
             app:labelVisibilityMode="labeled"
-            app:menu="@menu/bottom_menu" />
+            app:menu="@menu/bottom_menu"
+            android:layoutDirection="ltr"/>
 
     </com.google.android.material.card.MaterialCardView>
 

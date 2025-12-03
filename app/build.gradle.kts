@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -82,6 +83,9 @@ dependencies {
 
     // Glide
     implementation ("com.github.bumptech.glide:glide:5.0.5")
+
+    // Java 8+ API-lərini köhnə Android versiyalarında dəstəkləmək üçün
+    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.1.5")
 
 
 }
