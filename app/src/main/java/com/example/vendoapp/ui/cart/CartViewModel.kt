@@ -44,6 +44,7 @@ class CartViewModel @Inject constructor(
 
     fun fetchCartSummary() = viewModelScope.launch {
         _isLoading.value = true
+
         when (val response = repository.getCartSummary(customerId, cartId)) {
             is Resource.Success -> response.data?.let { summary ->
                 _cartItems.value = summary.items
@@ -54,101 +55,98 @@ class CartViewModel @Inject constructor(
                 _total.value = summary.total
             }
 
-            is Resource.Error -> Log.e("CartVM", "Error: ${response.message}")
+            is Resource.Error -> Log.e("CartVM", "Summary error: ${response.message}")
             else -> {}
         }
+
         _isLoading.value = false
     }
 
     fun incrementQuantity(itemId: Int) = viewModelScope.launch {
-        val item = _cartItems.value?.find { it.id == itemId } ?: return@launch
+        val currentList = _cartItems.value ?: return@launch
+        val item = currentList.find { it.id == itemId } ?: return@launch
         val newQuantity = item.quantity + 1
 
-        Log.d("CartVM", "Incrementing item $itemId to quantity $newQuantity")
+        val optimisticList = currentList.map {
+            if (it.id == itemId) it.copy(quantity = newQuantity) else it
+        }
 
-        when (val response = repository.updateCartItem(
+        _cartItems.value = optimisticList
+
+        val response = repository.updateCartItem(
             customerId,
             cartId,
             itemId,
-            CartItemRequest(quantity = newQuantity, color = item.color, size = item.size)
-        )) {
-            is Resource.Success -> {
-                Log.d("CartVM", "Quantity updated successfully")
-                // Backend-dən yeni summary gətir
-                fetchCartSummary()
-            }
+            CartItemRequest(newQuantity, item.color, item.size)
+        )
 
-            is Resource.Error -> {
-                Log.e("CartVM", "Error incrementing: ${response.message}")
-            }
-
-            else -> {}
+        if (response is Resource.Error) {
+            _cartItems.value = currentList // rollback
+        } else {
+            fetchCartSummary()
         }
     }
 
     fun decrementQuantity(itemId: Int) = viewModelScope.launch {
-        val item = _cartItems.value?.find { it.id == itemId } ?: return@launch
-        if (item.quantity <= 1) return@launch  // Minimum 1
+        val currentList = _cartItems.value ?: return@launch
+        val item = currentList.find { it.id == itemId } ?: return@launch
+        if (item.quantity <= 1) return@launch
 
         val newQuantity = item.quantity - 1
-        Log.d("CartVM", "Decrementing item $itemId to quantity $newQuantity")
 
-        when (val response = repository.updateCartItem(
+        val optimisticList = currentList.map {
+            if (it.id == itemId) it.copy(quantity = newQuantity) else it
+        }
+
+        _cartItems.value = optimisticList
+
+        val response = repository.updateCartItem(
             customerId,
             cartId,
             itemId,
-            CartItemRequest(quantity = newQuantity, color = item.color, size = item.size)
-        )) {
-            is Resource.Success -> {
-                Log.d("CartVM", "Quantity decremented successfully")
-                fetchCartSummary()
-            }
+            CartItemRequest(newQuantity, item.color, item.size)
+        )
 
-            is Resource.Error -> {
-                Log.e("CartVM", "Error decrementing: ${response.message}")
-            }
-
-            else -> {}
+        if (response is Resource.Error) {
+            _cartItems.value = currentList // rollback
+        } else {
+            fetchCartSummary()
         }
     }
 
     fun removeItem(itemId: Int) = viewModelScope.launch {
-        Log.d("CartVM", "Removing item $itemId")
+        val currentList = _cartItems.value ?: return@launch
 
-        when (val response = repository.deleteCartItem(customerId, cartId, itemId)) {
-            is Resource.Success -> {
-                Log.d("CartVM", "Item removed successfully")
-                fetchCartSummary()
-            }
+        val optimisticList = currentList.filterNot { it.id == itemId }
+        _cartItems.value = optimisticList
 
-            is Resource.Error -> {
-                Log.e("CartVM", "Error removing item: ${response.message}")
-            }
+        val response = repository.deleteCartItem(customerId, cartId, itemId)
 
-            else -> {}
+        if (response is Resource.Error) {
+            _cartItems.value = currentList // rollback
+        } else {
+            fetchCartSummary()
         }
     }
-
-
     fun toggleSelection(itemId: Int) = viewModelScope.launch {
-        val item = _cartItems.value?.find { it.id == itemId } ?: return@launch
+        val currentList = _cartItems.value ?: return@launch
+        val item = currentList.find { it.id == itemId } ?: return@launch
+
         val newStatus = if (item.isSelected()) "UNSELECTED" else "SELECTED"
 
-        Log.d("CartVM", "Toggling selection for item $itemId to $newStatus")
+        val optimisticList = currentList.map {
+            if (it.id == itemId) it.copy(selectionStatus = newStatus) else it
+        }
 
-        when (val response =
-            repository.toggleItemSelection(customerId, cartId, itemId, newStatus)) {
-            is Resource.Success -> {
-                Log.d("CartVM", "Selection toggled successfully")
-                // Backend selection-u dəyişdikdə summary-ni də yenilə
-                fetchCartSummary()
-            }
+        _cartItems.value = optimisticList
 
-            is Resource.Error -> {
-                Log.e("CartVM", "Error toggling selection: ${response.message}")
-            }
+        val response =
+            repository.toggleItemSelection(customerId, cartId, itemId, newStatus)
 
-            else -> {}
+        if (response is Resource.Error) {
+            _cartItems.value = currentList
+        } else {
+            fetchCartSummary()
         }
     }
 }
