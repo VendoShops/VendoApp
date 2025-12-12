@@ -59,15 +59,15 @@ interface ApiService {
     @PUT("api/v1/user-profiles/{id}")
     suspend fun updateUserProfile(
         @Path("id") userId: Int,
-        @Body request: UpdateProfileRequest
+        @Body request: UpdateProfileRequest,
     ): ApiResponse<ProfileModel>
 
     @Multipart
     @PUT("/api/v1/user-profiles/{id}/avatar")
     suspend fun updateUserProfileImage(
         @Path("id") userId: Int,
-        @Part avatar: MultipartBody.Part
-    ) : ApiResponse<UpdateAvatarModelX>
+        @Part avatar: MultipartBody.Part,
+    ): ApiResponse<UpdateAvatarModelX>
 
     @GET("api/v1/banners")
     suspend fun getBanners(): Response<ApiResponse<List<BannerResponse>>>
@@ -101,7 +101,7 @@ interface ApiService {
     @GET("api/v1/customers/{customerId}/carts/{cartId}/items")
     suspend fun getCartItems(
         @Path("customerId") customerId: Int,
-        @Path("cartId") cartId: Int
+        @Path("cartId") cartId: Int,
     ): Response<ApiResponse<List<CartItem>>>
 
     @POST("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
@@ -109,7 +109,7 @@ interface ApiService {
         @Path("customerId") customerId: Int,
         @Path("cartId") cartId: Int,
         @Path("productId") productId: Int,
-        @Body request: CartItemRequest
+        @Body request: CartItemRequest,
     ): Response<ApiResponse<CartItem>>
 
     @PUT("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
@@ -117,7 +117,7 @@ interface ApiService {
         @Path("customerId") customerId: Int,
         @Path("cartId") cartId: Int,
         @Path("productId") productId: Int,
-        @Body request: CartItemRequest
+        @Body request: CartItemRequest,
     ): Response<ApiResponse<CartItem>>
 
     @DELETE("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
@@ -127,12 +127,11 @@ interface ApiService {
         @Path("productId") productId: Int,
     ): Response<Unit>
 
-
     // New
     @GET("api/v1/customers/{customerId}/carts/{cartId}/summary")
     suspend fun getCartSummary(
         @Path("customerId") customerId: Int,
-        @Path("cartId") cartId: Int
+        @Path("cartId") cartId: Int,
     ): Response<ApiResponse<CartSummary>>
 
     @PUT("api/v1/customers/{customerId}/carts/{cartId}/items/{itemId}/selection")
@@ -140,6 +139,6 @@ interface ApiService {
         @Path("customerId") customerId: Int,
         @Path("cartId") cartId: Int,
         @Path("itemId") itemId: Int,
-        @Body request: Map<String, String>
+        @Body request: Map<String, String>,
     ): Response<ApiResponse<CartItem>>
 }

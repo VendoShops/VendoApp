@@ -13,31 +13,31 @@ interface CartRepository {
         customerId: Int,
         cartId: Int,
         productId: Int,
-        request: CartItemRequest
+        request: CartItemRequest,
     ): Resource<CartItem>
 
     suspend fun updateCartItem(
         customerId: Int,
         cartId: Int,
         productId: Int,
-        request: CartItemRequest
+        request: CartItemRequest,
     ): Resource<CartItem>
 
     suspend fun deleteCartItem(
         customerId: Int,
         cartId: Int,
-        productId: Int
+        productId: Int,
     ): Resource<Unit>
 
     suspend fun getCartSummary(
         customerId: Int,
-        cartId: Int
+        cartId: Int,
     ): Resource<CartSummary>
 
     suspend fun toggleItemSelection(
         customerId: Int,
         cartId: Int,
         itemId: Int,
-        selectionStatus: String
+        selectionStatus: String,
     ): Resource<CartItem>
 }

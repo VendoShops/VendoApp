@@ -9,7 +9,9 @@ import com.example.vendoapp.databinding.FragmentAddNewAdressBinding
 import com.example.vendoapp.ui.adapter.addaddress.AddAddressAdapter
 import com.example.vendoapp.ui.adapter.addaddress.AddressItem
 import com.example.vendoapp.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddNewAdressFragment : BaseFragment<FragmentAddNewAdressBinding>(
     FragmentAddNewAdressBinding::inflate
 ) {
