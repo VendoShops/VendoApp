@@ -112,7 +112,6 @@
     <string name="completed">مكتمل</string>
     <string name="color_variant">خيارات الألوان</string>
     <string name="product_image">صورة المنتج</string>
-    <string name="iade_nedeni_se">حدد سبب الإرجاع</string>
     <string name="add_photo">+ أضف صورة</string>
     <string name="toast_max_photos">يمكنك إضافة ما يصل إلى 3 صور فقط</string>
     <string name="max_3_photos">الحد الأقصى 3 صور</string>
@@ -135,8 +134,9 @@
     <string name="password_can_t_be_empty">لا يمكن أن تكون كلمة المرور فارغة</string>
     <string name="qeydiyyat_u_urlu">تم التسجيل بنجاح</string>
     <string name="your_review">مراجعتك</string>
-    <string name="iade_nedeni">سبب الإرجاع</string>
     <string name="home_page">الصفحة الرئيسية</string>
     <string name="track_my_order">تتبع طلبي</string>
-
+    <string name="avatar_updated">تم تحديث الصورة الشخصية</string>
+    <string name="reason_for_return">سبب الإرجاع</string>
+    <string name="choose_a_return_reason">اختر سبب الإرجاع</string>
 </resources>

@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
-import android.graphics.Matrix
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.Toast

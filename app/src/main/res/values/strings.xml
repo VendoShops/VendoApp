@@ -109,7 +109,6 @@
     <string name="completed">Completed</string>
     <string name="color_variant">Color variant</string>
     <string name="product_image">Product image</string>
-    <string name="iade_nedeni_se">Iade nedeni seç</string>
     <string name="add_photo">+ Add Photo</string>
     <string name="toast_max_photos">You can add up to 3 photos only</string>
     <string name="max_3_photos">Max 3 photos</string>
@@ -132,8 +131,9 @@
     <string name="password_can_t_be_empty">Password can\'t be empty</string>
     <string name="qeydiyyat_u_urlu">Qeydiyyat uğurlu!</string>
     <string name="your_review">Your Review</string>
-    <string name="iade_nedeni">Iade nedeni</string>
     <string name="home_page">Home page</string>
     <string name="track_my_order">Track my order</string>
     <string name="avatar_updated">Avatar Updated</string>
+    <string name="reason_for_return">Reason for return</string>
+    <string name="choose_a_return_reason">Choose a return reason</string>
 </resources>
