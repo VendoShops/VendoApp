@@ -36,10 +36,10 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun updateAvatar(userId: Int, fileBytes: ByteArray, mimeType: String) = viewModelScope.launch {
-        val requestFile = fileBytes.toRequestBody(mimeType.toMediaType())
+        val requestFile = fileBytes.toRequestBody("image/jpeg".toMediaType())
         val multipart = MultipartBody.Part.createFormData(
             name = "avatar",
-            filename = "avatar.${mimeType.substringAfter("/")}",
+            filename = "avatar.jpg",
             body = requestFile
         )
         _avatar.value = Resource.Loading()

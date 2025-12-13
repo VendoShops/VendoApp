@@ -2,6 +2,10 @@ package com.example.vendoapp.ui.profile
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
+import android.graphics.Matrix
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.Toast
@@ -19,6 +23,7 @@ import com.example.vendoapp.databinding.FragmentProfileBinding
 import com.example.vendoapp.utils.Resource
 import com.example.vendoapp.utils.TokenManager
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,16 +38,71 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri ?: return@registerForActivityResult
 
-            val mimeType = requireContext().contentResolver.getType(uri) ?: "image/jpeg"
+            try {
+                val inputStream = requireContext().contentResolver.openInputStream(uri)
+                val bitmap = BitmapFactory.decodeStream(inputStream)
 
-            val inputStream = requireContext().contentResolver.openInputStream(uri)
-            val bytes = inputStream?.readBytes() ?: return@registerForActivityResult
+                if (bitmap == null) {
+                    Toast.makeText(requireContext(), "Şəkil oxuna bilmədi. Zəhmət olmasa başqa şəkil seçin.", Toast.LENGTH_LONG).show()
+                    return@registerForActivityResult
+                }
+                if (bitmap.width == 0 || bitmap.height == 0) {
+                    Toast.makeText(requireContext(), "Şəkil boş və ya ölçüləri sıfırdır. Zəhmət olmasa başqa şəkil seçin.", Toast.LENGTH_LONG).show()
+                    return@registerForActivityResult
+                }
 
-            viewModel.updateAvatar(
-                userId = tokenManager.getUserId(),
-                fileBytes = bytes,
-                mimeType = mimeType
-            )
+                val targetWidth = 1200
+                val targetHeight = 400
+
+                val croppedForAspectBitmap = cropToTargetAspectRatio(bitmap, targetWidth.toFloat() / targetHeight.toFloat())
+                val resizedBitmap = Bitmap.createScaledBitmap(croppedForAspectBitmap, targetWidth, targetHeight, true)
+                Log.d("profileimg", "Resized Bitmap Dimensions: ${resizedBitmap.width}x${resizedBitmap.height}")
+
+
+                val baos = ByteArrayOutputStream()
+                var quality = 100
+                var currentBytes: ByteArray? = null
+                var tempCurrentBytes: ByteArray? = null
+
+                do {
+                    baos.reset()
+                    val compressedSuccessfully = resizedBitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos)
+                    if (!compressedSuccessfully) {
+                        Log.e("ImageError", "Bitmap compression failed for quality: $quality")
+                        tempCurrentBytes = null
+                        break
+                    }
+                    tempCurrentBytes = baos.toByteArray()
+                    currentBytes = baos.toByteArray()
+
+                    Log.d("profileimg", "Compression Loop: Quality = $quality, Current Bytes Size = ${tempCurrentBytes?.size} bytes")
+
+                    quality -= 5
+                    if (quality < 0) {
+                        Log.d("profileimg", "Compression Loop: Quality reached below 0, breaking.")
+
+                        break
+                    }
+                } while (tempCurrentBytes != null && tempCurrentBytes.size > 2 * 1024 * 1024)
+
+                val finalBytes = tempCurrentBytes ?: throw IllegalStateException("Şəkil sıxılmasından sonra baytlar boş ola bilməz.")
+
+                Log.d("profileimg", "Final Bytes size: ${finalBytes.size / (1024 * 1024)} MB, actual bytes: ${finalBytes.size}")
+
+                if (finalBytes.isEmpty() && resizedBitmap.byteCount == 0) {
+                    Toast.makeText(requireContext(), "Şəkil sıxılarkən problem yarandı.", Toast.LENGTH_SHORT).show()
+                    return@registerForActivityResult
+                }
+                viewModel.updateAvatar(
+                    userId = tokenManager.getUserId(),
+                    fileBytes = finalBytes,
+                    mimeType = "image/jpeg"
+                )
+            } catch(e:Exception) {
+                e.printStackTrace()
+                Toast.makeText(requireContext(), "Şəkil yüklənməsində xəta: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+
         }
 
     override fun onViewCreateFinish() {
@@ -84,6 +144,32 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
             imagePicker.launch("image/*")
         }
     }
+
+    fun cropToTargetAspectRatio(bitmap: Bitmap, targetAspectRatio: Float): Bitmap {
+        val originalWidth = bitmap.width
+        val originalHeight = bitmap.height
+        val originalAspectRatio = originalWidth.toFloat() / originalHeight.toFloat()
+
+        var startX = 0
+        var startY = 0
+        var newWidth = originalWidth
+        var newHeight = originalHeight
+
+        if (originalAspectRatio > targetAspectRatio) {
+            newWidth = (originalHeight * targetAspectRatio).toInt()
+            startX = (originalWidth - newWidth) / 2
+        } else if (originalAspectRatio < targetAspectRatio) {
+            newHeight = (originalWidth / targetAspectRatio).toInt()
+            startY = (originalHeight - newHeight) / 2
+        }
+
+        if (startX == 0 && startY == 0 && newWidth == originalWidth && newHeight == originalHeight) {
+            return bitmap
+        }
+
+        return Bitmap.createBitmap(bitmap, startX, startY, newWidth, newHeight)
+    }
+
 
     private fun observes() {
         viewModel.profile.observe(viewLifecycleOwner) { resource ->
