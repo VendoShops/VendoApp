@@ -2,9 +2,12 @@ package com.example.vendoapp.data.model.home
 
 data class Product(
     val id: Long,
-    val productName: String?,
-    val price: Double?,
-    val rating: Double?,
+    val title: String,
     val imageUrl: String?,
-    var isFavorite: Boolean = false
+    val price: Double?,
+    val category: String?,
+    val isFavorite: Boolean,
+    val rating: Double?,
+    val description: String?,
+    val brand: String?,
 )

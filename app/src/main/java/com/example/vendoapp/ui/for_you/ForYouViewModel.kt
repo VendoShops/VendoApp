@@ -12,50 +12,58 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ForYouViewModel @Inject constructor(
-    private val productRepository: HomeRepository
+    private val productRepository: HomeRepository,
 ) : ViewModel() {
 
     private val _products = MutableLiveData<List<Product>>()
     val products: LiveData<List<Product>> = _products
 
-    init {
-        loadProducts()
-    }
-
     private var allProducts: List<Product> = emptyList()
-    private var currentCategory: String = "T-shirt"
+    private var currentCategory: String? = null
 
     init {
         loadProducts()
     }
 
-    private fun loadProducts() {
-//        viewModelScope.launch {
-//            try {
-//                allProducts = productRepository.getProducts()
-//                filterByCategory(currentCategory)
-//            } catch (e: Exception) {
-//                // Handle error
-//            }
-//        }
+    init {
+        loadProducts()
     }
 
-    fun filterByCategory(category: String) {
-        currentCategory = category
-//        val filteredProducts = allProducts.filter {
-//            it.category.equals(category, ignoreCase = true)
-//        }
-//        _products.value = filteredProducts
-    }
-
-    fun toggleFavorite(product: com.example.vendoapp.data.model.home.Product) { //product-->productresponse
+    fun loadProducts() {
         viewModelScope.launch {
-//            try {
-//                productRepository.toggleFavorite(product.id.toString())
-//                loadProducts()
-//            } catch (e: Exception) {
-//                // Handle error
-//            }
+            runCatching {
+                productRepository.getForYouProducts()
+            }
+
+            .onSuccess { response ->
+                if (response.isSuccessful) {
+                    val products = response.body()?.data ?: emptyList()
+                    allProducts = products
+                }
+                applyFilter()
+            }
+            .onFailure { e ->
+                e.printStackTrace()
+            }
         }
+    }
+
+
+    fun filterByCategory(category: String?) {
+        currentCategory = category
+        applyFilter()
+    }
+
+    fun toggleFavorite(product: Product) {
+        viewModelScope.launch {
+            runCatching { productRepository.toggleFavorite(product.id) }
+                .onSuccess { loadProducts() }
+        }
+    }
+
+    private fun applyFilter() {
+        _products.value = currentCategory?.let { cat ->
+            allProducts.filter { it.category.equals(cat, ignoreCase = true) }
+        } ?: allProducts
     }
 }

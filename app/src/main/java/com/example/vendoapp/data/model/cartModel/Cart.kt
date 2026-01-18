@@ -10,7 +10,7 @@ data class CartItem(
     val id: Int = 0,
 
     @SerializedName("productName")
-    val productName: String = "",
+    val productName: String? = null,
 
     @SerializedName("productPrice")
     val productPrice: Double = 0.0,
@@ -37,7 +37,7 @@ data class CartItem(
     val selectionStatus: String = "SELECTED",
 
     @SerializedName("image")
-    val image: String? = null
+    val imageUrl: String? = null
 ) : Parcelable {
     fun isSelected(): Boolean = selectionStatus.equals("SELECTED", ignoreCase = true)
 }

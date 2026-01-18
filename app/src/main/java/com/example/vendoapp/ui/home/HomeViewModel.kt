@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.vendoapp.data.model.home.Product
 import com.example.vendoapp.data.model.home.BannerResponse
 import com.example.vendoapp.data.model.home.BrandResponse
+import com.example.vendoapp.data.model.home.FavoriteResponse
 import com.example.vendoapp.domain.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -64,10 +65,15 @@ class HomeViewModel @Inject constructor(
     private suspend fun loadFavorites() {
         try {
             val favoritesResponse = repository.getFavorites()
+
             if (favoritesResponse.isSuccessful) {
-                val favoritesList = favoritesResponse.body()?.data ?: emptyList()
-                val favoriteIds = favoritesList.map { it.productId }.toSet()
-                _favorites.value = favoriteIds
+                val favoritesList: List<FavoriteResponse> =
+                    favoritesResponse.body().orEmpty()
+
+                val favoriteIds: List<Long> =
+                    favoritesList.map { it.productRecommendationResponse.id }
+
+                _favorites.value = favoriteIds.toSet()
                 Log.d("HomeApi", "✅ Favorites loaded: ${favoriteIds.size} items")
             } else {
                 Log.e("HomeApi", "❌ Favorites failed: ${favoritesResponse.code()}")
@@ -76,6 +82,7 @@ class HomeViewModel @Inject constructor(
             Log.e("HomeApi", "❌ Favorites error", e)
         }
     }
+
 
     private suspend fun loadProducts() {
         try {
@@ -123,11 +130,11 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onItemClicked(product: Product) {
-        Log.d("HomeViewModel", "Item clicked: ${product.productName}")
+        Log.d("HomeViewModel", "Item clicked: ${product.title}")
     }
 
     fun onProductClick(product: Product) {
-        Log.d("HomeViewModel", "Product clicked: ${product.productName}")
+        Log.d("HomeViewModel", "Product clicked: ${product.title}")
     }
 
     fun onFavoriteClick(product: Product) {
@@ -137,13 +144,13 @@ class HomeViewModel @Inject constructor(
                     val response = repository.removeFavorite(product.id.toInt())
                     if (response.isSuccessful) {
                         _favorites.value -= product.id
-                        Log.d("HomeViewModel", "✅ Removed from favorites: ${product.productName}")
+                        Log.d("HomeViewModel", "✅ Removed from favorites: ${product.title}")
                     }
                 } else {
                     val response = repository.addFavorite(product.id.toInt())
                     if (response.isSuccessful) {
                         _favorites.value += product.id
-                        Log.d("HomeViewModel", "✅ Added to favorites: ${product.productName}")
+                        Log.d("HomeViewModel", "✅ Added to favorites: ${product.title}")
                     }
                 }
 

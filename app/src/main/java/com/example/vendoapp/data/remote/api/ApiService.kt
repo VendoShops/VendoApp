@@ -12,7 +12,6 @@ import com.example.vendoapp.data.model.auth.register.RegisterResponse
 import com.example.vendoapp.data.model.auth.token.RefreshTokenRequest
 import com.example.vendoapp.data.model.auth.token.RefreshTokenResponse
 import com.example.vendoapp.data.model.cartModel.CartItem
-import com.example.vendoapp.data.model.cartModel.CartItemRequest
 import com.example.vendoapp.data.model.cartModel.CartSummary
 import com.example.vendoapp.data.model.home.BannerResponse
 import com.example.vendoapp.data.model.home.BrandResponse
@@ -32,6 +31,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -81,14 +81,19 @@ interface ApiService {
     @GET("api/v1/products/for-you")
     suspend fun getForYouProducts(): Response<ApiResponse<List<Product>>>
 
-    @GET("api/v1/favorites")
-    suspend fun getFavorites(): Response<ApiResponse<List<FavoriteResponse>>>
+//    @GET("api/v1/favorites")
+//    suspend fun getFavorites(): Response<ApiResponse<List<FavoriteResponse>>>
 
-    @POST("api/v1/favorites/{productId}")
-    suspend fun addFavorite(@Path("productId") productId: Int): Response<FavoriteResponse>
+    // Favorites
+    @GET("/api/v1/favorites")
+    suspend fun getFavorites(): retrofit2.Response<List<FavoriteResponse>>
 
-    @DELETE("api/v1/favorites/{productId}")
-    suspend fun removeFavorite(@Path("productId") productId: Int): Response<Unit>
+    @POST("/api/v1/favorites")
+    suspend fun addFavorite(@Body body: Int): retrofit2.Response<Unit>
+
+    @DELETE("/api/v1/favorites/{productId}")
+    suspend fun removeFavorite(@Path("productId") productId: Int): retrofit2.Response<Unit>
+
 
     @GET("api/v1/notifications/unread-count")
     suspend fun getUnreadNotificationCount(): Response<Int>
@@ -98,47 +103,75 @@ interface ApiService {
         @Path("customerId") customerId: Int,
     ): ApiResponse<OrdersModel>
 
-    @GET("api/v1/customers/{customerId}/carts/{cartId}/items")
+    // Cart
+//    @GET("api/v1/customers/{customerId}/carts/{cartId}/items")
+//    suspend fun getCartItems(
+//        @Path("customerId") customerId: Int,
+//        @Path("cartId") cartId: Int,
+//    ): Response<ApiResponse<List<CartItem>>>
+
+    // --- Cart items ---
+    @GET("/api/v1/customers/{customerId}/cart/items")
     suspend fun getCartItems(
-        @Path("customerId") customerId: Int,
-        @Path("cartId") cartId: Int,
-    ): Response<ApiResponse<List<CartItem>>>
+        @Path("customerId") customerId: Int
+    ): retrofit2.Response<List<CartItem>>
 
-    @POST("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
-    suspend fun addToCart(
+//    @POST("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
+//    suspend fun addToCart(
+//        @Path("customerId") customerId: Int,
+//        @Path("cartId") cartId: Int,
+//        @Path("productId") productId: Int,
+//        @Body request: CartItemRequest,
+//    ): Response<ApiResponse<CartItem>>
+
+    @POST("/api/v1/customers/{customerId}/cart/items/products/{productId}")
+    suspend fun addProductToCart(
         @Path("customerId") customerId: Int,
-        @Path("cartId") cartId: Int,
         @Path("productId") productId: Int,
-        @Body request: CartItemRequest,
-    ): Response<ApiResponse<CartItem>>
+        @Query("quantity") quantity: Int? = null
+    ): retrofit2.Response<CartItem>
 
-    @PUT("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
-    suspend fun updateCartItem(
+//    @PUT("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
+//    suspend fun updateCartItem(
+//        @Path("customerId") customerId: Int,
+//        @Path("cartId") cartId: Int,
+//        @Path("productId") productId: Int,
+//        @Body request: CartItemRequest,
+//    ): Response<ApiResponse<CartItem>>
+
+    @PUT("/api/v1/customers/{customerId}/cart/items/{cartItemId}")
+    suspend fun updateCartItemQuantity(
         @Path("customerId") customerId: Int,
-        @Path("cartId") cartId: Int,
-        @Path("productId") productId: Int,
-        @Body request: CartItemRequest,
-    ): Response<ApiResponse<CartItem>>
+        @Path("cartItemId") cartItemId: Int,
+        @Query("quantity") quantity: Int
+    ): retrofit2.Response<CartItem>
 
-    @DELETE("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
+//    @DELETE("api/v1/customers/{customerId}/carts/{cartId}/items/products/{productId}")
+//    suspend fun deleteCartItem(
+//        @Path("customerId") customerId: Int,
+//        @Path("cartId") cartId: Int,
+//        @Path("productId") productId: Int,
+//    ): Response<Unit>
+
+    @DELETE("/api/v1/customers/{customerId}/cart/items/{cartItemId}")
     suspend fun deleteCartItem(
         @Path("customerId") customerId: Int,
-        @Path("cartId") cartId: Int,
-        @Path("productId") productId: Int,
-    ): Response<Unit>
+        @Path("cartItemId") cartItemId: Int
+    ): retrofit2.Response<Unit>
 
-    // New
+    // --- Cart summary ---
     @GET("api/v1/customers/{customerId}/carts/{cartId}/summary")
     suspend fun getCartSummary(
         @Path("customerId") customerId: Int,
         @Path("cartId") cartId: Int,
-    ): Response<ApiResponse<CartSummary>>
+    ): retrofit2.Response<CartSummary>
 
+    // --- Selection ---
     @PUT("api/v1/customers/{customerId}/carts/{cartId}/items/{itemId}/selection")
     suspend fun toggleItemSelection(
         @Path("customerId") customerId: Int,
         @Path("cartId") cartId: Int,
         @Path("itemId") itemId: Int,
         @Body request: Map<String, String>,
-    ): Response<ApiResponse<CartItem>>
+    ): retrofit2.Response<CartItem>
 }

@@ -16,16 +16,11 @@ class CartRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : CartRepository {
 
-    // -------------------------
-    // 1. Get cart items
-    // -------------------------
-    override suspend fun getCartItems(customerId: Int, cartId: Int): Resource<List<CartItem>> {
+    override suspend fun getCartItems(customerId: Int): Resource<List<CartItem>> {
         return try {
-            val response = apiService.getCartItems(customerId, cartId)
+            val response = apiService.getCartItems(customerId)
             if (response.isSuccessful) {
-                val body: ApiResponse<List<CartItem>>? = response.body()
-                val data: List<CartItem> = body?.data ?: emptyList()
-                Resource.Success(data)
+                Resource.Success(response.body().orEmpty())
             } else {
                 Resource.Error("Network error: ${response.code()} ${response.message()}")
             }
@@ -38,25 +33,17 @@ class CartRepositoryImpl @Inject constructor(
         }
     }
 
-    // -------------------------
-    // 2. Add to cart
-    // -------------------------
     override suspend fun addToCart(
         customerId: Int,
-        cartId: Int,
         productId: Int,
-        request: CartItemRequest
+        quantity: Int
     ): Resource<CartItem> {
         return try {
-            val response = apiService.addToCart(customerId, cartId, productId, request)
+            val response = apiService.addProductToCart(customerId, productId, quantity)
             if (response.isSuccessful) {
-                val body: ApiResponse<CartItem>? = response.body()
-                val data: CartItem? = body?.data
-                if (data != null) {
-                    Resource.Success(data)
-                } else {
-                    Resource.Error("Server returned empty item on add")
-                }
+                val data = response.body()
+                if (data != null) Resource.Success(data)
+                else Resource.Error("Server returned empty item on add")
             } else {
                 Resource.Error("Network error: ${response.code()} ${response.message()}")
             }
@@ -69,25 +56,18 @@ class CartRepositoryImpl @Inject constructor(
         }
     }
 
-    // -------------------------
-    // 3. Update cart item (quantity, color, size)
-    // -------------------------
-    override suspend fun updateCartItem(
+    override suspend fun updateQuantity(
         customerId: Int,
-        cartId: Int,
-        productId: Int,
-        request: CartItemRequest
+        cartItemId: Int,
+        quantity: Int,
+        cartItemRequest: CartItemRequest
     ): Resource<CartItem> {
         return try {
-            val response = apiService.updateCartItem(customerId, cartId, productId, request)
+            val response = apiService.updateCartItemQuantity(customerId, cartItemId, quantity)
             if (response.isSuccessful) {
-                val body: ApiResponse<CartItem>? = response.body()
-                val data: CartItem? = body?.data
-                if (data != null) {
-                    Resource.Success(data)
-                } else {
-                    Resource.Error("Server returned empty item on update")
-                }
+                val data = response.body()
+                if (data != null) Resource.Success(data)
+                else Resource.Error("Server returned empty item on update")
             } else {
                 Resource.Error("Network error: ${response.code()} ${response.message()}")
             }
@@ -100,16 +80,13 @@ class CartRepositoryImpl @Inject constructor(
         }
     }
 
-    // -------------------------
-    // 4. Delete cart item
-    // -------------------------
     override suspend fun deleteCartItem(
         customerId: Int,
-        cartId: Int,
-        productId: Int
+        cartItemId: Int,
+        itemId: Int
     ): Resource<Unit> {
         return try {
-            val response = apiService.deleteCartItem(customerId, cartId, productId)
+            val response = apiService.deleteCartItem(customerId, cartItemId)
             if (response.isSuccessful) {
                 Resource.Success(Unit)
             } else {
@@ -124,23 +101,13 @@ class CartRepositoryImpl @Inject constructor(
         }
     }
 
-    // -------------------------
-    // 5. Get cart summary (YENİ)
-    // -------------------------
-    override suspend fun getCartSummary(
-        customerId: Int,
-        cartId: Int
-    ): Resource<CartSummary> {
+    override suspend fun getCartSummary(customerId: Int, cartId: Int): Resource<CartSummary> {
         return try {
             val response = apiService.getCartSummary(customerId, cartId)
             if (response.isSuccessful) {
-                val body: ApiResponse<CartSummary>? = response.body()
-                val data: CartSummary? = body?.data
-                if (data != null) {
-                    Resource.Success(data)
-                } else {
-                    Resource.Error("Server returned empty summary")
-                }
+                val data = response.body()
+                if (data != null) Resource.Success(data)
+                else Resource.Error("Server returned empty summary")
             } else {
                 Resource.Error("Network error: ${response.code()} ${response.message()}")
             }
@@ -153,9 +120,6 @@ class CartRepositoryImpl @Inject constructor(
         }
     }
 
-    // -------------------------
-    // 6. Toggle item selection (YENİ)
-    // -------------------------
     override suspend fun toggleItemSelection(
         customerId: Int,
         cartId: Int,
@@ -164,19 +128,15 @@ class CartRepositoryImpl @Inject constructor(
     ): Resource<CartItem> {
         return try {
             val response = apiService.toggleItemSelection(
-                customerId,
-                cartId,
-                itemId,
-                mapOf("selectionStatus" to selectionStatus)
+                customerId = customerId,
+                cartId = cartId,
+                itemId = itemId,
+                request = mapOf("selectionStatus" to selectionStatus)
             )
             if (response.isSuccessful) {
-                val body: ApiResponse<CartItem>? = response.body()
-                val data: CartItem? = body?.data
-                if (data != null) {
-                    Resource.Success(data)
-                } else {
-                    Resource.Error("Server returned empty item on toggle selection")
-                }
+                val data = response.body()
+                if (data != null) Resource.Success(data)
+                else Resource.Error("Server returned empty item on toggle selection")
             } else {
                 Resource.Error("Network error: ${response.code()} ${response.message()}")
             }

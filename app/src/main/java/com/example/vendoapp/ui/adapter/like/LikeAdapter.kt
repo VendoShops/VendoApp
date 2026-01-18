@@ -21,7 +21,7 @@ class LikeAdapter(
 
         fun bind(product: Product) {
             binding.apply {
-                tvProductTitle.text = product.productName ?: "Unknown Product"
+                tvProductTitle.text = product.title ?: "Unknown Product"
                 tvPrice.text = "$${"%.2f".format(product.price ?: 0.0)}"
                 tvRating.text = product.rating?.toString() ?: "0.0"
 

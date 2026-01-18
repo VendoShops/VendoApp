@@ -113,7 +113,7 @@ class LikeViewModel @Inject constructor(
     }
 
     fun onProductClick(product: Product) {
-        Log.d("LIKE_VM", "Product clicked: ${product.productName}, id=${product.id}")
+        Log.d("LIKE_VM", "Product clicked: ${product.title}, id=${product.id}")
         // Navigate to product detail
     }
 

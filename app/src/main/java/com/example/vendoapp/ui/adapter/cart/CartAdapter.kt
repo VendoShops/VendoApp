@@ -39,7 +39,7 @@ class CartAdapter(private val viewModel: CartViewModel) :
                 } else visibility = View.GONE
             }
 
-            Glide.with(itemView.context).load(item.image ?: R.drawable.test_girl)
+            Glide.with(itemView.context).load(item.imageUrl ?: R.drawable.test_girl)
                 .into(binding.imgCart)
 
             binding.checkbox.setImageResource(

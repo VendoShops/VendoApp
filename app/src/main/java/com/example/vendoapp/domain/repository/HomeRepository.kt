@@ -22,4 +22,19 @@ class HomeRepository @Inject constructor(
     suspend fun getFavorites() = api.getFavorites()
 
     suspend fun getUnreadCount() = api.getUnreadNotificationCount()
+
+    suspend fun toggleFavorite(productId: Long) {
+        val response = getFavorites()
+        if (!response.isSuccessful) return
+
+        val favorites = response.body().orEmpty()
+
+        val isFavorite = favorites.any { it.productRecommendationResponse.id == productId }
+        if (isFavorite) {
+            removeFavorite(productId.toInt())
+        } else {
+            addFavorite(productId.toInt())
+        }
+    }
+
 }

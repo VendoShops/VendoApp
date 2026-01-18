@@ -73,7 +73,7 @@ class CartViewModel @Inject constructor(
 
         _cartItems.value = optimisticList
 
-        val response = repository.updateCartItem(
+        val response = repository.updateQuantity(
             customerId,
             cartId,
             itemId,
@@ -100,7 +100,7 @@ class CartViewModel @Inject constructor(
 
         _cartItems.value = optimisticList
 
-        val response = repository.updateCartItem(
+        val response = repository.updateQuantity(
             customerId,
             cartId,
             itemId,
@@ -128,6 +128,7 @@ class CartViewModel @Inject constructor(
             fetchCartSummary()
         }
     }
+
     fun toggleSelection(itemId: Int) = viewModelScope.launch {
         val currentList = _cartItems.value ?: return@launch
         val item = currentList.find { it.id == itemId } ?: return@launch
