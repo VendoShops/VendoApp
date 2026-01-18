@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_11"
+    android:background="@color/black"
     tools:context=".ui.splashscreen.SplashScreenFragment">
 
     <ImageView
@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/vendosplash"
-        android:layout_marginHorizontal="16dp"
-        android:alpha="0.0"/>
+        android:layout_marginHorizontal="16dp"/>
 
 </LinearLayout>
