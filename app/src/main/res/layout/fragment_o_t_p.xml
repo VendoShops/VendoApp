@@ -8,6 +8,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.login.otp.OTPFragment">
 
+    <ImageView
+        android:id="@+id/ivVendo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/vendologin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

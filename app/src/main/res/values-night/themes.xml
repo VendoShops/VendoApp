@@ -1,7 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.VendoApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <!--
+      Karanlik modda da ACIK tema kullanilir.
+
+      Sebep: uygulamanin 24 layout'u sabit beyaz arka plan ve siyah yazi
+      iceriyor. Karanlik palet devreye girdiginde beyaz zemin uzerinde
+      okunmayan yazilar ve MOR buton yazilari olusuyordu.
+
+      Ileride gercek bir karanlik tema yapilirsa, once layout'lardaki
+      sabit renkler tema niteliklerine (?attr/colorSurface gibi) cevrilmeli.
+    -->
+    <style name="Base.Theme.VendoApp" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
     </style>
 </resources>

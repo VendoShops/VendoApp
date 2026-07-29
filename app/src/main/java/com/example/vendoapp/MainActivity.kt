@@ -34,9 +34,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(0, 0, 0, 0)
+        // Edge-to-edge: sistem cubuklari ve ekran cikintisi (cutout) icin
+        // icerige gercek bosluk uygulanir; boylece icerik cubuklarin altina girmez.
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
     }

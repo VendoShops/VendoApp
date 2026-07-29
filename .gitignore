@@ -17,3 +17,12 @@ captures/
 
 # Ignore log files
 *.log
+
+# Imza anahtari ve sifreleri ASLA git'e girmemeli
+keystore.properties
+*.jks
+*.keystore
+
+# Yerel hazirlik/dokumantasyon dosyalari (depoya girmez)
+PLAY_STORE_HAZIRLIK.md
+keystore.properties.ORNEK

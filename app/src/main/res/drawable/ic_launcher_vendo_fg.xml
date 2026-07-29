@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Launcher ikonunun on plani: VENDO logosu.
+  Inset degerleri logoyu adaptive ikonun guvenli alaninda (merkez %66)
+  tutar; boylece launcher hangi maskeyi uygularsa uygulasin logo kesilmez.
+-->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/vendosplash"
+    android:insetLeft="22%"
+    android:insetRight="22%"
+    android:insetTop="42%"
+    android:insetBottom="42%" />

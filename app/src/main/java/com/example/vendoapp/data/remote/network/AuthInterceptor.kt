@@ -16,7 +16,7 @@ class AuthInterceptor @Inject constructor(
 
     private val refreshApi: ApiService by lazy {
         Retrofit.Builder()
-            .baseUrl("http://138.68.111.115:8080/")
+            .baseUrl("https://api.vendoshops.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)

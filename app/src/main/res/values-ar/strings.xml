@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">VendoApp</string>
+    <string name="app_name">VendoShop</string>
     <string name="hello_blank_fragment">مرحباً</string>
     <string name="shop_now">تسوق الآن</string>
     <string name="top_brands">أفضل العلامات التجارية</string>
