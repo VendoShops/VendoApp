@@ -1,13 +1,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.VendoApp" parent="Theme.Material3.DayNight.NoActionBar">
+
+    <!--
+      Uygulama ACIK TEMA icin tasarlanmis (24 layout sabit beyaz zemin +
+      siyah yazi kullaniyor). Bu yuzden parent "DayNight" yerine "Light".
+
+      Onceki durumda karanlik modda Material3'un koyu paleti devreye giriyor,
+      colorOnPrimary = koyu mor (#381E72) oluyordu -> siyah butonlarin
+      yazilari MOR gorunuyordu. Renkler artik acikca tanimli.
+    -->
+    <style name="Base.Theme.VendoApp" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>       <!-- buton yazi rengi -->
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
     </style>
 
     <style name="Theme.VendoApp" parent="Base.Theme.VendoApp" />
 
+    <!-- Acilis ekrani: logonun arka plani ile ayni siyah (#000000) -->
     <style name="Theme.App.Starting" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/black_11</item>
-        <item name="android:navigationBarColor">@color/black_11</item>
+        <item name="android:statusBarColor">#000000</item>
+        <item name="android:navigationBarColor">#000000</item>
         <item name="android:windowBackground">@drawable/splash_layer_list</item>
     </style>
 </resources>

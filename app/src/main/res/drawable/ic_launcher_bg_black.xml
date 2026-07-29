@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Launcher ikonunun arka plani: DAIRE (oval).
+  Dikdortgen olsaydi bazi launcher'lar ikonu kare gosterirdi.
+  Oval + seffaf koseler sayesinde her launcher'da yuvarlak gorunur.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#000000" />
+</shape>
